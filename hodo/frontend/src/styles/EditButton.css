@@ -1,0 +1,25 @@
+.edit-button {
+  width: 25px;
+  height: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  border: 0.5px solid #b9a2a2;
+  background-color: #128b69;
+  color: #fff;
+  cursor: pointer;
+  padding: 3px;
+}
+
+/* Fix hover effect */
+.edit-button:hover {
+  background-color: #128b69; /* same as normal */
+  color: #fff;               /* ensure icon stays white */
+   /* keep same border */
+}
+
+.edit-button:focus {
+  outline: none;
+  box-shadow: none;
+}

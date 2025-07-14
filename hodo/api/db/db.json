@@ -1,0 +1,1398 @@
+{
+  "bodies": [
+    {
+      "id": "B006",
+      "name": "MELVIN MECKENCY",
+      "age": "54",
+      "gender": "male",
+      "dateOfDeath": "2025-07-08",
+      "timeOfDeath": "2025-07-08T11:53",
+      "address": "",
+      "contactPerson": "MELVIN MECKENCY",
+      "contactNumber": "09846208479",
+      "incidentType": "accident",
+      "notes": "",
+      "belongings": [
+        ""
+      ],
+      "accompanyingPersons": [
+        {
+          "name": "MELVIN MECKENCY",
+          "contact": "09846208479"
+        }
+      ],
+      "mlcCase": false,
+      "policeInvolved": false,
+      "status": "verified",
+      "storageLocation": "Morgue A",
+      "registeredBy": "Staff",
+      "registrationDate": "2025-07-08T04:23:14.923Z",
+      "storageUnit": "F-05",
+      "riskLevel": "low",
+      "verifiedBy": "Staff"
+    },
+    {
+      "id": "B008",
+      "name": "sam",
+      "age": "30",
+      "gender": "female",
+      "dateOfDeath": "2025-07-08",
+      "timeOfDeath": "2025-07-01T11:57",
+      "address": "Riya Land Puthenthope P.O\nRiya Land Puthenthope P.O",
+      "contactPerson": "sam",
+      "contactNumber": "984620847",
+      "incidentType": "natural",
+      "notes": "",
+      "belongings": [
+        ""
+      ],
+      "accompanyingPersons": [
+        {
+          "name": "sam",
+          "contact": "984620847"
+        }
+      ],
+      "mlcCase": false,
+      "policeInvolved": false,
+      "status": "pending",
+      "storageLocation": "Morgue A",
+      "registeredBy": "Staff",
+      "registrationDate": "2025-07-08T04:27:17.344Z",
+      "storageUnit": "F-08",
+      "riskLevel": "low"
+    },
+    {
+      "id": "B009",
+      "name": "sam",
+      "age": "22",
+      "gender": "female",
+      "dateOfDeath": "2025-07-08",
+      "timeOfDeath": "2025-07-09T09:58",
+      "address": "Riya Land Puthenthope P.O\nRiya Land Puthenthope P.O",
+      "contactPerson": "sam",
+      "contactNumber": "984620847",
+      "incidentType": "accident",
+      "notes": "",
+      "belongings": [
+        ""
+      ],
+      "accompanyingPersons": [
+        {
+          "name": "sam",
+          "contact": "984620847"
+        }
+      ],
+      "mlcCase": false,
+      "policeInvolved": false,
+      "status": "pending",
+      "storageLocation": "Morgue A",
+      "registeredBy": "Staff",
+      "registrationDate": "2025-07-08T04:28:20.570Z",
+      "storageUnit": "F-09",
+      "riskLevel": "low"
+    },
+    {
+      "id": "B010",
+      "name": "MELVIN MECKENCY",
+      "age": "30",
+      "gender": "female",
+      "dateOfDeath": "2025-07-08",
+      "timeOfDeath": "2025-07-02T10:00",
+      "address": "Riya Land Puthenthope P.O\nRiya Land Puthenthope P.O",
+      "contactPerson": "MELVIN MECKENCY",
+      "contactNumber": "09846208479",
+      "incidentType": "suicide",
+      "notes": "",
+      "belongings": [
+        ""
+      ],
+      "accompanyingPersons": [
+        {
+          "name": "MELVIN MECKENCY",
+          "contact": "09846208479"
+        }
+      ],
+      "mlcCase": false,
+      "policeInvolved": false,
+      "status": "pending",
+      "storageLocation": "Morgue A",
+      "registeredBy": "Staff",
+      "registrationDate": "2025-07-08T04:30:11.418Z",
+      "storageUnit": "F-10",
+      "riskLevel": "low"
+    },
+    {
+      "id": "B011",
+      "name": "Nithin Richard",
+      "age": "54",
+      "gender": "female",
+      "dateOfDeath": "2025-07-08",
+      "timeOfDeath": "2025-07-08T10:06",
+      "address": "Riya Land Puthenthope P.O",
+      "contactPerson": "Nithin Richard",
+      "contactNumber": "09846208479",
+      "incidentType": "suicide",
+      "notes": "",
+      "belongings": [
+        ""
+      ],
+      "accompanyingPersons": [
+        {
+          "name": "Nithin Richard",
+          "contact": "09846208479"
+        }
+      ],
+      "mlcCase": false,
+      "policeInvolved": false,
+      "status": "verified",
+      "storageLocation": "Morgue A",
+      "registeredBy": "Staff",
+      "registrationDate": "2025-07-08T04:36:27.106Z",
+      "storageUnit": "F-11",
+      "riskLevel": "low",
+      "verificationLog": [
+        {
+          "name": "aa",
+          "relation": "aa",
+          "contact": "aaa",
+          "idProof": "aa",
+          "date": "2025-07-10T08:14:46.998Z"
+        }
+      ]
+    },
+    {
+      "id": "B012",
+      "name": "hdfh",
+      "age": "30",
+      "gender": "male",
+      "dateOfDeath": "2025-07-08",
+      "timeOfDeath": "2025-07-08T12:07",
+      "address": "",
+      "contactPerson": "Nithin Richard",
+      "contactNumber": "09846208479",
+      "incidentType": "natural",
+      "notes": "",
+      "belongings": [
+        ""
+      ],
+      "accompanyingPersons": [
+        {
+          "name": "Nithin Richard",
+          "contact": "09846208479"
+        }
+      ],
+      "mlcCase": false,
+      "policeInvolved": false,
+      "status": "pending",
+      "storageLocation": "Morgue A",
+      "registeredBy": "Staff",
+      "registrationDate": "2025-07-08T04:37:18.861Z",
+      "storageUnit": "F-12",
+      "riskLevel": "low"
+    },
+    {
+      "id": "B013",
+      "name": "gfhfgh",
+      "age": "34",
+      "gender": "male",
+      "dateOfDeath": "2025-07-08",
+      "timeOfDeath": "2025-07-12T10:11",
+      "address": "",
+      "contactPerson": "Nithin Richard",
+      "contactNumber": "09846208479",
+      "incidentType": "accident",
+      "notes": "",
+      "belongings": [
+        ""
+      ],
+      "accompanyingPersons": [
+        {
+          "name": "Nithin Richard",
+          "contact": "09846208479"
+        }
+      ],
+      "mlcCase": false,
+      "policeInvolved": false,
+      "status": "pending",
+      "storageLocation": "Morgue A",
+      "registeredBy": "Staff",
+      "registrationDate": "2025-07-08T04:39:09.325Z",
+      "storageUnit": "F-02",
+      "riskLevel": "low"
+    },
+    {
+      "id": "B014",
+      "name": "cxv",
+      "age": "45",
+      "gender": "male",
+      "dateOfDeath": "2025-07-08",
+      "timeOfDeath": "2025-07-05T10:10",
+      "address": "Riya Land Puthenthope P.O",
+      "contactPerson": "Nithin Richard",
+      "contactNumber": "09846208479",
+      "incidentType": "natural",
+      "notes": "",
+      "belongings": [
+        ""
+      ],
+      "accompanyingPersons": [
+        {
+          "name": "",
+          "contact": ""
+        }
+      ],
+      "mlcCase": false,
+      "policeInvolved": false,
+      "status": "verified",
+      "storageLocation": "Morgue A",
+      "registeredBy": "Staff",
+      "registrationDate": "2025-07-08T04:40:20.547Z",
+      "storageUnit": "F-14",
+      "riskLevel": "high",
+      "verifiedBy": "Staff"
+    },
+    {
+      "id": "B014",
+      "name": "ss",
+      "age": "33",
+      "gender": "male",
+      "dateOfDeath": "2025-07-08",
+      "timeOfDeath": "2025-07-05T10:21",
+      "address": "",
+      "contactPerson": "33",
+      "contactNumber": "09846208479",
+      "incidentType": "natural",
+      "notes": "",
+      "belongings": [
+        ""
+      ],
+      "accompanyingPersons": [
+        {
+          "name": "",
+          "contact": ""
+        }
+      ],
+      "mlcCase": false,
+      "policeInvolved": false,
+      "status": "pending",
+      "storageLocation": "Morgue A",
+      "registeredBy": "Staff",
+      "registrationDate": "2025-07-08T04:50:53.567Z",
+      "storageUnit": "F-15",
+      "riskLevel": "low"
+    },
+    {
+      "id": "B015",
+      "name": "Mary Johnson",
+      "age": "62",
+      "gender": "female",
+      "dateOfDeath": "2025-01-18",
+      "timeOfDeath": "2025-01-18T14:20",
+      "address": "456 Oak Ave, City",
+      "contactPerson": "Robert Johnson",
+      "contactNumber": "9876543211",
+      "incidentType": "natural",
+      "notes": "Patient passed away due to complications",
+      "belongings": [
+        ""
+      ],
+      "accompanyingPersons": [
+        {
+          "name": "",
+          "contact": ""
+        }
+      ],
+      "mlcCase": false,
+      "policeInvolved": true,
+      "status": "pending",
+      "storageLocation": "Morgue A",
+      "registeredBy": "Staff",
+      "registrationDate": "2025-07-10T06:28:15.905Z",
+      "storageUnit": "F-13",
+      "riskLevel": "low"
+    },
+    {
+      "id": "B100",
+      "name": "Test Unassigned Body",
+      "timeOfDeath": "2025-07-15T10:00",
+      "status": "pending",
+      "riskLevel": "low",
+      "storageUnit": "F-19",
+      "incidentType": "natural"
+    },
+    {
+      "id": "B017",
+      "name": "David Wilson",
+      "age": "38",
+      "gender": "male",
+      "dateOfDeath": "2025-01-19",
+      "placeOfDeath": "puthenthope",
+      "timeOfDeath": "2025-01-19T08:45",
+      "address": "789 Pine St, City",
+      "contactPerson": "Sarah Wilson",
+      "contactNumber": "9876543212",
+      "incidentType": "accident",
+      "notes": "Fatal road accident",
+      "belongings": [
+        ""
+      ],
+      "accompanyingPersons": [
+        {
+          "name": "john",
+          "contact": ""
+        }
+      ],
+      "mlcCase": true,
+      "policeInvolved": true,
+      "status": "pending",
+      "storageLocation": "Morgue A",
+      "registeredBy": "Staff",
+      "registrationDate": "2025-07-10T09:21:49.620Z",
+      "storageUnit": "F-16",
+      "riskLevel": "low",
+      "tagNumber": "TAG-001"
+    },
+    {
+      "id": "B013",
+      "name": "Mary Johnson",
+      "age": "62",
+      "gender": "female",
+      "dateOfDeath": "2025-01-18",
+      "placeOfDeath": "puthenthope",
+      "timeOfDeath": "2025-01-18T14:20",
+      "address": "456 Oak Ave, City",
+      "contactPerson": "Robert Johnson",
+      "contactNumber": "9876543211",
+      "incidentType": "natural",
+      "notes": "Patient passed away due to complications",
+      "belongings": [
+        ""
+      ],
+      "accompanyingPersons": [
+        {
+          "name": "",
+          "contact": ""
+        }
+      ],
+      "mlcCase": false,
+      "policeInvolved": false,
+      "status": "pending",
+      "storageLocation": "Morgue A",
+      "registeredBy": "Staff",
+      "registrationDate": "2025-07-14T11:37:52.006Z",
+      "storageUnit": "F-01",
+      "riskLevel": "low",
+      "fromDischarge": true,
+      "dischargeId": "D002",
+      "tagNumber": "TAG-002"
+    }
+  ],
+  "exits": [
+    {
+      "id": "B003",
+      "name": "JOHN",
+      "age": "30",
+      "gender": "male",
+      "dateOfDeath": "2025-07-01",
+      "timeOfDeath": "2025-07-05T10:32",
+      "address": "123 Street New York",
+      "contactPerson": "JOHN",
+      "contactNumber": "07456464634",
+      "incidentType": "accident",
+      "notes": "",
+      "belongings": [
+        ""
+      ],
+      "accompanyingPersons": [
+        {
+          "name": "JOHN",
+          "contact": "07456464634"
+        }
+      ],
+      "mlcCase": false,
+      "policeInvolved": false,
+      "status": "verified",
+      "storageLocation": "Morgue A",
+      "registeredBy": "Staff",
+      "registrationDate": "2025-07-01T05:02:36.646Z",
+      "storageUnit": "F-07",
+      "riskLevel": "low",
+      "verifiedBy": "Staff",
+      "exitDate": "2025-07-01T07:36:15.362Z"
+    },
+    {
+      "id": "B001",
+      "name": "JOHN",
+      "age": "30",
+      "gender": "male",
+      "dateOfDeath": "2025-07-01",
+      "timeOfDeath": "2025-07-02T13:08",
+      "address": "",
+      "contactPerson": "JOHN",
+      "contactNumber": "07456464634",
+      "incidentType": "natural",
+      "notes": "",
+      "belongings": [
+        ""
+      ],
+      "accompanyingPersons": [
+        {
+          "name": "JOHN",
+          "contact": "07456464634"
+        }
+      ],
+      "mlcCase": false,
+      "policeInvolved": false,
+      "status": "pending",
+      "storageLocation": "Morgue A",
+      "registeredBy": "Staff",
+      "registrationDate": "2025-07-01T07:36:50.493Z",
+      "storageUnit": "F-18",
+      "riskLevel": "high",
+      "exitDate": "2025-07-01T07:37:38.651Z"
+    },
+    {
+      "id": "B001",
+      "name": "sam",
+      "age": "54",
+      "gender": "male",
+      "dateOfDeath": "2025-07-01",
+      "timeOfDeath": "2025-07-01T16:13",
+      "address": "Riya Land Puthenthope P.O\nRiya Land Puthenthope P.O",
+      "contactPerson": "sam",
+      "contactNumber": "984620847",
+      "incidentType": "accident",
+      "notes": "",
+      "belongings": [
+        "ring"
+      ],
+      "accompanyingPersons": [
+        {
+          "name": "john",
+          "contact": "984620847"
+        }
+      ],
+      "mlcCase": false,
+      "policeInvolved": false,
+      "status": "pending",
+      "storageLocation": "Morgue A",
+      "registeredBy": "Staff",
+      "registrationDate": "2025-07-01T07:43:36.830Z",
+      "storageUnit": "F-01",
+      "riskLevel": "medium",
+      "exitDate": "2025-07-01T07:51:19.550Z"
+    },
+    {
+      "id": "B003",
+      "name": "fbfb",
+      "age": "54",
+      "gender": "female",
+      "dateOfDeath": "2025-07-01",
+      "timeOfDeath": "2025-07-01T13:24",
+      "address": "",
+      "contactPerson": "fbff",
+      "contactNumber": "fbfbf",
+      "incidentType": "natural",
+      "notes": "",
+      "belongings": [
+        "ring"
+      ],
+      "accompanyingPersons": [
+        {
+          "name": "john",
+          "contact": "984620847"
+        }
+      ],
+      "mlcCase": false,
+      "policeInvolved": false,
+      "status": "pending",
+      "storageLocation": "Morgue A",
+      "registeredBy": "Staff",
+      "registrationDate": "2025-07-01T07:53:36.136Z",
+      "storageUnit": "F-03",
+      "riskLevel": "low",
+      "exitDate": "2025-07-01T07:54:52.878Z"
+    },
+    {
+      "id": "B002",
+      "name": "fbdb",
+      "age": "30",
+      "gender": "male",
+      "dateOfDeath": "2025-07-01",
+      "timeOfDeath": "2025-07-05T13:25",
+      "address": "",
+      "contactPerson": "fbff",
+      "contactNumber": "fbfbf",
+      "incidentType": "accident",
+      "notes": "",
+      "belongings": [
+        "ring"
+      ],
+      "accompanyingPersons": [
+        {
+          "name": "john",
+          "contact": "984620847"
+        }
+      ],
+      "mlcCase": false,
+      "policeInvolved": false,
+      "status": "pending",
+      "storageLocation": "Morgue A",
+      "registeredBy": "Staff",
+      "registrationDate": "2025-07-01T07:53:09.472Z",
+      "storageUnit": "F-02",
+      "riskLevel": "medium",
+      "exitDate": "2025-07-01T08:00:18.237Z"
+    },
+    {
+      "id": "B001",
+      "name": "fdb",
+      "age": "54",
+      "gender": "female",
+      "dateOfDeath": "2025-07-01",
+      "timeOfDeath": "2025-07-01T13:23",
+      "address": "Riya Land Puthenthope P.O\nRiya Land Puthenthope P.O",
+      "contactPerson": "sam",
+      "contactNumber": "984620847",
+      "incidentType": "natural",
+      "notes": "",
+      "belongings": [
+        "ring"
+      ],
+      "accompanyingPersons": [
+        {
+          "name": "john",
+          "contact": "984620847"
+        }
+      ],
+      "mlcCase": false,
+      "policeInvolved": false,
+      "status": "pending",
+      "storageLocation": "Morgue A",
+      "registeredBy": "Staff",
+      "registrationDate": "2025-07-01T07:52:47.848Z",
+      "storageUnit": "F-01",
+      "riskLevel": "low",
+      "exitDate": "2025-07-01T08:01:35.647Z"
+    },
+    {
+      "id": "B001",
+      "name": "htyk",
+      "age": "70",
+      "gender": "male",
+      "dateOfDeath": "2025-07-01",
+      "timeOfDeath": "2025-07-01T16:36",
+      "address": "768hgkgh",
+      "contactPerson": "tykkt",
+      "contactNumber": "76858786876i",
+      "incidentType": "natural",
+      "notes": "hgkghkk",
+      "belongings": [
+        ""
+      ],
+      "accompanyingPersons": [
+        {
+          "name": "ghkghk",
+          "contact": "766876"
+        }
+      ],
+      "mlcCase": false,
+      "policeInvolved": false,
+      "status": "verified",
+      "storageLocation": "Morgue A",
+      "registeredBy": "Staff",
+      "registrationDate": "2025-07-01T08:06:16.887Z",
+      "storageUnit": "F-01",
+      "riskLevel": "low",
+      "verifiedBy": "Staff",
+      "receiverName": "shan",
+      "receiverId": "sq423f23r",
+      "relationship": "parent",
+      "releaseTime": "2025-07-01T17:02",
+      "remarks": "",
+      "exitDate": "2025-07-01T08:27:53.460Z"
+    },
+    {
+      "id": "B010",
+      "name": "Person 10",
+      "age": "30",
+      "gender": "male",
+      "dateOfDeath": "2025-07-11",
+      "timeOfDeath": "2025-07-11T18:00",
+      "address": "10 Example St, City",
+      "contactPerson": "Contact 10",
+      "contactNumber": "9000000010",
+      "incidentType": "homicide",
+      "notes": "",
+      "belongings": [
+        "ring"
+      ],
+      "accompanyingPersons": [
+        {
+          "name": "Companion 10",
+          "contact": "8000000010"
+        }
+      ],
+      "mlcCase": true,
+      "policeInvolved": false,
+      "status": "pending",
+      "storageLocation": "Morgue C",
+      "registeredBy": "Staff",
+      "registrationDate": "2025-07-11T09:00:00Z",
+      "storageUnit": "F-10",
+      "riskLevel": "medium",
+      "verifiedBy": "Staff",
+      "exitDate": "2025-07-01T12:10:39.101Z"
+    },
+    {
+      "id": "B002",
+      "name": "Person 2",
+      "age": "22",
+      "gender": "male",
+      "dateOfDeath": "2025-07-03",
+      "timeOfDeath": "2025-07-03T10:00",
+      "address": "2 Example St, City",
+      "contactPerson": "Contact 2",
+      "contactNumber": "9000000002",
+      "incidentType": "homicide",
+      "notes": "",
+      "belongings": [
+        "ring"
+      ],
+      "accompanyingPersons": [
+        {
+          "name": "Companion 2",
+          "contact": "8000000002"
+        }
+      ],
+      "mlcCase": false,
+      "policeInvolved": false,
+      "status": "unverified",
+      "storageLocation": "Morgue C",
+      "registeredBy": "Staff",
+      "registrationDate": "2025-07-03T09:00:00Z",
+      "storageUnit": "F-02",
+      "riskLevel": "high",
+      "verifiedBy": "Staff",
+      "exitDate": "2025-07-02T04:16:49.499Z"
+    },
+    {
+      "id": "B032",
+      "name": "Person 32",
+      "age": "52",
+      "gender": "male",
+      "dateOfDeath": "2025-07-05",
+      "timeOfDeath": "2025-07-05T16:00",
+      "address": "32 Example St, City",
+      "contactPerson": "Contact 32",
+      "contactNumber": "9000000032",
+      "incidentType": "natural",
+      "notes": "",
+      "belongings": [
+        "ring"
+      ],
+      "accompanyingPersons": [
+        {
+          "name": "Companion 32",
+          "contact": "8000000032"
+        }
+      ],
+      "mlcCase": false,
+      "policeInvolved": false,
+      "status": "unverified",
+      "storageLocation": "Morgue A",
+      "registeredBy": "Staff",
+      "registrationDate": "2025-07-05T09:00:00Z",
+      "storageUnit": "F-02",
+      "riskLevel": "high",
+      "verifiedBy": "Staff",
+      "exitDate": "2025-07-02T04:17:08.409Z"
+    },
+    {
+      "id": "B031",
+      "name": "Person 31",
+      "age": "51",
+      "gender": "female",
+      "dateOfDeath": "2025-07-04",
+      "timeOfDeath": "2025-07-04T15:00",
+      "address": "31 Example St, City",
+      "contactPerson": "Contact 31",
+      "contactNumber": "9000000031",
+      "incidentType": "suicide",
+      "notes": "",
+      "belongings": [
+        "ring"
+      ],
+      "accompanyingPersons": [
+        {
+          "name": "Companion 31",
+          "contact": "8000000031"
+        }
+      ],
+      "mlcCase": false,
+      "policeInvolved": false,
+      "status": "pending",
+      "storageLocation": "Morgue D",
+      "registeredBy": "Staff",
+      "registrationDate": "2025-07-04T09:00:00Z",
+      "storageUnit": "F-01",
+      "riskLevel": "medium",
+      "exitDate": "2025-07-02T11:08:22.900Z"
+    },
+    {
+      "id": "B062",
+      "name": "Person 62",
+      "age": "22",
+      "gender": "male",
+      "dateOfDeath": "2025-07-07",
+      "timeOfDeath": "2025-07-07T10:00",
+      "address": "62 Example St, City",
+      "contactPerson": "Contact 62",
+      "contactNumber": "9000000062",
+      "incidentType": "homicide",
+      "notes": "",
+      "belongings": [
+        "ring"
+      ],
+      "accompanyingPersons": [
+        {
+          "name": "Companion 62",
+          "contact": "8000000062"
+        }
+      ],
+      "mlcCase": false,
+      "policeInvolved": false,
+      "status": "unverified",
+      "storageLocation": "Morgue C",
+      "registeredBy": "Staff",
+      "registrationDate": "2025-07-07T09:00:00Z",
+      "storageUnit": "F-02",
+      "riskLevel": "high",
+      "verifiedBy": "Staff",
+      "exitDate": "2025-07-02T11:08:28.014Z"
+    },
+    {
+      "id": "B061",
+      "name": "Person 61",
+      "age": "21",
+      "gender": "female",
+      "dateOfDeath": "2025-07-06",
+      "timeOfDeath": "2025-07-06T09:00",
+      "address": "61 Example St, City",
+      "contactPerson": "Contact 61",
+      "contactNumber": "9000000061",
+      "incidentType": "accident",
+      "notes": "",
+      "belongings": [
+        "ring"
+      ],
+      "accompanyingPersons": [
+        {
+          "name": "Companion 61",
+          "contact": "8000000061"
+        }
+      ],
+      "mlcCase": false,
+      "policeInvolved": false,
+      "status": "pending",
+      "storageLocation": "Morgue B",
+      "registeredBy": "Staff",
+      "registrationDate": "2025-07-06T09:00:00Z",
+      "storageUnit": "F-01",
+      "riskLevel": "medium",
+      "exitDate": "2025-07-08T04:01:59.606Z"
+    },
+    {
+      "id": "B013",
+      "name": "cv",
+      "age": "30",
+      "gender": "male",
+      "dateOfDeath": "2025-07-08",
+      "timeOfDeath": "2025-07-08T13:08",
+      "address": "",
+      "contactPerson": "Nithin Richard",
+      "contactNumber": "09846208479",
+      "incidentType": "accident",
+      "notes": "",
+      "belongings": [
+        ""
+      ],
+      "accompanyingPersons": [
+        {
+          "name": "Nithin Richard",
+          "contact": "09846208479"
+        }
+      ],
+      "mlcCase": false,
+      "policeInvolved": false,
+      "status": "pending",
+      "storageLocation": "Morgue A",
+      "registeredBy": "Staff",
+      "registrationDate": "2025-07-08T04:37:47.746Z",
+      "storageUnit": "F-13",
+      "riskLevel": "low",
+      "exitDate": "2025-07-10T05:13:54.841Z"
+    },
+    {
+      "id": "B003",
+      "name": "gdgd",
+      "age": "30",
+      "gender": "male",
+      "dateOfDeath": "2025-07-08",
+      "timeOfDeath": "2025-07-18T09:48",
+      "address": "sss",
+      "contactPerson": "sam",
+      "contactNumber": "984620847",
+      "incidentType": "accident",
+      "notes": "",
+      "belongings": [
+        ""
+      ],
+      "accompanyingPersons": [
+        {
+          "name": "sam",
+          "contact": "984620847"
+        }
+      ],
+      "mlcCase": false,
+      "policeInvolved": false,
+      "status": "verified",
+      "storageLocation": "Morgue A",
+      "registeredBy": "Staff",
+      "registrationDate": "2025-07-08T04:18:42.510Z",
+      "storageUnit": "F-06",
+      "riskLevel": "low",
+      "verificationLog": [
+        {
+          "name": "dfd",
+          "relation": "df",
+          "contact": "fdfd",
+          "idProof": "fdsf",
+          "date": "2025-07-10T08:13:15.126Z"
+        },
+        {
+          "name": "fgfg",
+          "relation": "fgfgh",
+          "contact": "fgh",
+          "idProof": "fghfgh",
+          "date": "2025-07-10T09:16:55.170Z"
+        }
+      ],
+      "receiverName": "fgdg",
+      "receiverId": "sq423f23r",
+      "relationship": "child",
+      "releaseTime": "2025-07-10T14:58",
+      "remarks": "",
+      "witnessingStaff": "sss",
+      "receiverType": "Family",
+      "receiverIdProof": "sss",
+      "exitDate": "2025-07-10T09:30:13.379Z"
+    },
+    {
+      "id": "B005",
+      "name": "MELVIN MECKENCY",
+      "age": "54",
+      "gender": "male",
+      "dateOfDeath": "2025-07-08",
+      "timeOfDeath": "2025-07-05T09:54",
+      "address": "Riya Land Puthenthope P.O\nRiya Land Puthenthope P.O",
+      "contactPerson": "MELVIN MECKENCY",
+      "contactNumber": "09846208479",
+      "incidentType": "natural",
+      "notes": "",
+      "belongings": [
+        ""
+      ],
+      "accompanyingPersons": [
+        {
+          "name": "MELVIN MECKENCY",
+          "contact": "09846208479"
+        }
+      ],
+      "mlcCase": false,
+      "policeInvolved": false,
+      "status": "verified",
+      "storageLocation": "Morgue A",
+      "registeredBy": "Staff",
+      "registrationDate": "2025-07-08T04:22:19.316Z",
+      "storageUnit": "F-04",
+      "riskLevel": "low",
+      "verifiedBy": "Staff",
+      "receiverName": "dfdsfs",
+      "receiverId": "fsdfdsf",
+      "relationship": "spouse",
+      "releaseTime": "2025-07-10T15:48",
+      "remarks": "",
+      "witnessingStaff": "xzvz",
+      "receiverType": "Family",
+      "receiverIdProof": "fdsf",
+      "exitDate": "2025-07-10T10:19:04.305Z"
+    },
+    {
+      "id": "B015",
+      "name": "gf",
+      "age": "30",
+      "gender": "female",
+      "dateOfDeath": "2025-07-08",
+      "timeOfDeath": "2025-07-05T10:23",
+      "address": "",
+      "contactPerson": "33",
+      "contactNumber": "09846208479",
+      "incidentType": "natural",
+      "notes": "",
+      "belongings": [
+        ""
+      ],
+      "accompanyingPersons": [
+        {
+          "name": "",
+          "contact": ""
+        }
+      ],
+      "mlcCase": false,
+      "policeInvolved": false,
+      "status": "verified",
+      "storageLocation": "Morgue A",
+      "registeredBy": "Staff",
+      "registrationDate": "2025-07-08T04:52:08.845Z",
+      "storageUnit": "F-01",
+      "riskLevel": "low",
+      "verifiedBy": "Staff",
+      "receiverName": "fxb",
+      "receiverId": "dbbbbbb",
+      "relationship": "parent",
+      "releaseTime": "2025-07-11T17:56",
+      "remarks": "",
+      "witnessingStaff": "sss",
+      "receiverType": "Family",
+      "receiverIdProof": "dbdb",
+      "exitDate": "2025-07-11T12:27:12.105Z"
+    },
+    {
+      "id": "B016",
+      "name": "Mary Johnson",
+      "age": "62",
+      "gender": "female",
+      "dateOfDeath": "2025-01-18",
+      "placeOfDeath": "puthenthope",
+      "timeOfDeath": "2025-01-18T14:20",
+      "address": "456 Oak Ave, City",
+      "contactPerson": "Robert Johnson",
+      "contactNumber": "9876543211",
+      "incidentType": "natural",
+      "notes": "Patient passed away due to complications",
+      "belongings": [
+        ""
+      ],
+      "accompanyingPersons": [
+        {
+          "name": "john",
+          "contact": "fgh"
+        }
+      ],
+      "mlcCase": false,
+      "policeInvolved": false,
+      "status": "verified",
+      "storageLocation": "Morgue A",
+      "registeredBy": "Staff",
+      "registrationDate": "2025-07-11T05:23:22.139Z",
+      "storageUnit": "F-04",
+      "riskLevel": "medium",
+      "fromDischarge": true,
+      "dischargeId": "D002",
+      "tagNumber": "TAG-002",
+      "verifiedBy": "Staff",
+      "receiverName": "sdggg",
+      "receiverId": "sdgsg",
+      "relationship": "sibling",
+      "releaseTime": "2025-07-14T11:49",
+      "remarks": "",
+      "witnessingStaff": "sss",
+      "receiverType": "Other",
+      "receiverIdProof": "dbdb",
+      "exitDate": "2025-07-14T06:20:18.319Z"
+    },
+    {
+      "id": "B007",
+      "name": "fsdf",
+      "age": "54",
+      "gender": "female",
+      "dateOfDeath": "2025-07-08",
+      "timeOfDeath": "2025-07-08T11:54",
+      "address": "Riya Land Puthenthope P.O\nRiya Land Puthenthope P.O",
+      "contactPerson": "sam",
+      "contactNumber": "984620847",
+      "incidentType": "natural",
+      "notes": "",
+      "belongings": [
+        ""
+      ],
+      "accompanyingPersons": [
+        {
+          "name": "sam",
+          "contact": "984620847"
+        }
+      ],
+      "mlcCase": false,
+      "policeInvolved": false,
+      "status": "verified",
+      "storageLocation": "Morgue A",
+      "registeredBy": "Staff",
+      "registrationDate": "2025-07-08T04:23:53.539Z",
+      "storageUnit": "F-07",
+      "riskLevel": "low",
+      "verifiedBy": "Staff",
+      "receiverName": "sdggg",
+      "receiverId": "sdgsg",
+      "relationship": "sibling",
+      "releaseTime": "2025-07-14T11:51",
+      "remarks": "z",
+      "witnessingStaff": "sss",
+      "receiverType": "Family",
+      "receiverIdProof": "dbdb",
+      "exitDate": "2025-07-14T06:21:53.332Z"
+    },
+    {
+      "id": "B004",
+      "name": "gdgd",
+      "age": "30",
+      "gender": "male",
+      "dateOfDeath": "2025-07-08",
+      "timeOfDeath": "2025-07-09T09:51",
+      "address": "dd",
+      "contactPerson": "sam",
+      "contactNumber": "984620847",
+      "incidentType": "unknown",
+      "notes": "",
+      "belongings": [
+        ""
+      ],
+      "accompanyingPersons": [
+        {
+          "name": "sam",
+          "contact": "984620847"
+        }
+      ],
+      "mlcCase": false,
+      "policeInvolved": false,
+      "status": "verified",
+      "storageLocation": "Morgue A",
+      "registeredBy": "Staff",
+      "registrationDate": "2025-07-08T04:21:19.084Z",
+      "storageUnit": "F-03",
+      "riskLevel": "low",
+      "verifiedBy": "Staff",
+      "receiverName": "shan",
+      "receiverId": "sdgsg",
+      "relationship": "spouse",
+      "releaseTime": "2025-07-14T11:52",
+      "remarks": "",
+      "witnessingStaff": "sss",
+      "receiverType": "Family",
+      "receiverIdProof": "dbdb",
+      "exitDate": "2025-07-14T06:23:05.824Z"
+    }
+  ],
+  "discharges": [
+    {
+      "id": "D001",
+      "patientId": "P001",
+      "patientName": "John Doe",
+      "age": "45",
+      "gender": "male",
+      "admissionDate": "2025-01-15",
+      "dischargeDate": "2025-01-20",
+      "ward": "General Ward",
+      "diagnosis": "Pneumonia",
+      "dischargeStatus": "Recovered",
+      "contactPerson": "Jane Doe",
+      "contactNumber": "9876543210",
+      "address": "123 Main St, City",
+      "mlcCase": false,
+      "policeInvolved": false,
+      "notes": "Patient recovered well",
+      "dischargedBy": "Dr. Smith",
+      "dischargeTime": "2025-01-20T10:30:00Z"
+    },
+    {
+      "id": "D002",
+      "patientId": "P002",
+      "patientName": "Mary Johnson",
+      "age": "62",
+      "gender": "female",
+      "admissionDate": "2025-01-10",
+      "dischargeDate": "2025-01-18",
+      "ward": "ICU",
+      "diagnosis": "Heart Attack",
+      "dischargeStatus": "Expired",
+      "contactPerson": "Robert Johnson",
+      "contactNumber": "9876543211",
+      "address": "456 Oak Ave, City",
+      "mlcCase": false,
+      "policeInvolved": false,
+      "notes": "Patient passed away due to complications",
+      "dischargedBy": "Dr. Brown",
+      "dischargeTime": "2025-01-18T14:20:00Z"
+    },
+    {
+      "id": "D003",
+      "patientId": "P003",
+      "patientName": "David Wilson",
+      "age": "38",
+      "gender": "male",
+      "admissionDate": "2025-01-12",
+      "dischargeDate": "2025-01-19",
+      "ward": "Emergency",
+      "diagnosis": "Road Accident",
+      "dischargeStatus": "Expired",
+      "contactPerson": "Sarah Wilson",
+      "contactNumber": "9876543212",
+      "address": "789 Pine St, City",
+      "mlcCase": true,
+      "policeInvolved": true,
+      "notes": "Fatal road accident",
+      "dischargedBy": "Dr. Davis",
+      "dischargeTime": "2025-01-19T08:45:00Z"
+    },
+    {
+      "id": "D004",
+      "patientId": "P004",
+      "patientName": "Lisa Anderson",
+      "age": "29",
+      "gender": "female",
+      "admissionDate": "2025-01-14",
+      "dischargeDate": "2025-01-21",
+      "ward": "General Ward",
+      "diagnosis": "Diabetes Complications",
+      "dischargeStatus": "Expired",
+      "contactPerson": "Michael Anderson",
+      "contactNumber": "9876543213",
+      "address": "321 Elm St, City",
+      "mlcCase": false,
+      "policeInvolved": false,
+      "notes": "Complications from diabetes",
+      "dischargedBy": "Dr. Johnson",
+      "dischargeTime": "2025-01-21T16:15:00Z"
+    },
+    {
+      "id": "D005",
+      "patientId": "P005",
+      "patientName": "James Taylor",
+      "age": "55",
+      "gender": "male",
+      "admissionDate": "2025-01-16",
+      "dischargeDate": "2025-01-22",
+      "ward": "ICU",
+      "diagnosis": "Stroke",
+      "dischargeStatus": "Expired",
+      "contactPerson": "Emily Taylor",
+      "contactNumber": "9876543214",
+      "address": "654 Maple Dr, City",
+      "mlcCase": false,
+      "policeInvolved": false,
+      "notes": "Severe stroke with no recovery",
+      "dischargedBy": "Dr. Wilson",
+      "dischargeTime": "2025-01-22T11:30:00Z"
+    },
+    {
+      "id": "D006",
+      "patientId": "P006",
+      "patientName": "Sarah Williams",
+      "age": "67",
+      "gender": "female",
+      "admissionDate": "2025-01-25",
+      "dischargeDate": "2025-01-28",
+      "ward": "ICU",
+      "diagnosis": "COVID-19 Complications",
+      "dischargeStatus": "Expired",
+      "contactPerson": "John Williams",
+      "contactNumber": "9876543215",
+      "address": "789 Cedar Lane, City",
+      "mlcCase": false,
+      "policeInvolved": false,
+      "notes": "Severe respiratory failure due to COVID-19",
+      "dischargedBy": "Dr. Martinez",
+      "dischargeTime": "2025-01-28T09:15:00Z"
+    },
+    {
+      "id": "D007",
+      "patientId": "P007",
+      "patientName": "Michael Brown",
+      "age": "41",
+      "gender": "male",
+      "admissionDate": "2025-01-26",
+      "dischargeDate": "2025-01-29",
+      "ward": "Emergency",
+      "diagnosis": "Motorcycle Accident",
+      "dischargeStatus": "Expired",
+      "contactPerson": "Lisa Brown",
+      "contactNumber": "9876543216",
+      "address": "456 Oak Street, City",
+      "mlcCase": true,
+      "policeInvolved": true,
+      "notes": "Fatal motorcycle accident with head trauma",
+      "dischargedBy": "Dr. Thompson",
+      "dischargeTime": "2025-01-29T16:45:00Z"
+    },
+    {
+      "id": "D008",
+      "patientId": "P008",
+      "patientName": "Emma Davis",
+      "age": "33",
+      "gender": "female",
+      "admissionDate": "2025-01-27",
+      "dischargeDate": "2025-01-30",
+      "ward": "General Ward",
+      "diagnosis": "Drug Overdose",
+      "dischargeStatus": "Expired",
+      "contactPerson": "Robert Davis",
+      "contactNumber": "9876543217",
+      "address": "321 Pine Avenue, City",
+      "mlcCase": true,
+      "policeInvolved": true,
+      "notes": "Accidental drug overdose",
+      "dischargedBy": "Dr. Garcia",
+      "dischargeTime": "2025-01-30T12:30:00Z"
+    },
+    {
+      "id": "D009",
+      "patientId": "P009",
+      "patientName": "Thomas Miller",
+      "age": "58",
+      "gender": "male",
+      "admissionDate": "2025-01-28",
+      "dischargeDate": "2025-01-31",
+      "ward": "ICU",
+      "diagnosis": "Liver Failure",
+      "dischargeStatus": "Expired",
+      "contactPerson": "Jennifer Miller",
+      "contactNumber": "9876543218",
+      "address": "654 Maple Drive, City",
+      "mlcCase": false,
+      "policeInvolved": false,
+      "notes": "End-stage liver disease",
+      "dischargedBy": "Dr. Lee",
+      "dischargeTime": "2025-01-31T14:20:00Z"
+    },
+    {
+      "id": "D010",
+      "patientId": "P010",
+      "patientName": "Amanda Wilson",
+      "age": "25",
+      "gender": "female",
+      "admissionDate": "2025-01-29",
+      "dischargeDate": "2025-02-01",
+      "ward": "Emergency",
+      "diagnosis": "Domestic Violence",
+      "dischargeStatus": "Expired",
+      "contactPerson": "David Wilson",
+      "contactNumber": "9876543219",
+      "address": "123 Elm Street, City",
+      "mlcCase": true,
+      "policeInvolved": true,
+      "notes": "Fatal injuries from domestic violence",
+      "dischargedBy": "Dr. Rodriguez",
+      "dischargeTime": "2025-02-01T08:10:00Z"
+    },
+    {
+      "id": "D011",
+      "patientId": "P011",
+      "patientName": "Christopher Johnson",
+      "age": "49",
+      "gender": "male",
+      "admissionDate": "2025-01-30",
+      "dischargeDate": "2025-02-02",
+      "ward": "General Ward",
+      "diagnosis": "Kidney Failure",
+      "dischargeStatus": "Expired",
+      "contactPerson": "Patricia Johnson",
+      "contactNumber": "9876543220",
+      "address": "456 Birch Road, City",
+      "mlcCase": false,
+      "policeInvolved": false,
+      "notes": "End-stage renal disease",
+      "dischargedBy": "Dr. Anderson",
+      "dischargeTime": "2025-02-02T11:45:00Z"
+    },
+    {
+      "id": "D012",
+      "patientId": "P012",
+      "patientName": "Rebecca Taylor",
+      "age": "36",
+      "gender": "female",
+      "admissionDate": "2025-02-01",
+      "dischargeDate": "2025-02-04",
+      "ward": "Emergency",
+      "diagnosis": "Suicide Attempt",
+      "dischargeStatus": "Expired",
+      "contactPerson": "Steven Taylor",
+      "contactNumber": "9876543221",
+      "address": "789 Spruce Lane, City",
+      "mlcCase": true,
+      "policeInvolved": true,
+      "notes": "Fatal suicide attempt",
+      "dischargedBy": "Dr. White",
+      "dischargeTime": "2025-02-04T15:30:00Z"
+    },
+    {
+      "id": "D013",
+      "patientId": "P013",
+      "patientName": "Daniel Martinez",
+      "age": "44",
+      "gender": "male",
+      "admissionDate": "2025-02-02",
+      "dischargeDate": "2025-02-05",
+      "ward": "ICU",
+      "diagnosis": "Brain Hemorrhage",
+      "dischargeStatus": "Expired",
+      "contactPerson": "Maria Martinez",
+      "contactNumber": "9876543222",
+      "address": "321 Walnut Street, City",
+      "mlcCase": false,
+      "policeInvolved": false,
+      "notes": "Severe brain hemorrhage",
+      "dischargedBy": "Dr. Clark",
+      "dischargeTime": "2025-02-05T10:15:00Z"
+    },
+    {
+      "id": "D014",
+      "patientId": "P014",
+      "patientName": "Nicole Garcia",
+      "age": "31",
+      "gender": "female",
+      "admissionDate": "2025-02-03",
+      "dischargeDate": "2025-02-06",
+      "ward": "Emergency",
+      "diagnosis": "Gunshot Wound",
+      "dischargeStatus": "Expired",
+      "contactPerson": "Carlos Garcia",
+      "contactNumber": "9876543223",
+      "address": "654 Cherry Avenue, City",
+      "mlcCase": true,
+      "policeInvolved": true,
+      "notes": "Fatal gunshot wound to chest",
+      "dischargedBy": "Dr. Lewis",
+      "dischargeTime": "2025-02-06T13:45:00Z"
+    },
+    {
+      "id": "D015",
+      "patientId": "P015",
+      "patientName": "Kevin Thompson",
+      "age": "52",
+      "gender": "male",
+      "admissionDate": "2025-02-04",
+      "dischargeDate": "2025-02-07",
+      "ward": "General Ward",
+      "diagnosis": "Pancreatic Cancer",
+      "dischargeStatus": "Expired",
+      "contactPerson": "Sandra Thompson",
+      "contactNumber": "9876543224",
+      "address": "123 Poplar Drive, City",
+      "mlcCase": false,
+      "policeInvolved": false,
+      "notes": "Advanced pancreatic cancer",
+      "dischargedBy": "Dr. Hall",
+      "dischargeTime": "2025-02-07T16:20:00Z"
+    }
+  ]
+}

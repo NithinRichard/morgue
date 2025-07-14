@@ -1,0 +1,19 @@
+{
+  "name": "mortuary-api",
+  "version": "1.0.0",
+  "description": "Mock API for the Mortuary Management frontend.",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "lowdb": "^7.0.1",
+    "yup": "^1.6.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  }
+}
