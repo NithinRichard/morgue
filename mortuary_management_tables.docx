@@ -1,0 +1,108 @@
+Mortuary Management System - Database Tables (with Naming Conventions)
+
+1. body_details
+| Column Name         | Type         | Description                        |
+|---------------------|--------------|------------------------------------|
+| BD_Id_pk            | UUID/INT     | Primary Key                        |
+| BD_tagNumber        | VARCHAR(20)  | Unique body tag identifier         |
+| BD_name             | VARCHAR(100) | Deceased Person Name               |
+| BD_age              | INT          | Age at time of death               |
+| BD_gender           | VARCHAR(10)  | Gender (male/female)               |
+| BD_dateOfDeath      | DATE         | Date of death                      |
+| BD_timeOfDeath      | DATETIME     | Time of death                      |
+| BD_address          | VARCHAR(255) | Address of deceased                |
+| BD_contactPerson    | VARCHAR(100) | Emergency contact person           |
+| BD_contactNumber    | VARCHAR(20)  | Emergency contact number           |
+| BD_incidentType     | VARCHAR(50)  | Type of incident                   |
+| BD_notes            | TEXT         | Additional notes                   |
+| BD_belongings       | JSON         | Array of personal belongings       |
+| BD_accompanyingPersons | JSON      | Array of accompanying persons      |
+| BD_mlcCase          | BOOLEAN      | Medico-legal case flag             |
+| BD_policeInvolved   | BOOLEAN      | Police involvement flag            |
+| BD_status           | VARCHAR(20)  | Status (pending/verified/etc.)     |
+| BD_storageLocation  | VARCHAR(50)  | Morgue location                    |
+| BD_registeredBy     | VARCHAR(100) | Staff who registered               |
+| BD_registrationDate | DATETIME     | Registration timestamp             |
+| BD_storageUnit      | VARCHAR(10)  | Assigned freezer unit              |
+| BD_riskLevel        | VARCHAR(10)  | Risk level (low/medium/high)       |
+| BD_verifiedBy       | VARCHAR(100) | Staff who verified                 |
+| BD_exitDate         | DATETIME     | Date of release (nullable)         |
+| BD_receiverName     | VARCHAR(100) | Name of person receiving body      |
+| BD_receiverId       | VARCHAR(50)  | ID of receiver                     |
+| BD_relationship     | VARCHAR(50)  | Relationship to deceased           |
+| Added_by            | VARCHAR(100) | User who added the record          |
+| Added_on            | DATETIME     | When record was added              |
+| Modified_by         | VARCHAR(100) | User who last modified             |
+| Modified_on         | DATETIME     | When record was last modified      |
+| Status              | VARCHAR(20)  | Record status (active/inactive)    |
+| Provider_fk         | UUID/INT     | Provider foreign key               |
+| Outlet_fk           | UUID/INT     | Outlet foreign key (if needed)     |
+
+2. storage_unit_details
+| Column Name         | Type         | Description                        |
+|---------------------|--------------|------------------------------------|
+| SUD_Id_pk           | UUID/INT     | Primary Key                        |
+| SUD_unit_number     | VARCHAR(10)  | Unit identifier (F-01, F-02, etc.) |
+| SUD_status          | VARCHAR(20)  | Status (available/occupied/etc.)   |
+| SUD_temperature     | DECIMAL(4,1) | Current temperature in Celsius     |
+| SUD_body_id         | UUID/INT     | Currently assigned body (nullable) |
+| SUD_last_maintenance| DATETIME     | Last maintenance date              |
+| SUD_capacity        | VARCHAR(20)  | Unit capacity                      |
+| Added_by            | VARCHAR(100) | User who added the record          |
+| Added_on            | DATETIME     | When record was added              |
+| Modified_by         | VARCHAR(100) | User who last modified             |
+| Modified_on         | DATETIME     | When record was last modified      |
+| Status              | VARCHAR(20)  | Record status (active/inactive)    |
+| Provider_fk         | UUID/INT     | Provider foreign key               |
+| Outlet_fk           | UUID/INT     | Outlet foreign key (if needed)     |
+
+3. exit_details
+| Column Name         | Type         | Description                        |
+|---------------------|--------------|------------------------------------|
+| ED_Id_pk            | UUID/INT     | Primary Key                        |
+| ED_body_id          | UUID/INT     | Foreign key to body_details        |
+| ED_receiverName     | VARCHAR(100) | Name of person receiving           |
+| ED_receiverId       | VARCHAR(50)  | ID of receiver                     |
+| ED_relationship     | VARCHAR(50)  | Relationship to deceased           |
+| ED_releaseTime      | DATETIME     | Time of release                    |
+| ED_remarks          | TEXT         | Additional remarks                 |
+| ED_exitDate         | DATETIME     | Exit timestamp                     |
+| ED_processedBy      | VARCHAR(100) | Staff who processed exit           |
+| Added_by            | VARCHAR(100) | User who added the record          |
+| Added_on            | DATETIME     | When record was added              |
+| Modified_by         | VARCHAR(100) | User who last modified             |
+| Modified_on         | DATETIME     | When record was last modified      |
+| Status              | VARCHAR(20)  | Record status (active/inactive)    |
+| Provider_fk         | UUID/INT     | Provider foreign key               |
+| Outlet_fk           | UUID/INT     | Outlet foreign key (if needed)     |
+
+4. staff_details
+| Column Name         | Type         | Description                        |
+|---------------------|--------------|------------------------------------|
+| SD_Id_pk            | UUID/INT     | Primary Key                        |
+| SD_name             | VARCHAR(100) | Staff name                         |
+| SD_role             | VARCHAR(50)  | Role/position                      |
+| SD_contact          | VARCHAR(20)  | Contact number                     |
+| SD_email            | VARCHAR(100) | Email address                      |
+| SD_joinedDate       | DATE         | Date joined                        |
+| Added_by            | VARCHAR(100) | User who added the record          |
+| Added_on            | DATETIME     | When record was added              |
+| Modified_by         | VARCHAR(100) | User who last modified             |
+| Modified_on         | DATETIME     | When record was last modified      |
+| Status              | VARCHAR(20)  | Record status (active/inactive)    |
+| Provider_fk         | UUID/INT     | Provider foreign key               |
+| Outlet_fk           | UUID/INT     | Outlet foreign key (if needed)     |
+
+5. incident_type_lookup
+| Column Name         | Type         | Description                        |
+|---------------------|--------------|------------------------------------|
+| ITL_Id_pk           | UUID/INT     | Primary Key                        |
+| ITL_type            | VARCHAR(50)  | Incident type                      |
+| ITL_description     | TEXT         | Description                        |
+| Added_by            | VARCHAR(100) | User who added the record          |
+| Added_on            | DATETIME     | When record was added              |
+| Modified_by         | VARCHAR(100) | User who last modified             |
+| Modified_on         | DATETIME     | When record was last modified      |
+| Status              | VARCHAR(20)  | Record status (active/inactive)    |
+| Provider_fk         | UUID/INT     | Provider foreign key               |
+| Outlet_fk           | UUID/INT     | Outlet foreign key (if needed)     | 
