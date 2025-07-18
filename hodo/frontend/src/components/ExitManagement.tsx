@@ -22,9 +22,11 @@ interface ExitRecord extends Body {
   releaseTime: string;
   remarks: string;
   exitTime: string;
+  exitDate?: string; // Add this line to match API/db.json
   witnessingStaff?: string;
   receiverType?: string;
   receiverIdProof?: string;
+  releaseConditions?: string;
 }
 
 const ExitManagement: React.FC = () => {
@@ -39,7 +41,8 @@ const ExitManagement: React.FC = () => {
     remarks: '',
     witnessingStaff: '',
     receiverType: '',
-    receiverIdProof: ''
+    receiverIdProof: '',
+    releaseConditions: ''
   });
   const printRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [exitsPage, setExitsPage] = useState(1);
@@ -48,7 +51,7 @@ const ExitManagement: React.FC = () => {
   // Move fetch functions outside useEffect for reuse
   const fetchAllBodies = async () => {
     try {
-      const response = await fetch('http://192.168.50.132:3001/api/bodies');
+      const response = await fetch('http://192.168.50.124:3001/api/bodies');
       const allBodies: Body[] = await response.json();
       setBodies(allBodies);
     } catch (error) {
@@ -57,7 +60,7 @@ const ExitManagement: React.FC = () => {
   };
   const fetchRecentExits = async () => {
     try {
-      const response = await fetch('http://192.168.50.132:3001/api/exits');
+      const response = await fetch('http://192.168.50.124:3001/api/exits');
       const data: ExitRecord[] = await response.json();
       setRecentExits(data.sort((a, b) => new Date(b.exitTime).getTime() - new Date(a.exitTime).getTime()));
     } catch (error) {
@@ -96,7 +99,7 @@ const ExitManagement: React.FC = () => {
       return;
     }
     try {
-              const response = await fetch(`http://192.168.50.132:3001/api/exits/${selectedBody}`, {
+              const response = await fetch(`http://192.168.50.124:3001/api/exits/${selectedBody}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(exitForm),
@@ -110,6 +113,9 @@ const ExitManagement: React.FC = () => {
       
       toast.success('Body released successfully!');
       
+      // NOC Generation
+      generateNOC(newExit);
+
       // Refetch the list of bodies and recent exits from backend
       await fetchAllBodies();
       await fetchRecentExits();
@@ -122,11 +128,56 @@ const ExitManagement: React.FC = () => {
         remarks: '',
         witnessingStaff: '',
         receiverType: '',
-        receiverIdProof: ''
+        receiverIdProof: '',
+        releaseConditions: ''
       });
 
     } catch (error) {
       toast.error('Failed to release body. Please try again.');
+    }
+  };
+
+  const generateNOC = (exit: ExitRecord) => {
+    const nocContent = `
+      <html>
+        <head>
+          <title>No Objection Certificate</title>
+          <style>
+            body { font-family: serif; padding: 24px; border: 2px solid #000; margin: 20px; }
+            h1 { text-align: center; font-size: 24px; text-decoration: underline; margin-bottom: 30px; }
+            p { font-size: 16px; line-height: 1.6; }
+            .details-table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+            .details-table td { padding: 8px; border: 1px solid #ccc; }
+            .footer { margin-top: 50px; text-align: right; }
+          </style>
+        </head>
+        <body>
+          <h1>No Objection Certificate</h1>
+          <p>This is to certify that the body of the deceased, <strong>${exit.name}</strong> (ID: ${exit.id}), has been released from the mortuary facility on ${new Date(exit.releaseTime).toLocaleDateString()}.</p>
+          <p>The body was handed over to <strong>${exit.receiverName}</strong>, who is the ${exit.relationship} of the deceased.</p>
+          
+          <table class="details-table">
+            <tr><td>Deceased Name:</td><td>${exit.name}</td></tr>
+            <tr><td>Receiver Name:</td><td>${exit.receiverName}</td></tr>
+            <tr><td>Relationship:</td><td>${exit.relationship}</td></tr>
+            <tr><td>Release Conditions:</td><td>${exit.releaseConditions || 'N/A'}</td></tr>
+          </table>
+
+          <p>There is no objection to the final rites being performed. This certificate is issued upon request and confirms the formal release of the body.</p>
+          
+          <div class="footer">
+            <p><strong>Authorised Signatory</strong></p>
+            <p>Mortuary Management</p>
+          </div>
+        </body>
+      </html>
+    `;
+    const printWindow = window.open('', '', 'width=800,height=600');
+    if (printWindow) {
+      printWindow.document.write(nocContent);
+      printWindow.document.close();
+      printWindow.focus();
+      printWindow.print();
     }
   };
 
@@ -137,7 +188,7 @@ const ExitManagement: React.FC = () => {
       return;
     }
     try {
-              const response = await fetch(`http://192.168.50.132:3001/api/bodies/${selectedBody}/verify`, {
+              const response = await fetch(`http://192.168.50.124:3001/api/bodies/${selectedBody}/verify`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ verifiedBy: 'Staff' }),
@@ -244,10 +295,11 @@ const ExitManagement: React.FC = () => {
     { key: 'id', header: 'Body ID' },
     { key: 'name', header: 'Name' },
     { key: 'storageUnit', header: 'Storage Unit' },
-    { key: 'exitTime', header: 'Exit Time' },
+    { key: 'exitDate', header: 'Exit Date' },
     { key: 'receiverName', header: 'Receiver' },
     { key: 'relationship', header: 'Relationship' },
-    { key: 'remarks', header: 'Remarks' }
+    { key: 'remarks', header: 'Remarks' },
+    { key: 'releaseConditions', header: 'Release Conditions' }
   ];
 
   return (
@@ -266,8 +318,8 @@ const ExitManagement: React.FC = () => {
                 <label htmlFor="bodySelect" className="form-label">Select Body</label>
                 <select id="bodySelect" className="form-select" value={selectedBody} onChange={handleBodySelect} required>
                   <option value="">Choose body to release</option>
-                  {bodies.map((body) => (
-                    <option key={body.id} value={body.id}>
+                  {bodies.map((body, idx) => (
+                    <option key={body.id + '-' + idx} value={body.id}>
                       {body.name} ({body.id}) - {body.storageUnit} [{body.status}]
                     </option>
                   ))}
@@ -354,6 +406,18 @@ const ExitManagement: React.FC = () => {
               </div>
 
               <div className="form-group">
+                <label htmlFor="releaseConditions" className="form-label">Release Conditions</label>
+                <textarea
+                  id="releaseConditions"
+                  className="form-textarea"
+                  value={exitForm.releaseConditions}
+                  onChange={(e) => setExitForm(prev => ({ ...prev, releaseConditions: e.target.value }))}
+                  placeholder="e.g., pending police clearance, family dispute resolved"
+                  rows={3}
+                />
+              </div>
+
+              <div className="form-group">
                 <label htmlFor="witnessingStaff" className="form-label">Witnessing Staff</label>
                 <input
                   id="witnessingStaff"
@@ -427,9 +491,8 @@ const ExitManagement: React.FC = () => {
           columns={exitColumns}
           data={paginatedExits.map(exit => ({
             ...exit,
-            exitTime: new Date(exit.exitTime).toLocaleString()
+            exitDate: exit.exitDate ? new Date(exit.exitDate).toLocaleString() : '',
           }))}
-          disableInternalPagination={true}
         />
         <Pagination
           page={exitsPage}

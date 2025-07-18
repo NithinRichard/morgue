@@ -21,6 +21,9 @@ import InwardPage from './pages/InwardPage.tsx';
 import BodiesPage from './pages/BodiesPage.tsx';
 import StoragePage from './pages/StoragePage.tsx';
 import ExitPage from './pages/ExitPage.tsx';
+import BillingPage from './pages/BillingPage.tsx';
+import AnalyticsPage from './pages/AnalyticsPage';
+import BodyDetailsPage from './pages/BodyDetailsPage.tsx';
 import { ToastContainer } from 'react-toastify';
 // Define the props interface for components that receive sidebar props
 // interface SidebarProps {
@@ -65,9 +68,12 @@ const App: React.FC = () => {
               <Route path="/a" element={<Table />} />
               <Route path="/inward" element={<InwardPage sidebarCollapsed={sidebarCollapsed} toggleSidebar={toggleSidebar} />} />
               <Route path="/bodies" element={<BodiesPage sidebarCollapsed={sidebarCollapsed} toggleSidebar={toggleSidebar} />} />
+              <Route path="/bodies/:id" element={<BodyDetailsPage sidebarCollapsed={sidebarCollapsed} toggleSidebar={toggleSidebar} />} />
               <Route path="/storage" element={<StoragePage sidebarCollapsed={sidebarCollapsed} toggleSidebar={toggleSidebar} />} />
               <Route path="/exit" element={<ExitPage sidebarCollapsed={sidebarCollapsed} toggleSidebar={toggleSidebar} />} />
-              {/* <Route path="/billing" element={<BillingPage/>} /> */}
+              <Route path="/billing" element={<BillingPage />} />
+              <Route path="/analytics" element={<AnalyticsPage />} />
+              {/* <Route path="/reports" element={<ReportsPage />} /> */}
               {/* <Route path="/" element={<page />} /> */}
               {/* <Route path="/dashboard" element={<Dashboard sidebarCollapsed={sidebarCollapsed} toggleSidebar={toggleSidebar} />} />
               <Route path="/register-vehicle" element={<VehicleRegistration sidebarCollapsed={sidebarCollapsed} toggleSidebar={toggleSidebar} />} />

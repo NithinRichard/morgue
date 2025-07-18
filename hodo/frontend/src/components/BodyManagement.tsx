@@ -8,6 +8,7 @@ import deleteIcon from "../assets/delete.png";
 import DeleteButton from './DeleteButton';
 import EditButton from './EditButton';
 import EditModal from './EditModal';
+import PatientProfileDetails from './PatientProfileDetails';
 import * as Yup from 'yup';
 import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -40,6 +41,7 @@ const BodyManagement: React.FC = () => {
   const [statusFilter, setStatusFilter] = useState('all');
   const [bodies, setBodies] = useState<Body[]>([]);
   const [viewBody, setViewBody] = useState<Body | null>(null);
+  const [showPatientProfile, setShowPatientProfile] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [editBody, setEditBody] = useState<Body | null>(null);
   const [editLoading, setEditLoading] = useState(false);
@@ -54,7 +56,7 @@ const BodyManagement: React.FC = () => {
 
   const fetchBodies = async () => {
     try {
-      const response = await fetch('http://192.168.50.132:3001/api/bodies');
+      const response = await fetch('http://192.168.50.124:3001/api/bodies');
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
@@ -71,7 +73,7 @@ const BodyManagement: React.FC = () => {
 
   const handleVerify = async (bodyId: string) => {
     try {
-      const response = await fetch(`http://192.168.50.132:3001/api/bodies/${bodyId}/verify`, {
+      const response = await fetch(`http://192.168.50.124:3001/api/bodies/${bodyId}/verify`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ verifiedBy: 'Staff' }) 
@@ -165,7 +167,7 @@ const BodyManagement: React.FC = () => {
     if (!editBody) return;
     setEditLoading(true);
     try {
-      const response = await fetch(`http://192.168.50.132:3001/api/bodies/${editBody.id}`, {
+      const response = await fetch(`http://192.168.50.124:3001/api/bodies/${editBody.id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(values),
@@ -183,8 +185,7 @@ const BodyManagement: React.FC = () => {
   };
 
   const handleViewDetails = (bodyId: string) => {
-    const body = bodies.find(b => b.id === bodyId);
-    if (body) setViewBody(body);
+    navigate(`/bodies/${bodyId}`);
   };
 
   const handleDelete = async (bodyId: string) => {
@@ -195,7 +196,7 @@ const BodyManagement: React.FC = () => {
     }
     if (!window.confirm('Are you sure you want to delete this body?')) return;
     try {
-      const response = await fetch(`http://192.168.50.132:3001/api/bodies/${bodyId}`, {
+      const response = await fetch(`http://192.168.50.124:3001/api/bodies/${bodyId}`, {
         method: 'DELETE',
       });
       if (!response.ok) throw new Error('Failed to delete body');
@@ -219,7 +220,18 @@ const BodyManagement: React.FC = () => {
   });
 
   const columns = [
-    { key: 'id', header: 'ID' },
+    { key: 'id', header: 'ID', render: (row: Record<string, any>) => (
+      <a
+        href="#"
+        style={{ color: '#428bca', textDecoration: 'none', cursor: 'pointer' }}
+        onClick={e => {
+          e.preventDefault();
+          handleViewDetails(row.id);
+        }}
+      >
+        {row.id}
+      </a>
+    ) },
     { key: 'name', header: 'Name' },
     { key: 'timeOfDeath', header: 'Time of Death' },
     { key: 'status', header: 'Status' },
@@ -240,16 +252,7 @@ const BodyManagement: React.FC = () => {
         >
           <i className="fa fa-eye" style={{ fontSize: 16, color: '#222' }}></i>
         </button>
-        {!body.fromDischarge && (
-          <EditButton
-            onClick={() => handleEdit(body.id)}
-            size={16}
-            className="action-btn edit-btn"
-          />
-        )}
-        <DeleteButton
-          onClick={() => handleDelete(body.id)}
-        />
+        {/* DeleteButton removed for mortuary management best practices */}
       </div>
     );
   };
@@ -293,102 +296,8 @@ const BodyManagement: React.FC = () => {
         loading={editLoading}
         title="Edit Body"
       />
-      {/* Modal for viewing body details */}
-      {viewBody && (
-        <div style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          width: '100vw',
-          height: '100vh',
-          background: 'rgba(0,0,0,0.3)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          zIndex: 1000,
-          padding: '20px'
-        }}>
-          <div className="bodies-card" style={{ 
-            maxWidth: '600px', 
-            width: '100%', 
-            maxHeight: '90vh',
-            overflow: 'auto',
-            position: 'relative',
-            margin: 'auto'
-          }}>
-            <div className="card-header">
-              <div className="card-header-content">
-                <h3 className="card-title">Body Details</h3>
-                <button
-                  style={{ background: 'none', border: 'none', fontSize: 24, cursor: 'pointer' }}
-                  onClick={() => setViewBody(null)}
-                  title="Close"
-                >
-                  ×
-                </button>
-              </div>
-            </div>
-            <div className="card-content">
-              {/* QR Code for tagNumber or id */}
-              <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 16 }}>
-                <QRCodeCanvas value={viewBody.tagNumber || viewBody.id} size={96} />
-              </div>
-              {viewBody.fromDischarge && (
-                <div style={{ 
-                  backgroundColor: '#fff3cd', 
-                  border: '1px solid #ffeaa7', 
-                  borderRadius: '4px', 
-                  padding: '12px', 
-                  marginBottom: '16px',
-                  fontSize: '14px',
-                  color: '#856404'
-                }}>
-                  <i className="fa fa-info-circle" style={{ marginRight: '8px' }}></i>
-                  This body was created from a discharge record. Patient details cannot be edited.
-                </div>
-              )}
-              <div style={{ 
-                width: '100%', 
-                overflowX: 'auto',
-                fontSize: '14px'
-              }}>
-                <table style={{ 
-                  width: '100%',
-                  minWidth: '300px',
-                  borderCollapse: 'collapse'
-                }}>
-                  <tbody>
-                    {/* Fixed order and labels for body details */}
-                    <tr style={{ borderBottom: '1px solid #eee' }}><td style={labelStyle}>Patient ID</td><td style={valueStyle}>{viewBody.patientId || 'N/A'}</td></tr>
-                    <tr style={{ borderBottom: '1px solid #eee' }}><td style={labelStyle}>Body ID</td><td style={valueStyle}>{viewBody.id || 'N/A'}</td></tr>
-                    <tr style={{ borderBottom: '1px solid #eee' }}><td style={labelStyle}>Name</td><td style={valueStyle}>{viewBody.name || 'N/A'}</td></tr>
-                    <tr style={{ borderBottom: '1px solid #eee' }}><td style={labelStyle}>Gender</td><td style={valueStyle}>{viewBody.gender || 'N/A'}</td></tr>
-                    <tr style={{ borderBottom: '1px solid #eee' }}><td style={labelStyle}>Age</td><td style={valueStyle}>{viewBody.age || 'N/A'}</td></tr>
-                    <tr style={{ borderBottom: '1px solid #eee' }}><td style={labelStyle}>Date of Death</td><td style={valueStyle}>{viewBody.dateOfDeath || 'N/A'}</td></tr>
-                    <tr style={{ borderBottom: '1px solid #eee' }}><td style={labelStyle}>Time of Death</td><td style={valueStyle}>{viewBody.timeOfDeath || 'N/A'}</td></tr>
-                    <tr style={{ borderBottom: '1px solid #eee' }}><td style={labelStyle}>Storage Location</td><td style={valueStyle}>{viewBody.storageUnit || 'N/A'}</td></tr>
-                    <tr style={{ borderBottom: '1px solid #eee' }}><td style={labelStyle}>MLC Case</td><td style={valueStyle}>{viewBody.mlcCase !== undefined ? (viewBody.mlcCase ? 'Yes' : 'No') : 'N/A'}</td></tr>
-                    <tr style={{ borderBottom: '1px solid #eee' }}><td style={labelStyle}>Incident Type</td><td style={valueStyle}>{viewBody.incidentType || 'N/A'}</td></tr>
-                    <tr style={{ borderBottom: '1px solid #eee' }}><td style={labelStyle}>Photo</td><td style={valueStyle}>{viewBody.photo ? (<img src={viewBody.photo} alt="Body Photo" style={{ maxWidth: 100, maxHeight: 100 }} />) : 'N/A'}</td></tr>
-                    <tr style={{ borderBottom: '1px solid #eee' }}><td style={labelStyle}>Belongings</td><td style={valueStyle}>{Array.isArray(viewBody.belongings) ? viewBody.belongings.join(', ') : (viewBody.belongings || 'N/A')}</td></tr>
-                    <tr style={{ borderBottom: '1px solid #eee' }}><td style={labelStyle}>Notes</td><td style={valueStyle}>{viewBody.notes || 'N/A'}</td></tr>
-                  </tbody>
-                </table>
-              </div>
-              <div style={{ marginTop: 24, textAlign: 'right' }}>
-                <ButtonWithGradient
-                  text="Initiate Body Verification"
-                  type="button"
-                  onClick={() => {
-                    setViewBody(null); // Close the view modal first
-                    setShowVerificationModal(true); // Then open verification modal
-                  }}
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+      {/* Patient Profile Details View */}
+      {/* Modal for body details removed, now handled by page navigation */}
       {/* Verification Modal */}
       {showVerificationModal && (
         <div style={{
@@ -429,7 +338,7 @@ const BodyManagement: React.FC = () => {
                 e.preventDefault();
                 if (!viewBody) return;
                 try {
-                  const response = await fetch(`http://192.168.50.132:3001/api/bodies/${viewBody.id}/verify-log`, {
+                  const response = await fetch(`http://192.168.50.124:3001/api/bodies/${viewBody.id}/verify-log`, {
                     method: 'PATCH',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(verificationForm)

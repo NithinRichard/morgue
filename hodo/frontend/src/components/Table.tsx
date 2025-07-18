@@ -6,6 +6,7 @@ import Pagination from './Pagination';
 interface Column {
   key: string;
   header: string;
+  render?: (row: Record<string, any>) => React.ReactNode;
 }
 
 interface TableProps {
@@ -15,7 +16,7 @@ interface TableProps {
   disableInternalPagination?: boolean;
 }
 
-const Table: React.FC<TableProps> = ({ columns, data, renderActions, disableInternalPagination = false }) => {
+const Table: React.FC<TableProps> = ({ columns, data, renderActions, disableInternalPagination = true }) => {
   const [page, setPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const totalPages = Math.ceil(data.length / rowsPerPage);
@@ -45,9 +46,11 @@ const Table: React.FC<TableProps> = ({ columns, data, renderActions, disableInte
               <tr key={`${row.id}-${idx}`}>
                 {columns.map((col) => (
                   <td key={col.key}>
-                    {typeof row[col.key] === 'number' 
-                      ? row[col.key].toString()
-                      : row[col.key]}
+                    {col.render
+                      ? col.render(row)
+                      : typeof row[col.key] === 'number' 
+                        ? row[col.key].toString()
+                        : row[col.key]}
                   </td>
                 ))}
                 {renderActions && <td className="actions-cell">{renderActions(row)}</td>}

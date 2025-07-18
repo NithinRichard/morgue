@@ -1,292 +1,12 @@
 {
   "bodies": [
     {
-      "id": "B006",
-      "name": "MELVIN MECKENCY",
-      "age": "54",
-      "gender": "male",
-      "dateOfDeath": "2025-07-08",
-      "timeOfDeath": "2025-07-08T11:53",
-      "address": "",
-      "contactPerson": "MELVIN MECKENCY",
-      "contactNumber": "09846208479",
-      "incidentType": "accident",
-      "notes": "",
-      "belongings": [
-        ""
-      ],
-      "accompanyingPersons": [
-        {
-          "name": "MELVIN MECKENCY",
-          "contact": "09846208479"
-        }
-      ],
-      "mlcCase": false,
-      "policeInvolved": false,
-      "status": "verified",
-      "storageLocation": "Morgue A",
-      "registeredBy": "Staff",
-      "registrationDate": "2025-07-08T04:23:14.923Z",
-      "storageUnit": "F-05",
-      "riskLevel": "low",
-      "verifiedBy": "Staff"
-    },
-    {
-      "id": "B008",
-      "name": "sam",
-      "age": "30",
-      "gender": "female",
-      "dateOfDeath": "2025-07-08",
-      "timeOfDeath": "2025-07-01T11:57",
-      "address": "Riya Land Puthenthope P.O\nRiya Land Puthenthope P.O",
-      "contactPerson": "sam",
-      "contactNumber": "984620847",
-      "incidentType": "natural",
-      "notes": "",
-      "belongings": [
-        ""
-      ],
-      "accompanyingPersons": [
-        {
-          "name": "sam",
-          "contact": "984620847"
-        }
-      ],
-      "mlcCase": false,
-      "policeInvolved": false,
-      "status": "pending",
-      "storageLocation": "Morgue A",
-      "registeredBy": "Staff",
-      "registrationDate": "2025-07-08T04:27:17.344Z",
-      "storageUnit": "F-08",
-      "riskLevel": "low"
-    },
-    {
-      "id": "B009",
-      "name": "sam",
-      "age": "22",
-      "gender": "female",
-      "dateOfDeath": "2025-07-08",
-      "timeOfDeath": "2025-07-09T09:58",
-      "address": "Riya Land Puthenthope P.O\nRiya Land Puthenthope P.O",
-      "contactPerson": "sam",
-      "contactNumber": "984620847",
-      "incidentType": "accident",
-      "notes": "",
-      "belongings": [
-        ""
-      ],
-      "accompanyingPersons": [
-        {
-          "name": "sam",
-          "contact": "984620847"
-        }
-      ],
-      "mlcCase": false,
-      "policeInvolved": false,
-      "status": "pending",
-      "storageLocation": "Morgue A",
-      "registeredBy": "Staff",
-      "registrationDate": "2025-07-08T04:28:20.570Z",
-      "storageUnit": "F-09",
-      "riskLevel": "low"
-    },
-    {
       "id": "B010",
-      "name": "MELVIN MECKENCY",
-      "age": "30",
-      "gender": "female",
-      "dateOfDeath": "2025-07-08",
-      "timeOfDeath": "2025-07-02T10:00",
-      "address": "Riya Land Puthenthope P.O\nRiya Land Puthenthope P.O",
-      "contactPerson": "MELVIN MECKENCY",
-      "contactNumber": "09846208479",
-      "incidentType": "suicide",
-      "notes": "",
-      "belongings": [
-        ""
-      ],
-      "accompanyingPersons": [
-        {
-          "name": "MELVIN MECKENCY",
-          "contact": "09846208479"
-        }
-      ],
-      "mlcCase": false,
-      "policeInvolved": false,
-      "status": "pending",
-      "storageLocation": "Morgue A",
-      "registeredBy": "Staff",
-      "registrationDate": "2025-07-08T04:30:11.418Z",
-      "storageUnit": "F-10",
-      "riskLevel": "low"
-    },
-    {
-      "id": "B011",
-      "name": "Nithin Richard",
-      "age": "54",
-      "gender": "female",
-      "dateOfDeath": "2025-07-08",
-      "timeOfDeath": "2025-07-08T10:06",
-      "address": "Riya Land Puthenthope P.O",
-      "contactPerson": "Nithin Richard",
-      "contactNumber": "09846208479",
-      "incidentType": "suicide",
-      "notes": "",
-      "belongings": [
-        ""
-      ],
-      "accompanyingPersons": [
-        {
-          "name": "Nithin Richard",
-          "contact": "09846208479"
-        }
-      ],
-      "mlcCase": false,
-      "policeInvolved": false,
-      "status": "verified",
-      "storageLocation": "Morgue A",
-      "registeredBy": "Staff",
-      "registrationDate": "2025-07-08T04:36:27.106Z",
-      "storageUnit": "F-11",
-      "riskLevel": "low",
-      "verificationLog": [
-        {
-          "name": "aa",
-          "relation": "aa",
-          "contact": "aaa",
-          "idProof": "aa",
-          "date": "2025-07-10T08:14:46.998Z"
-        }
-      ]
-    },
-    {
-      "id": "B012",
-      "name": "hdfh",
-      "age": "30",
-      "gender": "male",
-      "dateOfDeath": "2025-07-08",
-      "timeOfDeath": "2025-07-08T12:07",
-      "address": "",
-      "contactPerson": "Nithin Richard",
-      "contactNumber": "09846208479",
-      "incidentType": "natural",
-      "notes": "",
-      "belongings": [
-        ""
-      ],
-      "accompanyingPersons": [
-        {
-          "name": "Nithin Richard",
-          "contact": "09846208479"
-        }
-      ],
-      "mlcCase": false,
-      "policeInvolved": false,
-      "status": "pending",
-      "storageLocation": "Morgue A",
-      "registeredBy": "Staff",
-      "registrationDate": "2025-07-08T04:37:18.861Z",
-      "storageUnit": "F-12",
-      "riskLevel": "low"
-    },
-    {
-      "id": "B013",
-      "name": "gfhfgh",
-      "age": "34",
-      "gender": "male",
-      "dateOfDeath": "2025-07-08",
-      "timeOfDeath": "2025-07-12T10:11",
-      "address": "",
-      "contactPerson": "Nithin Richard",
-      "contactNumber": "09846208479",
-      "incidentType": "accident",
-      "notes": "",
-      "belongings": [
-        ""
-      ],
-      "accompanyingPersons": [
-        {
-          "name": "Nithin Richard",
-          "contact": "09846208479"
-        }
-      ],
-      "mlcCase": false,
-      "policeInvolved": false,
-      "status": "pending",
-      "storageLocation": "Morgue A",
-      "registeredBy": "Staff",
-      "registrationDate": "2025-07-08T04:39:09.325Z",
-      "storageUnit": "F-02",
-      "riskLevel": "low"
-    },
-    {
-      "id": "B014",
-      "name": "cxv",
-      "age": "45",
-      "gender": "male",
-      "dateOfDeath": "2025-07-08",
-      "timeOfDeath": "2025-07-05T10:10",
-      "address": "Riya Land Puthenthope P.O",
-      "contactPerson": "Nithin Richard",
-      "contactNumber": "09846208479",
-      "incidentType": "natural",
-      "notes": "",
-      "belongings": [
-        ""
-      ],
-      "accompanyingPersons": [
-        {
-          "name": "",
-          "contact": ""
-        }
-      ],
-      "mlcCase": false,
-      "policeInvolved": false,
-      "status": "verified",
-      "storageLocation": "Morgue A",
-      "registeredBy": "Staff",
-      "registrationDate": "2025-07-08T04:40:20.547Z",
-      "storageUnit": "F-14",
-      "riskLevel": "high",
-      "verifiedBy": "Staff"
-    },
-    {
-      "id": "B014",
-      "name": "ss",
-      "age": "33",
-      "gender": "male",
-      "dateOfDeath": "2025-07-08",
-      "timeOfDeath": "2025-07-05T10:21",
-      "address": "",
-      "contactPerson": "33",
-      "contactNumber": "09846208479",
-      "incidentType": "natural",
-      "notes": "",
-      "belongings": [
-        ""
-      ],
-      "accompanyingPersons": [
-        {
-          "name": "",
-          "contact": ""
-        }
-      ],
-      "mlcCase": false,
-      "policeInvolved": false,
-      "status": "pending",
-      "storageLocation": "Morgue A",
-      "registeredBy": "Staff",
-      "registrationDate": "2025-07-08T04:50:53.567Z",
-      "storageUnit": "F-15",
-      "riskLevel": "low"
-    },
-    {
-      "id": "B015",
       "name": "Mary Johnson",
       "age": "62",
       "gender": "female",
       "dateOfDeath": "2025-01-18",
+      "placeOfDeath": "puthenthope",
       "timeOfDeath": "2025-01-18T14:20",
       "address": "456 Oak Ave, City",
       "contactPerson": "Robert Johnson",
@@ -294,34 +14,28 @@
       "incidentType": "natural",
       "notes": "Patient passed away due to complications",
       "belongings": [
-        ""
+        "RING"
       ],
       "accompanyingPersons": [
         {
-          "name": "",
-          "contact": ""
+          "name": "Jennifer Miller",
+          "contact": "09876543218"
         }
       ],
       "mlcCase": false,
-      "policeInvolved": true,
+      "policeInvolved": false,
       "status": "pending",
       "storageLocation": "Morgue A",
       "registeredBy": "Staff",
-      "registrationDate": "2025-07-10T06:28:15.905Z",
-      "storageUnit": "F-13",
-      "riskLevel": "low"
+      "registrationDate": "2025-07-17T04:59:50.474Z",
+      "storageUnit": "F-03",
+      "riskLevel": "medium",
+      "fromDischarge": true,
+      "dischargeId": "D002",
+      "tagNumber": "TAG-003"
     },
     {
-      "id": "B100",
-      "name": "Test Unassigned Body",
-      "timeOfDeath": "2025-07-15T10:00",
-      "status": "pending",
-      "riskLevel": "low",
-      "storageUnit": "F-19",
-      "incidentType": "natural"
-    },
-    {
-      "id": "B017",
+      "id": "B011",
       "name": "David Wilson",
       "age": "38",
       "gender": "male",
@@ -334,12 +48,12 @@
       "incidentType": "accident",
       "notes": "Fatal road accident",
       "belongings": [
-        ""
+        "RING"
       ],
       "accompanyingPersons": [
         {
-          "name": "john",
-          "contact": ""
+          "name": "Jennifer Miller",
+          "contact": "09876543218"
         }
       ],
       "mlcCase": true,
@@ -347,31 +61,101 @@
       "status": "pending",
       "storageLocation": "Morgue A",
       "registeredBy": "Staff",
-      "registrationDate": "2025-07-10T09:21:49.620Z",
-      "storageUnit": "F-16",
-      "riskLevel": "low",
-      "tagNumber": "TAG-001"
+      "registrationDate": "2025-07-17T05:00:06.634Z",
+      "storageUnit": "F-04",
+      "riskLevel": "high",
+      "fromDischarge": true,
+      "dischargeId": "D003",
+      "tagNumber": "TAG-004"
     },
     {
-      "id": "B013",
-      "name": "Mary Johnson",
-      "age": "62",
+      "id": "B012",
+      "name": "Rebecca Taylor",
+      "age": "36",
       "gender": "female",
-      "dateOfDeath": "2025-01-18",
+      "dateOfDeath": "2025-02-04",
       "placeOfDeath": "puthenthope",
-      "timeOfDeath": "2025-01-18T14:20",
-      "address": "456 Oak Ave, City",
-      "contactPerson": "Robert Johnson",
-      "contactNumber": "9876543211",
-      "incidentType": "natural",
-      "notes": "Patient passed away due to complications",
+      "timeOfDeath": "2025-02-04T15:30",
+      "address": "789 Spruce Lane, City",
+      "contactPerson": "Steven Taylor",
+      "contactNumber": "9876543221",
+      "incidentType": "suicide",
+      "notes": "Fatal suicide attempt",
       "belongings": [
-        ""
+        "RING"
       ],
       "accompanyingPersons": [
         {
-          "name": "",
-          "contact": ""
+          "name": "Jennifer Miller",
+          "contact": "09876543218"
+        }
+      ],
+      "mlcCase": true,
+      "policeInvolved": true,
+      "status": "pending",
+      "storageLocation": "Morgue A",
+      "registeredBy": "Staff",
+      "registrationDate": "2025-07-17T05:00:38.130Z",
+      "storageUnit": "F-05",
+      "riskLevel": "high",
+      "fromDischarge": true,
+      "dischargeId": "D012",
+      "tagNumber": "TAG-005"
+    },
+    {
+      "id": "B013",
+      "name": "Rebecca Taylor",
+      "age": "36",
+      "gender": "female",
+      "dateOfDeath": "2025-02-04",
+      "placeOfDeath": "puthenthope",
+      "timeOfDeath": "2025-02-04T15:30",
+      "address": "789 Spruce Lane, City",
+      "contactPerson": "Steven Taylor",
+      "contactNumber": "9876543221",
+      "incidentType": "suicide",
+      "notes": "Fatal suicide attempt",
+      "belongings": [
+        "RING"
+      ],
+      "accompanyingPersons": [
+        {
+          "name": "Jennifer Miller",
+          "contact": "09876543218"
+        }
+      ],
+      "mlcCase": true,
+      "policeInvolved": true,
+      "status": "pending",
+      "storageLocation": "Morgue A",
+      "registeredBy": "Staff",
+      "registrationDate": "2025-07-17T05:03:41.308Z",
+      "storageUnit": "F-06",
+      "riskLevel": "low",
+      "fromDischarge": true,
+      "dischargeId": "D012",
+      "tagNumber": "TAG-006"
+    },
+    {
+      "id": "B014",
+      "name": "rihan",
+      "age": "22",
+      "gender": "male",
+      "dateOfDeath": "2025-07-17",
+      "placeOfDeath": "puthenthope",
+      "timeOfDeath": "2025-07-18T14:39",
+      "address": "654 Maple Drive, City",
+      "contactPerson": "Lisa Brown",
+      "contactNumber": "9876543216",
+      "incidentType": "accident",
+      "notes": "",
+      "belongings": [
+        "RING"
+      ],
+      "accompanyingPersons": [
+        {
+          "name": "Jennifer Miller",
+          "contact": "09876543218"
         }
       ],
       "mlcCase": false,
@@ -379,12 +163,46 @@
       "status": "pending",
       "storageLocation": "Morgue A",
       "registeredBy": "Staff",
-      "registrationDate": "2025-07-14T11:37:52.006Z",
-      "storageUnit": "F-01",
+      "registrationDate": "2025-07-17T05:04:05.722Z",
+      "storageUnit": "F-07",
+      "riskLevel": "medium",
+      "fromDischarge": false,
+      "dischargeId": "",
+      "tagNumber": "TAG-007"
+    },
+    {
+      "id": "B009",
+      "name": "Zanta",
+      "age": "22",
+      "gender": "female",
+      "dateOfDeath": "2025-07-17",
+      "placeOfDeath": "puthenthope",
+      "timeOfDeath": "2025-07-17T14:48",
+      "address": "Riya Land Puthenthope P.O\nRiya Land Puthenthope P.O",
+      "contactPerson": "Lisa Brown",
+      "contactNumber": "9876543216",
+      "incidentType": "accident",
+      "notes": "",
+      "belongings": [
+        "RING"
+      ],
+      "accompanyingPersons": [
+        {
+          "name": "Jennifer Miller",
+          "contact": "09876543218"
+        }
+      ],
+      "mlcCase": true,
+      "policeInvolved": false,
+      "status": "verified",
+      "storageLocation": "Morgue A",
+      "registeredBy": "Staff",
+      "registrationDate": "2025-07-17T06:03:48.679Z",
+      "storageUnit": "F-02",
       "riskLevel": "low",
-      "fromDischarge": true,
-      "dischargeId": "D002",
-      "tagNumber": "TAG-002"
+      "fromDischarge": false,
+      "dischargeId": "",
+      "tagNumber": "TAG-010"
     }
   ],
   "exits": [
@@ -1091,6 +909,789 @@
       "receiverType": "Family",
       "receiverIdProof": "dbdb",
       "exitDate": "2025-07-14T06:23:05.824Z"
+    },
+    {
+      "id": "B006",
+      "name": "MELVIN MECKENCY",
+      "age": "54",
+      "gender": "male",
+      "dateOfDeath": "2025-07-08",
+      "timeOfDeath": "2025-07-08T11:53",
+      "address": "",
+      "contactPerson": "MELVIN MECKENCY",
+      "contactNumber": "09846208479",
+      "incidentType": "accident",
+      "notes": "",
+      "belongings": [
+        ""
+      ],
+      "accompanyingPersons": [
+        {
+          "name": "MELVIN MECKENCY",
+          "contact": "09846208479"
+        }
+      ],
+      "mlcCase": false,
+      "policeInvolved": false,
+      "status": "verified",
+      "storageLocation": "Morgue A",
+      "registeredBy": "Staff",
+      "registrationDate": "2025-07-08T04:23:14.923Z",
+      "storageUnit": "F-05",
+      "riskLevel": "low",
+      "verifiedBy": "Staff",
+      "receiverName": "shan",
+      "receiverId": "sq423f23r",
+      "relationship": "spouse",
+      "releaseTime": "2025-07-15T11:47",
+      "remarks": "",
+      "witnessingStaff": "sss",
+      "receiverType": "Family",
+      "receiverIdProof": "dbdb",
+      "exitDate": "2025-07-15T06:18:01.300Z"
+    },
+    {
+      "id": "B014",
+      "name": "cxv",
+      "age": "45",
+      "gender": "male",
+      "dateOfDeath": "2025-07-08",
+      "timeOfDeath": "2025-07-05T10:10",
+      "address": "Riya Land Puthenthope P.O",
+      "contactPerson": "Nithin Richard",
+      "contactNumber": "09846208479",
+      "incidentType": "natural",
+      "notes": "",
+      "belongings": [
+        ""
+      ],
+      "accompanyingPersons": [
+        {
+          "name": "",
+          "contact": ""
+        }
+      ],
+      "mlcCase": false,
+      "policeInvolved": false,
+      "status": "verified",
+      "storageLocation": "Morgue A",
+      "registeredBy": "Staff",
+      "registrationDate": "2025-07-08T04:40:20.547Z",
+      "storageUnit": "F-14",
+      "riskLevel": "high",
+      "verifiedBy": "Staff",
+      "verificationLog": [
+        {
+          "name": "sd",
+          "relation": "asdsad",
+          "contact": "asdsad",
+          "idProof": "sadsad",
+          "remarks": "asdsad",
+          "date": "2025-07-15T06:30:41.813Z"
+        }
+      ],
+      "receiverName": "sdggg",
+      "receiverId": "sq423f23r",
+      "relationship": "spouse",
+      "releaseTime": "2025-07-16T10:41",
+      "remarks": "",
+      "witnessingStaff": "sss",
+      "receiverType": "Family",
+      "receiverIdProof": "asdasd",
+      "exitDate": "2025-07-16T05:11:54.559Z"
+    },
+    {
+      "id": "B008",
+      "name": "sam simon",
+      "age": "30",
+      "gender": "female",
+      "dateOfDeath": "2025-07-08",
+      "timeOfDeath": "2025-07-01T11:57",
+      "address": "Riya Land Puthenthope P.O\nRiya Land Puthenthope P.O",
+      "contactPerson": "sam",
+      "contactNumber": "984620847",
+      "incidentType": "natural",
+      "notes": "",
+      "belongings": [
+        ""
+      ],
+      "accompanyingPersons": [
+        {
+          "name": "sam",
+          "contact": "984620847"
+        }
+      ],
+      "mlcCase": false,
+      "policeInvolved": false,
+      "status": "verified",
+      "storageLocation": "Morgue A",
+      "registeredBy": "Staff",
+      "registrationDate": "2025-07-08T04:27:17.344Z",
+      "storageUnit": "F-08",
+      "riskLevel": "low",
+      "verifiedBy": "Staff",
+      "receiverName": "sdggg",
+      "receiverId": "sq423f23r",
+      "relationship": "parent",
+      "releaseTime": "2025-07-16T14:20",
+      "remarks": "",
+      "witnessingStaff": "sss",
+      "receiverType": "Family",
+      "receiverIdProof": "asdasd",
+      "releaseConditions": "",
+      "nocGenerated": true,
+      "exitDate": "2025-07-16T08:50:59.380Z"
+    },
+    {
+      "id": "B009",
+      "name": "sam",
+      "age": "22",
+      "gender": "female",
+      "dateOfDeath": "2025-07-08",
+      "timeOfDeath": "2025-07-09T09:58",
+      "address": "Riya Land Puthenthope P.O\nRiya Land Puthenthope P.O",
+      "contactPerson": "sam",
+      "contactNumber": "984620847",
+      "incidentType": "accident",
+      "notes": "",
+      "belongings": [
+        ""
+      ],
+      "accompanyingPersons": [
+        {
+          "name": "sam",
+          "contact": "984620847"
+        }
+      ],
+      "mlcCase": false,
+      "policeInvolved": false,
+      "status": "verified",
+      "storageLocation": "Morgue A",
+      "registeredBy": "Staff",
+      "registrationDate": "2025-07-08T04:28:20.570Z",
+      "storageUnit": "F-09",
+      "riskLevel": "low",
+      "verificationLog": [
+        {
+          "name": "dhdfhd",
+          "relation": "dfhdfh",
+          "contact": "dfhdfh",
+          "idProof": "dfhdfh",
+          "remarks": "dfhfdh",
+          "date": "2025-07-15T09:19:57.734Z"
+        },
+        {
+          "name": "fgfdgg",
+          "relation": "fdgfdg",
+          "contact": "dfg",
+          "idProof": "fgdfg",
+          "remarks": "dfg",
+          "date": "2025-07-15T09:20:31.059Z"
+        }
+      ],
+      "receiverName": "Nithin Richard",
+      "receiverId": "12SF248QW",
+      "relationship": "authority",
+      "releaseTime": "2025-07-24T14:25",
+      "remarks": "VERIFIED",
+      "witnessingStaff": "Dr Arun",
+      "receiverType": "Other",
+      "receiverIdProof": "ASF256GFAY",
+      "releaseConditions": "NILL",
+      "nocGenerated": true,
+      "exitDate": "2025-07-16T08:52:45.821Z"
+    },
+    {
+      "id": "B009",
+      "name": "Michael Brown",
+      "age": "41",
+      "gender": "male",
+      "dateOfDeath": "2025-07-16",
+      "placeOfDeath": "puthenthope",
+      "timeOfDeath": "2025-07-26T18:24",
+      "address": "Riya Land Puthenthope P.O",
+      "contactPerson": "Lisa Brown",
+      "contactNumber": "9876543216",
+      "incidentType": "natural",
+      "notes": "",
+      "belongings": [
+        "RING"
+      ],
+      "accompanyingPersons": [
+        {
+          "name": "Jennifer Miller",
+          "contact": "09876543218"
+        }
+      ],
+      "mlcCase": false,
+      "policeInvolved": true,
+      "status": "verified",
+      "storageLocation": "Morgue A",
+      "registeredBy": "Staff",
+      "registrationDate": "2025-07-16T08:53:52.644Z",
+      "storageUnit": "F-01",
+      "riskLevel": "low",
+      "fromDischarge": false,
+      "dischargeId": "",
+      "tagNumber": "TAG-002",
+      "verifiedBy": "Staff",
+      "receiverName": "sdggg",
+      "receiverId": "sq423f23r",
+      "relationship": "parent",
+      "releaseTime": "2025-07-16T14:24",
+      "remarks": "",
+      "witnessingStaff": "sss",
+      "receiverType": "Family",
+      "receiverIdProof": "asdasd",
+      "releaseConditions": "",
+      "nocGenerated": true,
+      "exitDate": "2025-07-16T08:55:12.571Z"
+    },
+    {
+      "id": "B010",
+      "name": "MELVIN MECKENCY",
+      "age": "30",
+      "gender": "female",
+      "dateOfDeath": "2025-07-08",
+      "timeOfDeath": "2025-07-02T10:00",
+      "address": "Riya Land Puthenthope P.O\nRiya Land Puthenthope P.O",
+      "contactPerson": "MELVIN MECKENCY",
+      "contactNumber": "09846208479",
+      "incidentType": "suicide",
+      "notes": "",
+      "belongings": [
+        ""
+      ],
+      "accompanyingPersons": [
+        {
+          "name": "MELVIN MECKENCY",
+          "contact": "09846208479"
+        }
+      ],
+      "mlcCase": false,
+      "policeInvolved": false,
+      "status": "verified",
+      "storageLocation": "Morgue A",
+      "registeredBy": "Staff",
+      "registrationDate": "2025-07-08T04:30:11.418Z",
+      "storageUnit": "F-10",
+      "riskLevel": "low",
+      "verificationLog": [
+        {
+          "name": "aa",
+          "relation": "aa",
+          "contact": "aa",
+          "idProof": "aa",
+          "remarks": "aa",
+          "date": "2025-07-17T04:18:42.768Z"
+        }
+      ],
+      "receiverName": "sdggg",
+      "receiverId": "sq423f23r",
+      "relationship": "parent",
+      "releaseTime": "2025-07-17T11:29",
+      "remarks": "",
+      "witnessingStaff": "sss",
+      "receiverType": "Family",
+      "receiverIdProof": "asdasd",
+      "releaseConditions": "",
+      "nocGenerated": true,
+      "exitDate": "2025-07-17T05:59:25.033Z"
+    },
+    {
+      "id": "B011",
+      "name": "Nithin Richard",
+      "age": "54",
+      "gender": "female",
+      "dateOfDeath": "2025-07-08",
+      "timeOfDeath": "2025-07-08T10:06",
+      "address": "Riya Land Puthenthope P.O",
+      "contactPerson": "Nithin Richard",
+      "contactNumber": "09846208479",
+      "incidentType": "suicide",
+      "notes": "",
+      "belongings": [
+        ""
+      ],
+      "accompanyingPersons": [
+        {
+          "name": "Nithin Richard",
+          "contact": "09846208479"
+        }
+      ],
+      "mlcCase": false,
+      "policeInvolved": false,
+      "status": "verified",
+      "storageLocation": "Morgue A",
+      "registeredBy": "Staff",
+      "registrationDate": "2025-07-08T04:36:27.106Z",
+      "storageUnit": "F-11",
+      "riskLevel": "low",
+      "verificationLog": [
+        {
+          "name": "aa",
+          "relation": "aa",
+          "contact": "aaa",
+          "idProof": "aa",
+          "date": "2025-07-10T08:14:46.998Z"
+        }
+      ],
+      "receiverName": "sdggg",
+      "receiverId": "sq423f23r",
+      "relationship": "spouse",
+      "releaseTime": "2025-07-17T11:29",
+      "remarks": "",
+      "witnessingStaff": "sss",
+      "receiverType": "Family",
+      "receiverIdProof": "asdasd",
+      "releaseConditions": "",
+      "nocGenerated": true,
+      "exitDate": "2025-07-17T05:59:43.792Z"
+    },
+    {
+      "id": "B012",
+      "name": "hdfh",
+      "age": "30",
+      "gender": "male",
+      "dateOfDeath": "2025-07-08",
+      "timeOfDeath": "2025-07-08T12:07",
+      "address": "",
+      "contactPerson": "Nithin Richard",
+      "contactNumber": "09846208479",
+      "incidentType": "natural",
+      "notes": "",
+      "belongings": [
+        ""
+      ],
+      "accompanyingPersons": [
+        {
+          "name": "Nithin Richard",
+          "contact": "09846208479"
+        }
+      ],
+      "mlcCase": false,
+      "policeInvolved": false,
+      "status": "verified",
+      "storageLocation": "Morgue A",
+      "registeredBy": "Staff",
+      "registrationDate": "2025-07-08T04:37:18.861Z",
+      "storageUnit": "F-12",
+      "riskLevel": "low",
+      "verificationLog": [
+        {
+          "name": "fgdgdf",
+          "relation": "gfdfggf",
+          "contact": "dfgfdg",
+          "idProof": "ddsa",
+          "remarks": "wdasdsad",
+          "date": "2025-07-17T04:26:31.217Z"
+        }
+      ],
+      "receiverName": "sdggg",
+      "receiverId": "sq423f23r",
+      "relationship": "spouse",
+      "releaseTime": "2025-07-17T11:29",
+      "remarks": "",
+      "witnessingStaff": "sss",
+      "receiverType": "Family",
+      "receiverIdProof": "asdasd",
+      "releaseConditions": "",
+      "nocGenerated": true,
+      "exitDate": "2025-07-17T06:00:00.248Z"
+    },
+    {
+      "id": "B013",
+      "name": "gfhfgh",
+      "age": "34",
+      "gender": "male",
+      "dateOfDeath": "2025-07-08",
+      "timeOfDeath": "2025-07-12T10:11",
+      "address": "",
+      "contactPerson": "Nithin Richard",
+      "contactNumber": "09846208479",
+      "incidentType": "accident",
+      "notes": "",
+      "belongings": [
+        ""
+      ],
+      "accompanyingPersons": [
+        {
+          "name": "Nithin Richard",
+          "contact": "09846208479"
+        }
+      ],
+      "mlcCase": false,
+      "policeInvolved": false,
+      "status": "verified",
+      "storageLocation": "Morgue A",
+      "registeredBy": "Staff",
+      "registrationDate": "2025-07-08T04:39:09.325Z",
+      "storageUnit": "F-02",
+      "riskLevel": "low",
+      "verificationLog": [
+        {
+          "name": "aa",
+          "relation": "aaa",
+          "contact": "aaa",
+          "idProof": "aaa",
+          "remarks": "aaa",
+          "date": "2025-07-17T04:16:52.328Z"
+        }
+      ],
+      "receiverName": "sdggg",
+      "receiverId": "sq423f23r",
+      "relationship": "spouse",
+      "releaseTime": "2025-07-17T11:30",
+      "remarks": "",
+      "witnessingStaff": "sss",
+      "receiverType": "Family",
+      "receiverIdProof": "asdasd",
+      "releaseConditions": "",
+      "nocGenerated": true,
+      "exitDate": "2025-07-17T06:00:22.823Z"
+    },
+    {
+      "id": "B100",
+      "name": "Test Unassigned Body",
+      "timeOfDeath": "2025-07-15T10:00",
+      "status": "verified",
+      "riskLevel": "low",
+      "storageUnit": "F-19",
+      "incidentType": "natural",
+      "verificationLog": [
+        {
+          "name": "saasa",
+          "relation": "asaSA",
+          "contact": "saaSAs",
+          "idProof": "aSAsa",
+          "remarks": "sasaSA",
+          "date": "2025-07-17T04:23:43.073Z"
+        }
+      ],
+      "receiverName": "shan",
+      "receiverId": "sq423f23r",
+      "relationship": "spouse",
+      "releaseTime": "2025-07-17T11:30",
+      "remarks": "",
+      "witnessingStaff": "sss",
+      "receiverType": "Family",
+      "receiverIdProof": "asdasd",
+      "releaseConditions": "",
+      "nocGenerated": true,
+      "exitDate": "2025-07-17T06:00:39.295Z"
+    },
+    {
+      "id": "B014",
+      "name": "ss",
+      "age": "33",
+      "gender": "male",
+      "dateOfDeath": "2025-07-08",
+      "timeOfDeath": "2025-07-05T10:21",
+      "address": "",
+      "contactPerson": "33",
+      "contactNumber": "09846208479",
+      "incidentType": "natural",
+      "notes": "",
+      "belongings": [
+        ""
+      ],
+      "accompanyingPersons": [
+        {
+          "name": "",
+          "contact": ""
+        }
+      ],
+      "mlcCase": false,
+      "policeInvolved": false,
+      "status": "verified",
+      "storageLocation": "Morgue A",
+      "registeredBy": "Staff",
+      "registrationDate": "2025-07-08T04:50:53.567Z",
+      "storageUnit": "F-15",
+      "riskLevel": "low",
+      "verificationLog": [
+        {
+          "name": "vdf",
+          "relation": "df",
+          "contact": "ff",
+          "idProof": "ff",
+          "remarks": "ff",
+          "date": "2025-07-17T04:15:16.349Z"
+        }
+      ],
+      "receiverName": "sdggg",
+      "receiverId": "sq423f23r",
+      "relationship": "spouse",
+      "releaseTime": "2025-07-17T11:30",
+      "remarks": "",
+      "witnessingStaff": "sss",
+      "receiverType": "Family",
+      "receiverIdProof": "asdasd",
+      "releaseConditions": "",
+      "nocGenerated": true,
+      "exitDate": "2025-07-17T06:01:04.360Z"
+    },
+    {
+      "id": "B015",
+      "name": "Mary Johnson",
+      "age": "62",
+      "gender": "female",
+      "dateOfDeath": "2025-01-18",
+      "timeOfDeath": "2025-01-18T14:20",
+      "address": "456 Oak Ave, City",
+      "contactPerson": "Robert Johnson",
+      "contactNumber": "9876543211",
+      "incidentType": "natural",
+      "notes": "Patient passed away due to complications",
+      "belongings": [
+        ""
+      ],
+      "accompanyingPersons": [
+        {
+          "name": "",
+          "contact": ""
+        }
+      ],
+      "mlcCase": false,
+      "policeInvolved": true,
+      "status": "verified",
+      "storageLocation": "Morgue A",
+      "registeredBy": "Staff",
+      "registrationDate": "2025-07-10T06:28:15.905Z",
+      "storageUnit": "F-13",
+      "riskLevel": "low",
+      "verificationLog": [
+        {
+          "name": "df",
+          "relation": "fdf",
+          "contact": "ff",
+          "idProof": "ff",
+          "remarks": "fff",
+          "date": "2025-07-17T04:20:36.770Z"
+        },
+        {
+          "name": "aaa",
+          "relation": "aaa",
+          "contact": "aaa",
+          "idProof": "aaa",
+          "remarks": "aaaa",
+          "date": "2025-07-17T04:20:50.298Z"
+        }
+      ],
+      "receiverName": "sdggg",
+      "receiverId": "sdgsg",
+      "relationship": "parent",
+      "releaseTime": "2025-07-17T11:31",
+      "remarks": "",
+      "witnessingStaff": "sss",
+      "receiverType": "Family",
+      "receiverIdProof": "asdasd",
+      "releaseConditions": "",
+      "nocGenerated": true,
+      "exitDate": "2025-07-17T06:01:25.297Z"
+    },
+    {
+      "id": "B017",
+      "name": "David Wilson",
+      "age": "38",
+      "gender": "male",
+      "dateOfDeath": "2025-01-19",
+      "placeOfDeath": "puthenthope",
+      "timeOfDeath": "2025-01-19T08:45",
+      "address": "789 Pine St, City",
+      "contactPerson": "Sarah Wilson",
+      "contactNumber": "9876543212",
+      "incidentType": "accident",
+      "notes": "Fatal road accident",
+      "belongings": [
+        ""
+      ],
+      "accompanyingPersons": [
+        {
+          "name": "john",
+          "contact": ""
+        }
+      ],
+      "mlcCase": true,
+      "policeInvolved": true,
+      "status": "verified",
+      "storageLocation": "Morgue A",
+      "registeredBy": "Staff",
+      "registrationDate": "2025-07-10T09:21:49.620Z",
+      "storageUnit": "F-16",
+      "riskLevel": "low",
+      "tagNumber": "TAG-001",
+      "verificationLog": [
+        {
+          "name": "sdsd",
+          "relation": "",
+          "contact": "asdsad",
+          "idProof": "asdsad",
+          "remarks": "adsasd",
+          "verifierType": "Doctor",
+          "medicalRegNo": "dasd",
+          "date": "2025-07-17T04:36:01.064Z"
+        }
+      ],
+      "receiverName": "sdggg",
+      "receiverId": "sq423f23r",
+      "relationship": "spouse",
+      "releaseTime": "2025-07-17T11:31",
+      "remarks": "",
+      "witnessingStaff": "sss",
+      "receiverType": "Family",
+      "receiverIdProof": "asdasd",
+      "releaseConditions": "",
+      "nocGenerated": true,
+      "exitDate": "2025-07-17T06:01:44.211Z"
+    },
+    {
+      "id": "B009",
+      "name": "Amanda Wilson",
+      "age": "25",
+      "gender": "female",
+      "dateOfDeath": "2025-02-01",
+      "placeOfDeath": "puthenthope",
+      "timeOfDeath": "2025-02-01T08:10",
+      "address": "123 Elm Street, City",
+      "contactPerson": "David Wilson",
+      "contactNumber": "9876543219",
+      "incidentType": "natural",
+      "notes": "Fatal injuries from domestic violence",
+      "belongings": [
+        "RING"
+      ],
+      "accompanyingPersons": [
+        {
+          "name": "Jennifer Miller",
+          "contact": "09876543218"
+        }
+      ],
+      "mlcCase": true,
+      "policeInvolved": true,
+      "status": "verified",
+      "storageLocation": "Morgue A",
+      "registeredBy": "Staff",
+      "registrationDate": "2025-07-16T08:59:25.157Z",
+      "storageUnit": "F-01",
+      "riskLevel": "medium",
+      "fromDischarge": true,
+      "dischargeId": "D010",
+      "tagNumber": "TAG-002",
+      "receiverName": "shan",
+      "receiverId": "sq423f23r",
+      "relationship": "spouse",
+      "releaseTime": "2025-07-18T10:22",
+      "remarks": "",
+      "witnessingStaff": "sharon",
+      "receiverType": "Family",
+      "receiverIdProof": "xzvxz",
+      "releaseConditions": "",
+      "nocGenerated": true,
+      "exitDate": "2025-07-18T04:53:41.604Z"
+    },
+    {
+      "id": "B008",
+      "name": "Emma Davis",
+      "age": "33",
+      "gender": "female",
+      "dateOfDeath": "2025-01-30",
+      "placeOfDeath": "puthenthope",
+      "timeOfDeath": "2025-01-30T12:30",
+      "address": "321 Pine Avenue, City",
+      "contactPerson": "Robert Davis",
+      "contactNumber": "9876543217",
+      "incidentType": "natural",
+      "notes": "Accidental drug overdose",
+      "belongings": [
+        "RING"
+      ],
+      "accompanyingPersons": [
+        {
+          "name": "Jennifer Miller",
+          "contact": "09876543218"
+        }
+      ],
+      "mlcCase": true,
+      "policeInvolved": true,
+      "status": "verified",
+      "storageLocation": "Morgue A",
+      "registeredBy": "Staff",
+      "registrationDate": "2025-07-17T06:02:49.562Z",
+      "storageUnit": "F-30",
+      "riskLevel": "high",
+      "fromDischarge": true,
+      "dischargeId": "D008",
+      "tagNumber": "TAG-009",
+      "verificationLog": [
+        {
+          "name": "EFSF",
+          "relation": "DF",
+          "contact": "DFDF",
+          "idProof": "DFDSF",
+          "remarks": "SDFDS",
+          "verifierType": "Staff",
+          "medicalRegNo": "",
+          "badgeNumber": "",
+          "date": "2025-07-17T06:03:32.493Z"
+        }
+      ],
+      "receiverName": "shan",
+      "receiverId": "sq423f23r",
+      "relationship": "parent",
+      "releaseTime": "2025-07-18T10:28",
+      "remarks": "",
+      "witnessingStaff": "sss",
+      "receiverType": "Family",
+      "receiverIdProof": "AA",
+      "releaseConditions": "",
+      "nocGenerated": true,
+      "exitDate": "2025-07-18T04:58:54.106Z"
+    },
+    {
+      "id": "B015",
+      "name": "Emma Davis",
+      "age": "33",
+      "gender": "female",
+      "dateOfDeath": "2025-01-30",
+      "placeOfDeath": "puthenthope",
+      "timeOfDeath": "2025-01-30T12:30",
+      "address": "321 Pine Avenue, City",
+      "contactPerson": "Robert Davis",
+      "contactNumber": "9876543217",
+      "incidentType": "natural",
+      "notes": "Accidental drug overdose",
+      "belongings": [
+        "RING"
+      ],
+      "accompanyingPersons": [
+        {
+          "name": "Jennifer Miller",
+          "contact": "09876543218"
+        }
+      ],
+      "mlcCase": false,
+      "policeInvolved": true,
+      "status": "verified",
+      "storageLocation": "Morgue A",
+      "registeredBy": "Staff",
+      "registrationDate": "2025-07-17T05:44:17.023Z",
+      "storageUnit": "F-08",
+      "riskLevel": "medium",
+      "fromDischarge": true,
+      "dischargeId": "D008",
+      "tagNumber": "TAG-008",
+      "receiverName": "sadaffsdf",
+      "receiverId": "sdfsdfsdf",
+      "relationship": "authority",
+      "releaseTime": "2025-07-18T10:43",
+      "remarks": "sdfdsf",
+      "witnessingStaff": "dfdsf",
+      "receiverType": "Family",
+      "receiverIdProof": "fdsf",
+      "releaseConditions": "fsdfdsf",
+      "nocGenerated": true,
+      "exitDate": "2025-07-18T05:07:57.009Z"
     }
   ],
   "discharges": [

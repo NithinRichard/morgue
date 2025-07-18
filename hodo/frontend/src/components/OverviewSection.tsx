@@ -21,7 +21,7 @@ const OverviewSection: React.FC = () => {
   useEffect(() => {
     const fetchBodies = async () => {
       try {
-        const response = await fetch('http://192.168.50.132:3001/api/bodies');
+        const response = await fetch('http://192.168.50.124:3001/api/bodies');
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
@@ -33,7 +33,7 @@ const OverviewSection: React.FC = () => {
     };
     const fetchReleasedBodies = async () => {
       try {
-        const response = await fetch('http://192.168.50.132:3001/api/exits');
+        const response = await fetch('http://192.168.50.124:3001/api/exits');
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
@@ -153,6 +153,7 @@ const OverviewSection: React.FC = () => {
       </div>
 
       {/* Add all tables overview below stats and activities */}
+      {/*
       <div className="overview-content-grid" style={{ marginTop: '2rem', gridTemplateColumns: '1fr' }}>
         <Table
           columns={[
@@ -166,6 +167,7 @@ const OverviewSection: React.FC = () => {
           data={bodies}
         />
       </div>
+      */}
     </div>
   );
 };

@@ -12,7 +12,8 @@ app.use(cors({
     'http://localhost:3066',
     'http://192.168.50.125:3066',
     'http://192.168.50.132:3066',
-    'http://192.168.50.132:3001'
+    'http://192.168.50.124:3001',
+    'http://192.168.50.124:3066'
   ]
 })); // Enable CORS for specific origins
 app.use(express.json()); // for parsing application/json

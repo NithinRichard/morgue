@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import '../styles/storage.css';
 import ButtonWithGradient from './ButtonWithGradient';
 import Table from './Table';
+import { useNavigate } from 'react-router-dom';
 
 interface Body {
   id: string;
@@ -23,11 +24,24 @@ const StorageAllocation: React.FC = () => {
   const [selectedUnitForAssignment, setSelectedUnitForAssignment] = useState<string | null>(null);
   const [unassignedBodies, setUnassignedBodies] = useState<Body[]>([]);
   const [selectedBodyToAssign, setSelectedBodyToAssign] = useState<string>('');
+  const [showVerificationModal, setShowVerificationModal] = useState(false);
+  const [verificationForm, setVerificationForm] = useState({
+    name: '',
+    relation: '',
+    contact: '',
+    idProof: '',
+    remarks: '',
+    verifierType: '',
+    medicalRegNo: '',
+    badgeNumber: ''
+  });
+  const [verifying, setVerifying] = useState(false);
+  const [verifyingBodyId, setVerifyingBodyId] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchBodies = async () => {
       try {
-        const response = await fetch('http://192.168.50.132:3001/api/bodies');
+        const response = await fetch('http://192.168.50.124:3001/api/bodies');
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
@@ -42,7 +56,7 @@ const StorageAllocation: React.FC = () => {
     };
     const fetchReleasedBodies = async () => {
       try {
-        const response = await fetch('http://192.168.50.132:3001/api/exits');
+        const response = await fetch('http://192.168.50.124:3001/api/exits');
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
@@ -115,7 +129,7 @@ const StorageAllocation: React.FC = () => {
     }
 
     try {
-              const response = await fetch(`http://192.168.50.132:3001/api/bodies/${bodyId}`, {
+              const response = await fetch(`http://192.168.50.124:3001/api/bodies/${bodyId}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ storageUnit: unitId }),
@@ -152,7 +166,7 @@ const StorageAllocation: React.FC = () => {
     // Confirmation dialog
     if (!window.confirm(`Are you sure you want to release the body from unit ${unitId}?`)) return;
     try {
-              const response = await fetch(`http://192.168.50.132:3001/api/exits/${unitBody.id}`, {
+              const response = await fetch(`http://192.168.50.124:3001/api/exits/${unitBody.id}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({}),
@@ -165,6 +179,32 @@ const StorageAllocation: React.FC = () => {
       alert('Failed to release body.');
     }
   };
+
+  const handleVerificationSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!verifyingBodyId) return;
+    setVerifying(true);
+    try {
+      const response = await fetch(`http://192.168.50.124:3001/api/bodies/${verifyingBodyId}/verify-log`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(verificationForm)
+      });
+      if (!response.ok) throw new Error('Verification failed');
+      setShowVerificationModal(false);
+      setVerificationForm({ name: '', relation: '', contact: '', idProof: '', remarks: '', verifierType: '', medicalRegNo: '', badgeNumber: '' });
+      setVerifyingBodyId(null);
+      // Refresh bodies list
+      const responseBodies = await fetch('http://192.168.50.124:3001/api/bodies');
+      if (responseBodies.ok) setBodies(await responseBodies.json());
+    } catch (error) {
+      alert('Failed to verify body.');
+    } finally {
+      setVerifying(false);
+    }
+  };
+
+  const navigate = useNavigate();
 
   return (
     <div className="storage-container">
@@ -237,10 +277,30 @@ const StorageAllocation: React.FC = () => {
                               text="View Body Details"
                               onClick={() => {
                                 const unitBody = bodies.find(b => b.storageUnit === unit.id);
-                                if (unitBody) setViewBody(unitBody);
+                                if (unitBody) navigate(`/bodies/${unitBody.id}`);
                               }}
                               type="button"
                             />
+                            {/* Only show Initiate Verification if not verified */}
+                            {(() => {
+                              const unitBody = bodies.find(b => b.storageUnit === unit.id);
+                              if (unitBody && unitBody.status !== 'verified') {
+                                return (
+                                  <ButtonWithGradient
+                                    className=''
+                                    text="Initiate Verification"
+                                    onClick={() => {
+                                      setVerifyingBodyId(unitBody.id);
+                                      setShowVerificationModal(true);
+                                    }}
+                                    type="button"
+                                  />
+                                );
+                              } else if (unitBody && unitBody.status === 'verified') {
+                                return <span className="verified-badge" style={{ marginLeft: 8, color: '#16a34a', fontWeight: 600 }}>Verified</span>;
+                              }
+                              return null;
+                            })()}
                           </>
                         ) : (
                           <ButtonWithGradient
@@ -268,58 +328,6 @@ const StorageAllocation: React.FC = () => {
           </div>
         </div>
       </div>
-      {/* Modal for viewing body details */}
-      {viewBody && (
-        <div style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          width: '100vw',
-          height: '100vh',
-          background: 'rgba(0,0,0,0.3)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          zIndex: 1000,
-          padding: '20px'
-        }}>
-          <div className="bodies-card" style={{
-            maxWidth: 500,
-            width: '100%',
-            maxHeight: '90vh',
-            overflow: 'auto',
-            position: 'relative',
-            margin: 'auto',
-            padding: '16px'
-          }}>
-            <div className="card-header">
-              <div className="card-header-content">
-                <h3 className="card-title">Body Details</h3>
-                <button
-                  style={{ background: 'none', border: 'none', fontSize: 24, cursor: 'pointer' }}
-                  onClick={() => setViewBody(null)}
-                  title="Close"
-                >
-                  ×
-                </button>
-              </div>
-            </div>
-            <div className="card-content">
-              <table style={{ width: '100%' }}>
-                <tbody>
-                  {Object.entries(viewBody).map(([key, value]) => (
-                    <tr key={key}>
-                      <td style={{ fontWeight: 600, textTransform: 'capitalize', padding: '6px 8px', color: '#374151' }}>{key.replace(/([A-Z])/g, ' $1')}</td>
-                      <td style={{ padding: '6px 8px', color: '#222' }}>{Array.isArray(value) ? value.join(', ') : String(value)}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      )}
-
       {/* Assign Body Modal */}
       {showAssignModal && (
         <div style={{
@@ -398,6 +406,164 @@ const StorageAllocation: React.FC = () => {
           </div>
         </div>
       )}
+      {showVerificationModal && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100vw',
+          height: '100vh',
+          background: 'rgba(0,0,0,0.3)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 2000
+        }}
+          onClick={() => setShowVerificationModal(false)}
+        >
+          <div
+            className="modal-content"
+            style={{
+              background: '#fff',
+              borderRadius: 0,
+              border: '1px solid rgba(0,0,0,.2)',
+              outline: 0,
+              WebkitBackgroundClip: 'padding-box',
+              backgroundClip: 'padding-box',
+              WebkitBoxShadow: '0 3px 9px rgba(0,0,0,.5)',
+              boxShadow: '0 3px 9px rgba(0,0,0,.5)',
+              padding: 24,
+              minWidth: 320,
+              maxWidth: 400,
+              position: 'relative',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 12,
+              overflow: 'hidden'
+            }}
+            onClick={e => e.stopPropagation()}
+          >
+            <div className="modal-header" style={{padding: 15, minHeight: 16.43, position: 'relative'}}>
+              <button
+                style={{ position: 'absolute', top: 8, right: 12, background: 'none', border: 'none', fontSize: 20, cursor: 'pointer' }}
+                onClick={() => setShowVerificationModal(false)}
+                aria-label="Close"
+              >×</button>
+              <div style={{ fontWeight: 700, fontSize: 16 }}>Initiate Verification</div>
+            </div>
+            <div className="popup-border" style={{width: '100%'}}></div>
+            {/* Always show the form if not verified, with verifier type select always visible */}
+            {(() => {
+              const body = bodies.find(b => b.id === verifyingBodyId);
+              if (body && body.status?.toLowerCase() !== 'verified') {
+                return (
+                  <form className="modal-body" onSubmit={handleVerificationSubmit}>
+                    <div className="form-group">
+                      <label className="labelPatientDetails">Name of Verifying Person</label>
+                      <input
+                        className="form-input"
+                        type="text"
+                        value={verificationForm.name}
+                        onChange={e => setVerificationForm(f => ({ ...f, name: e.target.value }))}
+                        required
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label className="labelPatientDetails">Verifier Type</label>
+                      <select
+                        className="form-select"
+                        value={verificationForm.verifierType}
+                        onChange={e => setVerificationForm(f => ({ ...f, verifierType: e.target.value }))}
+                        required
+                      >
+                        <option value="">Select Verifier Type</option>
+                        <option value="Staff">Staff</option>
+                        <option value="Doctor">Doctor</option>
+                        <option value="Police">Police</option>
+                        <option value="Other">Other</option>
+                      </select>
+                    </div>
+                    {/* Dynamic fields for each verifier type */}
+                    {(verificationForm.verifierType === 'Staff' || verificationForm.verifierType === 'Other') && (
+                      <div className="form-group">
+                        <label className="labelPatientDetails">Relation to Deceased</label>
+                        <input
+                          className="form-input"
+                          type="text"
+                          value={verificationForm.relation}
+                          onChange={e => setVerificationForm(f => ({ ...f, relation: e.target.value }))}
+                          required
+                        />
+                      </div>
+                    )}
+                    {verificationForm.verifierType === 'Doctor' && (
+                      <div className="form-group">
+                        <label className="labelPatientDetails">Medical Registration Number</label>
+                        <input
+                          className="form-input"
+                          type="text"
+                          value={verificationForm.medicalRegNo}
+                          onChange={e => setVerificationForm(f => ({ ...f, medicalRegNo: e.target.value }))}
+                          required
+                        />
+                      </div>
+                    )}
+                    {verificationForm.verifierType === 'Police' && (
+                      <div className="form-group">
+                        <label className="labelPatientDetails">Badge Number</label>
+                        <input
+                          className="form-input"
+                          type="text"
+                          value={verificationForm.badgeNumber}
+                          onChange={e => setVerificationForm(f => ({ ...f, badgeNumber: e.target.value }))}
+                          required
+                        />
+                      </div>
+                    )}
+                    <div className="form-group">
+                      <label className="labelPatientDetails">Contact Number</label>
+                      <input
+                        className="form-input"
+                        type="tel"
+                        value={verificationForm.contact}
+                        onChange={e => setVerificationForm(f => ({ ...f, contact: e.target.value }))}
+                        required
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label className="labelPatientDetails">ID Proof (enter details or upload)</label>
+                      <input
+                        className="form-input"
+                        type="text"
+                        value={verificationForm.idProof}
+                        onChange={e => setVerificationForm(f => ({ ...f, idProof: e.target.value }))}
+                        placeholder="ID Number / Type"
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label className="labelPatientDetails">Remarks</label>
+                      <input
+                        className="form-input"
+                        type="text"
+                        value={verificationForm.remarks}
+                        onChange={e => setVerificationForm(f => ({ ...f, remarks: e.target.value }))}
+                      />
+                    </div>
+                    <div style={{ marginTop: 24, textAlign: 'right' }}>
+                      <ButtonWithGradient
+                        text={verifying ? 'Submitting...' : 'Submit Verification'}
+                        type="submit"
+                        disabled={verifying}
+                      />
+                    </div>
+                  </form>
+                );
+              }
+              return null;
+            })()}
+          </div>
+        </div>
+      )}
       {/* Released Bodies Section */}
       <Table
         columns={[
@@ -412,6 +578,7 @@ const StorageAllocation: React.FC = () => {
           ...b,
           exitDate: b.exitDate ? new Date(b.exitDate).toLocaleString() : '',
         }))}
+        disableInternalPagination={false}
       />
 
     </div>

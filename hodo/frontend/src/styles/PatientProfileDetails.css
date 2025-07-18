@@ -1,0 +1,183 @@
+/* PatientProfileDetails.css */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f8f9fa;
+}
+
+.patient-profile-details-card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem 2.5rem;
+    margin: 2rem 0;
+    min-height: 400px;
+    font-family: 'Poppins', sans-serif;
+    box-sizing: border-box;
+}
+
+.patient-profile-details-card * {
+    box-sizing: border-box;
+    font-family: inherit;
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #e9ecef;
+    padding-bottom: 24px;
+    margin-bottom: 24px;
+}
+
+.profile-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: #e0e0e0;
+    color: #9e9e9e;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    font-weight: 600;
+    margin-right: 24px;
+}
+
+.profile-name-contact {
+    flex-grow: 1;
+}
+
+.profile-name-contact h2 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 600;
+    color: #038ba4;
+    font-family: "Poppins", sans-serif;
+}
+
+.profile-name-contact p {
+    margin: 4px 0 0;
+    font-size: 16px;
+    color: #212529;
+    font-weight: 500;
+}
+
+.profile-actions .edit-profile-btn {
+  background-color: #fff;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  padding: 6px 12px;
+  font-size: 14px;
+  font-weight: 400;
+  color: #333;
+  cursor: pointer;
+  transition: background-color 0.2s, box-shadow 0.2s;
+  display: flex
+;
+  align-items: center;
+  line-height: 1.42857143;
+}
+
+.edit-profile-btn:hover {
+    background-color: #f8f9fa;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.profile-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+}
+
+.detail-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.detail-item.detail-item-full-width {
+    grid-column: span 2;
+}
+
+.detail-label {
+    font-size: 12px;
+    color: #6c757d;
+    margin-bottom: 6px;
+    font-weight: 500;
+}
+
+.detail-value {
+    font-size: 13px;
+    color: #212529;
+    font-weight: 700; /* Bold weight */
+    font-family: 'Poppins', sans-serif; /* Correct font family */
+}
+
+.informed-person-details {
+    margin-top: 8px;
+}
+
+.informed-person-details .detail-value {
+    margin-bottom: 8px;
+}
+
+.sub-label {
+    font-size: 12px;
+    font-weight: 500;
+    color: #6c757d;
+    display: block;
+    margin-bottom: 2px;
+}
+
+.relatives-list {
+    list-style-type: none;
+    padding-left: 0;
+    margin-top: 8px;
+}
+
+.relatives-list li {
+    font-size: 13px;
+    color: #212529;
+    font-weight: 500; /* Medium weight */
+    margin-bottom: 6px;
+    position: relative;
+    padding-left: 15px;
+    font-family: 'Poppins', sans-serif; /* Correct font family */
+}
+
+.relatives-list li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: #007bff;
+}
+
+@media (max-width: 992px) {
+    .profile-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .detail-item.detail-item-full-width {
+        grid-column: span 2;
+    }
+}
+
+@media (max-width: 768px) {
+    .profile-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .profile-actions {
+        margin-top: 16px;
+        width: 100%;
+    }
+    .edit-profile-btn {
+        width: 100%;
+        justify-content: center;
+    }
+    .profile-grid {
+        grid-template-columns: 1fr;
+    }
+     .detail-item.detail-item-full-width {
+        grid-column: span 1;
+    }
+}
