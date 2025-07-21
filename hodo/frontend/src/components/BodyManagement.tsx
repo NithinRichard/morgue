@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 import '../styles/bodies.css';
 import Table from './Table';
 import Searchbar from './Searchbar';
@@ -34,6 +36,7 @@ interface Body {
   tagNumber?: string; // Added tagNumber to the interface
   fromDischarge?: boolean; // Track if body was created from discharge record
   dischargeId?: string; // ID of the discharge record if applicable
+  registrationDate?: string; // Added registrationDate to the interface
 }
 
 const BodyManagement: React.FC = () => {
@@ -53,10 +56,12 @@ const BodyManagement: React.FC = () => {
     idProof: '',
     contact: ''
   });
+  const [startDate, setStartDate] = useState<Date | null>(new Date());
+  const [endDate, setEndDate] = useState<Date | null>(new Date());
 
   const fetchBodies = async () => {
     try {
-      const response = await fetch('http://192.168.50.124:3001/api/bodies');
+      const response = await fetch('http://192.168.50.140:3001/api/bodies');
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
@@ -73,7 +78,7 @@ const BodyManagement: React.FC = () => {
 
   const handleVerify = async (bodyId: string) => {
     try {
-      const response = await fetch(`http://192.168.50.124:3001/api/bodies/${bodyId}/verify`, {
+      const response = await fetch(`http://192.168.50.140:3001/api/bodies/${bodyId}/verify`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ verifiedBy: 'Staff' }) 
@@ -167,7 +172,7 @@ const BodyManagement: React.FC = () => {
     if (!editBody) return;
     setEditLoading(true);
     try {
-      const response = await fetch(`http://192.168.50.124:3001/api/bodies/${editBody.id}`, {
+      const response = await fetch(`http://192.168.50.140:3001/api/bodies/${editBody.id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(values),
@@ -196,7 +201,7 @@ const BodyManagement: React.FC = () => {
     }
     if (!window.confirm('Are you sure you want to delete this body?')) return;
     try {
-      const response = await fetch(`http://192.168.50.124:3001/api/bodies/${bodyId}`, {
+      const response = await fetch(`http://192.168.50.140:3001/api/bodies/${bodyId}`, {
         method: 'DELETE',
       });
       if (!response.ok) throw new Error('Failed to delete body');
@@ -207,16 +212,38 @@ const BodyManagement: React.FC = () => {
     }
   };
 
+  // Sort bodies so the most recently registered come first
+  const sortedBodies = [...bodies].sort((a, b) => {
+    if (a.registrationDate && b.registrationDate) {
+      return new Date(b.registrationDate).getTime() - new Date(a.registrationDate).getTime();
+    }
+    return (b.id || '').localeCompare(a.id || '');
+  });
+
   // Update the filteredBodies logic
-  const filteredBodies = bodies.filter(body => {
+  const filteredBodies = sortedBodies.filter(body => {
     const searchLower = searchTerm.toLowerCase();
     const nameMatch = body.name ? body.name.toLowerCase().includes(searchLower) : false;
-    const idMatch = body.id ? body.id.toLowerCase().includes(searchLower) : false;
     const patientIdMatch = body.patientId ? body.patientId.toLowerCase().includes(searchLower) : false;
+    const bodyIdMatch = body.id ? body.id.toLowerCase().includes(searchLower) : false;
     const dateOfDeathMatch = body.dateOfDeath ? body.dateOfDeath.toLowerCase().includes(searchLower) : false;
-    const matchesSearch = nameMatch || idMatch || patientIdMatch || dateOfDeathMatch;
-    const matchesStatus = statusFilter === 'all' || body.status === statusFilter;
-    return matchesSearch && matchesStatus;
+
+    const statusMatch = statusFilter === 'all' || (body.status && body.status.toLowerCase() === statusFilter);
+
+    // Date range filter logic
+    let dateMatch = true;
+    if (startDate && endDate && body.registrationDate) {
+      const registrationDate = new Date(body.registrationDate);
+      dateMatch = registrationDate >= startDate && registrationDate <= endDate;
+    } else if (startDate && body.registrationDate) {
+      const registrationDate = new Date(body.registrationDate);
+      dateMatch = registrationDate >= startDate;
+    } else if (endDate && body.registrationDate) {
+      const registrationDate = new Date(body.registrationDate);
+      dateMatch = registrationDate <= endDate;
+    }
+    
+    return (nameMatch || patientIdMatch || bodyIdMatch || dateOfDeathMatch) && statusMatch && dateMatch;
   });
 
   const columns = [
@@ -262,31 +289,61 @@ const BodyManagement: React.FC = () => {
 
   return (
     <>
-      {/* Search section */}
-      <div style={{ marginBottom: 20 }}>
-        <Searchbar
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          placeholder="Search by Patient ID, Body ID, Name, or Date of Death"
-        />
+      {/* Search and filter section */}
+      <div className="filter-container">
+        <div className="left-filters">
+          <div className="filter-group">
+            <label className="filter-label">From Date</label>
+            <DatePicker
+              selected={startDate}
+              onChange={(date: Date | null) => setStartDate(date)}
+              selectsStart
+              startDate={startDate}
+              endDate={endDate}
+              placeholderText="dd-mm-yyyy"
+              className="filter-input"
+              dateFormat="dd-MM-yyyy"
+            />
+          </div>
+          <div className="filter-group">
+            <label className="filter-label">To Date</label>
+            <DatePicker
+              selected={endDate}
+              onChange={(date: Date | null) => setEndDate(date)}
+              selectsEnd
+              startDate={startDate}
+              endDate={endDate}
+              minDate={startDate || undefined}
+              placeholderText="dd-mm-yyyy"
+              className="filter-input"
+              dateFormat="dd-MM-yyyy"
+            />
+          </div>
+          <div className="filter-group">
+            <label className="filter-label">Status</label>
+            <select
+              className="filter-input"
+              value={statusFilter}
+              onChange={(e) => setStatusFilter(e.target.value)}
+            >
+              <option value="all">All</option>
+              <option value="pending">Pending</option>
+              <option value="verified">Verified</option>
+              <option value="released">Released</option>
+            </select>
+          </div>
+        </div>
+        <div className="search-filter-group">
+          <Searchbar
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            placeholder="Search bodies..."
+          />
+        </div>
       </div>
-      {/* Remove bodies-container, move children up */}
-      {/* <div className="bodies-container"> */}
-      {/* <ToastContainer position="top-right" autoClose={2000} /> */}
       
-      {/* Header section
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
-        <h3 style={{ margin: 0, fontSize: '24px', fontWeight: '600', color: '#333' }}>Body Management</h3>
-        <ButtonWithGradient
-          className=""
-          text="Register New Body"
-          onClick={() => navigate('/inward')}
-          type="button"
-        />
-      </div> */}
-
       {/* Table */}
-      <Table columns={columns} data={filteredBodies} renderActions={renderTableActions} />
+      <Table columns={columns} data={filteredBodies} renderActions={renderTableActions} disableInternalPagination={false} />
       <EditModal
         show={showEditModal}
         onHide={() => setShowEditModal(false)}
@@ -338,7 +395,7 @@ const BodyManagement: React.FC = () => {
                 e.preventDefault();
                 if (!viewBody) return;
                 try {
-                  const response = await fetch(`http://192.168.50.124:3001/api/bodies/${viewBody.id}/verify-log`, {
+                  const response = await fetch(`http://192.168.50.140:3001/api/bodies/${viewBody.id}/verify-log`, {
                     method: 'PATCH',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(verificationForm)

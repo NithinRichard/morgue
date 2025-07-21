@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useRef, type ForwardedRef } from 'react';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 import '../styles/exit.css';
 import ButtonWithGradient from './ButtonWithGradient';
 import type { FC } from 'react';
@@ -47,11 +49,14 @@ const ExitManagement: React.FC = () => {
   const printRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [exitsPage, setExitsPage] = useState(1);
   const [exitsRowsPerPage, setExitsRowsPerPage] = useState(5);
+  const [startDate, setStartDate] = useState<Date | null>(new Date());
+  const [endDate, setEndDate] = useState<Date | null>(new Date());
+  const [statusFilter, setStatusFilter] = useState('all'); // Add status filter state
 
   // Move fetch functions outside useEffect for reuse
   const fetchAllBodies = async () => {
     try {
-      const response = await fetch('http://192.168.50.124:3001/api/bodies');
+      const response = await fetch('http://192.168.50.140:3001/api/bodies');
       const allBodies: Body[] = await response.json();
       setBodies(allBodies);
     } catch (error) {
@@ -60,7 +65,7 @@ const ExitManagement: React.FC = () => {
   };
   const fetchRecentExits = async () => {
     try {
-      const response = await fetch('http://192.168.50.124:3001/api/exits');
+      const response = await fetch('http://192.168.50.140:3001/api/exits');
       const data: ExitRecord[] = await response.json();
       setRecentExits(data.sort((a, b) => new Date(b.exitTime).getTime() - new Date(a.exitTime).getTime()));
     } catch (error) {
@@ -99,7 +104,7 @@ const ExitManagement: React.FC = () => {
       return;
     }
     try {
-              const response = await fetch(`http://192.168.50.124:3001/api/exits/${selectedBody}`, {
+              const response = await fetch(`http://192.168.50.140:3001/api/exits/${selectedBody}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(exitForm),
@@ -188,7 +193,7 @@ const ExitManagement: React.FC = () => {
       return;
     }
     try {
-              const response = await fetch(`http://192.168.50.124:3001/api/bodies/${selectedBody}/verify`, {
+              const response = await fetch(`http://192.168.50.140:3001/api/bodies/${selectedBody}/verify`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ verifiedBy: 'Staff' }),
@@ -285,8 +290,34 @@ const ExitManagement: React.FC = () => {
     }
   }
 
-  const totalExitsPages = Math.ceil(recentExits.length / exitsRowsPerPage);
-  const paginatedExits = recentExits.slice(
+  // Sort recentExits so the most recently exited come first
+  const sortedExits = [...recentExits].sort((a, b) => {
+    if (a.exitDate && b.exitDate) {
+      return new Date(b.exitDate).getTime() - new Date(a.exitDate).getTime();
+    }
+    return (b.id || '').localeCompare(a.id || '');
+  });
+
+  const filteredExits = sortedExits.filter(exit => {
+    let dateMatch = true;
+    if (startDate && endDate && exit.exitDate) {
+      const exitDate = new Date(exit.exitDate);
+      dateMatch = exitDate >= startDate && exitDate <= endDate;
+    } else if (startDate && exit.exitDate) {
+      const exitDate = new Date(exit.exitDate);
+      dateMatch = exitDate >= startDate;
+    } else if (endDate && exit.exitDate) {
+      const exitDate = new Date(exit.exitDate);
+      dateMatch = exitDate <= endDate;
+    }
+    
+    const statusMatch = statusFilter === 'all' || (exit.status && exit.status.toLowerCase() === statusFilter);
+    
+    return dateMatch && statusMatch;
+  });
+
+  const totalExitsPages = Math.ceil(filteredExits.length / exitsRowsPerPage);
+  const paginatedExits = filteredExits.slice(
     (exitsPage - 1) * exitsRowsPerPage,
     exitsPage * exitsRowsPerPage
   );
@@ -487,6 +518,51 @@ const ExitManagement: React.FC = () => {
       {/* Move table and pagination here, outside of any card */}
       <div style={{ marginTop: '2rem' }}>
         <h3 style={{ marginBottom: '1rem', fontWeight: 600 }}>Recent Exits</h3>
+
+        <div className="filter-container">
+          <div className="left-filters">
+            <div className="filter-group">
+              <label className="filter-label">From Date</label>
+              <DatePicker
+                selected={startDate}
+                onChange={(date: Date | null) => setStartDate(date)}
+                selectsStart
+                startDate={startDate}
+                endDate={endDate}
+                placeholderText="dd-mm-yyyy"
+                className="filter-input"
+                dateFormat="dd-MM-yyyy"
+              />
+            </div>
+            <div className="filter-group">
+              <label className="filter-label">To Date</label>
+              <DatePicker
+                selected={endDate}
+                onChange={(date: Date | null) => setEndDate(date)}
+                selectsEnd
+                startDate={startDate}
+                endDate={endDate}
+                minDate={startDate || undefined}
+                placeholderText="dd-mm-yyyy"
+                className="filter-input"
+                dateFormat="dd-MM-yyyy"
+              />
+            </div>
+            <div className="filter-group">
+              <label className="filter-label">Status</label>
+              <select
+                className="filter-input"
+                value={statusFilter}
+                onChange={(e) => setStatusFilter(e.target.value)}
+              >
+                <option value="all">All</option>
+                <option value="released">Released</option>
+                {/* Add other relevant statuses for exits if needed */}
+              </select>
+            </div>
+          </div>
+        </div>
+
         <Table
           columns={exitColumns}
           data={paginatedExits.map(exit => ({

@@ -6,18 +6,15 @@ body {
     background-color: #f8f9fa;
 }
 
-.patient-profile-details-card {
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-    padding: 1.5rem 2.5rem;
-    margin: 2rem 0;
-    min-height: 400px;
-    font-family: 'Poppins', sans-serif;
-    box-sizing: border-box;
+.patient-profile-card {
+  background-color: #ffffff; /* Use a clean white background */
+  border-radius: 8px;
+  padding: 24px;
+  border: 1px solid #e0e0e0; /* A slightly lighter, more subtle border */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Add a subtle shadow for depth */
 }
 
-.patient-profile-details-card * {
+.patient-profile-card * {
     box-sizing: border-box;
     font-family: inherit;
 }
@@ -31,17 +28,26 @@ body {
 }
 
 .profile-avatar {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    background-color: #e0e0e0;
-    color: #9e9e9e;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 28px;
-    font-weight: 600;
-    margin-right: 24px;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: #f6ffde;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 24px;
+}
+
+.profile-avatar span {
+  font-size: 40px !important; /* Targeting the span directly */
+  font-weight: 400;
+  color: #495057;
+}
+
+.profile-main {
+  display: flex;
+  align-items: flex-start; /* Aligns items to the top */
+  gap: 24px;
 }
 
 .profile-name-contact {
@@ -90,9 +96,23 @@ body {
     gap: 24px;
 }
 
+.profile-details-columns {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* Creates 4 equal columns */
+  gap: 24px; /* Adjust gap between grid items */
+  width: 100%;
+}
+
+.profile-column {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  flex: 1; /* Each column takes equal space */
+}
+
 .detail-item {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .detail-item.detail-item-full-width {
@@ -111,6 +131,11 @@ body {
     color: #212529;
     font-weight: 700; /* Bold weight */
     font-family: 'Poppins', sans-serif; /* Correct font family */
+}
+
+.detail-value.link {
+  color: #038ba4; /* Apply specific color for the name */
+  cursor: pointer;
 }
 
 .informed-person-details {

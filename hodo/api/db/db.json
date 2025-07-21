@@ -1,40 +1,6 @@
 {
   "bodies": [
     {
-      "id": "B010",
-      "name": "Mary Johnson",
-      "age": "62",
-      "gender": "female",
-      "dateOfDeath": "2025-01-18",
-      "placeOfDeath": "puthenthope",
-      "timeOfDeath": "2025-01-18T14:20",
-      "address": "456 Oak Ave, City",
-      "contactPerson": "Robert Johnson",
-      "contactNumber": "9876543211",
-      "incidentType": "natural",
-      "notes": "Patient passed away due to complications",
-      "belongings": [
-        "RING"
-      ],
-      "accompanyingPersons": [
-        {
-          "name": "Jennifer Miller",
-          "contact": "09876543218"
-        }
-      ],
-      "mlcCase": false,
-      "policeInvolved": false,
-      "status": "pending",
-      "storageLocation": "Morgue A",
-      "registeredBy": "Staff",
-      "registrationDate": "2025-07-17T04:59:50.474Z",
-      "storageUnit": "F-03",
-      "riskLevel": "medium",
-      "fromDischarge": true,
-      "dischargeId": "D002",
-      "tagNumber": "TAG-003"
-    },
-    {
       "id": "B011",
       "name": "David Wilson",
       "age": "38",
@@ -203,6 +169,41 @@
       "fromDischarge": false,
       "dischargeId": "",
       "tagNumber": "TAG-010"
+    },
+    
+    {
+      "id": "B007",
+      "name": "David Wilson",
+      "age": "38",
+      "gender": "male",
+      "dateOfDeath": "2025-01-19",
+      "placeOfDeath": "puthenthope",
+      "timeOfDeath": "2025-01-19T08:45",
+      "address": "789 Pine St, City",
+      "contactPerson": "Sarah Wilson",
+      "contactNumber": "9876543212",
+      "incidentType": "accident",
+      "notes": "Fatal road accident",
+      "belongings": [
+        ""
+      ],
+      "accompanyingPersons": [
+        {
+          "name": "",
+          "contact": ""
+        }
+      ],
+      "mlcCase": true,
+      "policeInvolved": true,
+      "status": "pending",
+      "storageLocation": "Morgue A",
+      "registeredBy": "Staff",
+      "registrationDate": "2025-07-21T06:35:23.179Z",
+      "storageUnit": "F-01",
+      "riskLevel": "low",
+      "fromDischarge": true,
+      "dischargeId": "D003",
+      "tagNumber": "TAG-012"
     }
   ],
   "exits": [
@@ -1692,6 +1693,52 @@
       "releaseConditions": "fsdfdsf",
       "nocGenerated": true,
       "exitDate": "2025-07-18T05:07:57.009Z"
+    },
+    {
+      "id": "MARY JOHN",
+      "name": "string",
+      "age": "62",
+      "gender": "female",
+      "dateOfDeath": "2025-01-18",
+      "placeOfDeath": "puthenthope",
+      "timeOfDeath": "2025-07-18T10:31:38.320Z",
+      "address": "456 Oak Ave, City",
+      "contactPerson": "Robert Johnson",
+      "contactNumber": "9876543211",
+      "incidentType": "string",
+      "notes": "Patient passed away due to complications",
+      "belongings": [
+        "RING"
+      ],
+      "accompanyingPersons": [
+        {
+          "name": "Jennifer Miller",
+          "contact": "09876543218"
+        }
+      ],
+      "mlcCase": false,
+      "policeInvolved": false,
+      "status": "verified",
+      "storageLocation": "Morgue A",
+      "registeredBy": "Staff",
+      "registrationDate": "2025-07-18T10:31:38.320Z",
+      "storageUnit": "string",
+      "riskLevel": "string",
+      "fromDischarge": true,
+      "dischargeId": "D002",
+      "tagNumber": "TAG-003",
+      "verifiedBy": "Staff",
+      "receiverName": "shan",
+      "receiverId": "sq423f23r",
+      "relationship": "spouse",
+      "releaseTime": "2025-07-15T16:26",
+      "remarks": "",
+      "witnessingStaff": "sss",
+      "receiverType": "Family",
+      "receiverIdProof": "asdasd",
+      "releaseConditions": "",
+      "nocGenerated": true,
+      "exitDate": "2025-07-18T10:53:35.251Z"
     }
   ],
   "discharges": [

@@ -77,7 +77,7 @@ const InwardRegistration: React.FC = () => {
     const fetchData = async () => {
       try {
         // Fetch bodies
-        const bodiesResponse = await fetch('http://192.168.50.124:3001/api/bodies');
+        const bodiesResponse = await fetch('http://192.168.50.140:3001/api/bodies');
         const bodiesData: Body[] = await bodiesResponse.json();
         setBodies(bodiesData);
         
@@ -91,7 +91,7 @@ const InwardRegistration: React.FC = () => {
         }
 
         // Fetch discharges
-        const dischargesResponse = await fetch('http://192.168.50.124:3001/api/discharges');
+        const dischargesResponse = await fetch('http://192.168.50.140:3001/api/discharges');
         const dischargesData: Discharge[] = await dischargesResponse.json();
         setDischarges(dischargesData);
       } catch (error) {
@@ -200,7 +200,7 @@ const InwardRegistration: React.FC = () => {
     e.preventDefault();
     
     try {
-              const response = await fetch('http://192.168.50.124:3001/api/bodies', {
+              const response = await fetch('http://192.168.50.140:3001/api/bodies', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

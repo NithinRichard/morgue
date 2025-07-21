@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 import '../styles/storage.css';
 import ButtonWithGradient from './ButtonWithGradient';
 import Table from './Table';
@@ -37,11 +39,14 @@ const StorageAllocation: React.FC = () => {
   });
   const [verifying, setVerifying] = useState(false);
   const [verifyingBodyId, setVerifyingBodyId] = useState<string | null>(null);
+  const [startDate, setStartDate] = useState<Date | null>(new Date());
+  const [endDate, setEndDate] = useState<Date | null>(new Date());
+  const [statusFilter, setStatusFilter] = useState('all'); // Add status filter state
 
   useEffect(() => {
     const fetchBodies = async () => {
       try {
-        const response = await fetch('http://192.168.50.124:3001/api/bodies');
+        const response = await fetch('http://192.168.50.140:3001/api/bodies');
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
@@ -56,7 +61,7 @@ const StorageAllocation: React.FC = () => {
     };
     const fetchReleasedBodies = async () => {
       try {
-        const response = await fetch('http://192.168.50.124:3001/api/exits');
+        const response = await fetch('http://192.168.50.140:3001/api/exits');
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
@@ -129,7 +134,7 @@ const StorageAllocation: React.FC = () => {
     }
 
     try {
-              const response = await fetch(`http://192.168.50.124:3001/api/bodies/${bodyId}`, {
+              const response = await fetch(`http://192.168.50.140:3001/api/bodies/${bodyId}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ storageUnit: unitId }),
@@ -166,7 +171,7 @@ const StorageAllocation: React.FC = () => {
     // Confirmation dialog
     if (!window.confirm(`Are you sure you want to release the body from unit ${unitId}?`)) return;
     try {
-              const response = await fetch(`http://192.168.50.124:3001/api/exits/${unitBody.id}`, {
+              const response = await fetch(`http://192.168.50.140:3001/api/exits/${unitBody.id}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({}),
@@ -185,7 +190,7 @@ const StorageAllocation: React.FC = () => {
     if (!verifyingBodyId) return;
     setVerifying(true);
     try {
-      const response = await fetch(`http://192.168.50.124:3001/api/bodies/${verifyingBodyId}/verify-log`, {
+      const response = await fetch(`http://192.168.50.140:3001/api/bodies/${verifyingBodyId}/verify-log`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(verificationForm)
@@ -195,7 +200,7 @@ const StorageAllocation: React.FC = () => {
       setVerificationForm({ name: '', relation: '', contact: '', idProof: '', remarks: '', verifierType: '', medicalRegNo: '', badgeNumber: '' });
       setVerifyingBodyId(null);
       // Refresh bodies list
-      const responseBodies = await fetch('http://192.168.50.124:3001/api/bodies');
+      const responseBodies = await fetch('http://192.168.50.140:3001/api/bodies');
       if (responseBodies.ok) setBodies(await responseBodies.json());
     } catch (error) {
       alert('Failed to verify body.');
@@ -205,6 +210,32 @@ const StorageAllocation: React.FC = () => {
   };
 
   const navigate = useNavigate();
+
+  // Sort releasedBodies so the most recently exited come first
+  const sortedReleasedBodies = [...releasedBodies].sort((a, b) => {
+    if (a.exitDate && b.exitDate) {
+      return new Date(b.exitDate).getTime() - new Date(a.exitDate).getTime();
+    }
+    return (b.id || '').localeCompare(a.id || '');
+  });
+
+  const filteredReleasedBodies = sortedReleasedBodies.filter(body => {
+    let dateMatch = true;
+    if (startDate && endDate && body.exitDate) {
+      const exitDate = new Date(body.exitDate);
+      dateMatch = exitDate >= startDate && exitDate <= endDate;
+    } else if (startDate && body.exitDate) {
+      const exitDate = new Date(body.exitDate);
+      dateMatch = exitDate >= startDate;
+    } else if (endDate && body.exitDate) {
+      const exitDate = new Date(body.exitDate);
+      dateMatch = exitDate <= endDate;
+    }
+    
+    const statusMatch = statusFilter === 'all' || (body.status && body.status.toLowerCase() === statusFilter);
+    
+    return dateMatch && statusMatch;
+  });
 
   return (
     <div className="storage-container">
@@ -565,6 +596,49 @@ const StorageAllocation: React.FC = () => {
         </div>
       )}
       {/* Released Bodies Section */}
+      <div className="filter-container">
+          <div className="left-filters">
+            <div className="filter-group">
+              <label className="filter-label">From Date</label>
+              <DatePicker
+                selected={startDate}
+                onChange={(date: Date | null) => setStartDate(date)}
+                selectsStart
+                startDate={startDate}
+                endDate={endDate}
+                placeholderText="dd-mm-yyyy"
+                className="filter-input"
+                dateFormat="dd-MM-yyyy"
+              />
+            </div>
+            <div className="filter-group">
+              <label className="filter-label">To Date</label>
+              <DatePicker
+                selected={endDate}
+                onChange={(date: Date | null) => setEndDate(date)}
+                selectsEnd
+                startDate={startDate}
+                endDate={endDate}
+                minDate={startDate || undefined}
+                placeholderText="dd-mm-yyyy"
+                className="filter-input"
+                dateFormat="dd-MM-yyyy"
+              />
+            </div>
+            <div className="filter-group">
+              <label className="filter-label">Status</label>
+              <select
+                className="filter-input"
+                value={statusFilter}
+                onChange={(e) => setStatusFilter(e.target.value)}
+              >
+                <option value="all">All</option>
+                <option value="released">Released</option>
+                {/* Add other relevant statuses if needed */}
+              </select>
+            </div>
+          </div>
+        </div>
       <Table
         columns={[
           { key: 'id', header: 'ID' },
@@ -574,7 +648,7 @@ const StorageAllocation: React.FC = () => {
           { key: 'riskLevel', header: 'Risk Level' },
           { key: 'exitDate', header: 'Exit Date' },
         ]}
-        data={releasedBodies.map(b => ({
+        data={filteredReleasedBodies.map(b => ({
           ...b,
           exitDate: b.exitDate ? new Date(b.exitDate).toLocaleString() : '',
         }))}

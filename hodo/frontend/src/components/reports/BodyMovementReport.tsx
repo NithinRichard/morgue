@@ -17,7 +17,7 @@ const BodyMovementReport: React.FC = () => {
   useEffect(() => {
     const fetchMovementLogs = async () => {
       try {
-        const response = await fetch('http://192.168.50.124:3001/api/reports/body-movements');
+        const response = await fetch('http://192.168.50.140:3001/api/reports/body-movements');
         const data: MovementLog[] = await response.json();
         setMovementLogs(data);
       } catch (error) {

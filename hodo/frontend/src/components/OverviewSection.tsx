@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 import '../styles/overview.css';
 import Cards from './Cards';
 import Table from './Table';
@@ -12,16 +14,20 @@ interface Body {
   storageUnit: string;
   incidentType: string;
   verifiedBy?: string | null;
+  registrationDate?: string;
 }
 
 const OverviewSection: React.FC = () => {
   const [bodies, setBodies] = useState<Body[]>([]);
   const [releasedBodies, setReleasedBodies] = useState<any[]>([]);
+  const [startDate, setStartDate] = useState<Date | null>(new Date());
+  const [endDate, setEndDate] = useState<Date | null>(new Date());
+  const [statusFilter, setStatusFilter] = useState('all'); // Add status filter state
 
   useEffect(() => {
     const fetchBodies = async () => {
       try {
-        const response = await fetch('http://192.168.50.124:3001/api/bodies');
+        const response = await fetch('http://192.168.50.140:3001/api/bodies');
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
@@ -33,7 +39,7 @@ const OverviewSection: React.FC = () => {
     };
     const fetchReleasedBodies = async () => {
       try {
-        const response = await fetch('http://192.168.50.124:3001/api/exits');
+        const response = await fetch('http://192.168.50.140:3001/api/exits');
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
@@ -72,6 +78,32 @@ const OverviewSection: React.FC = () => {
       time: new Date(body.timeOfDeath).toLocaleTimeString(),
       status: body.status,
     }));
+
+  // Sort bodies so the most recently registered come first
+  const sortedBodies = [...bodies].sort((a, b) => {
+    if (a.registrationDate && b.registrationDate) {
+      return new Date(b.registrationDate).getTime() - new Date(a.registrationDate).getTime();
+    }
+    return (b.id || '').localeCompare(a.id || '');
+  });
+
+  const filteredBodies = sortedBodies.filter(body => {
+    let dateMatch = true;
+    if (startDate && endDate && body.registrationDate) {
+      const registrationDate = new Date(body.registrationDate);
+      dateMatch = registrationDate >= startDate && registrationDate <= endDate;
+    } else if (startDate && body.registrationDate) {
+      const registrationDate = new Date(body.registrationDate);
+      dateMatch = registrationDate >= startDate;
+    } else if (endDate && body.registrationDate) {
+      const registrationDate = new Date(body.registrationDate);
+      dateMatch = registrationDate <= endDate;
+    }
+    
+    const statusMatch = statusFilter === 'all' || (body.status && body.status.toLowerCase() === statusFilter);
+    
+    return dateMatch && statusMatch;
+  });
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -153,8 +185,51 @@ const OverviewSection: React.FC = () => {
       </div>
 
       {/* Add all tables overview below stats and activities */}
-      {/*
-      <div className="overview-content-grid" style={{ marginTop: '2rem', gridTemplateColumns: '1fr' }}>
+      <div className="filter-container" style={{ marginTop: '2rem' }}>
+        <div className="left-filters">
+          <div className="filter-group">
+            <label className="filter-label">From Date</label>
+            <DatePicker
+              selected={startDate}
+              onChange={(date: Date | null) => setStartDate(date)}
+              selectsStart
+              startDate={startDate}
+              endDate={endDate}
+              placeholderText="dd-mm-yyyy"
+              className="filter-input"
+              dateFormat="dd-MM-yyyy"
+            />
+          </div>
+          <div className="filter-group">
+            <label className="filter-label">To Date</label>
+            <DatePicker
+              selected={endDate}
+              onChange={(date: Date | null) => setEndDate(date)}
+              selectsEnd
+              startDate={startDate}
+              endDate={endDate}
+              minDate={startDate || undefined}
+              placeholderText="dd-mm-yyyy"
+              className="filter-input"
+              dateFormat="dd-MM-yyyy"
+            />
+          </div>
+          <div className="filter-group">
+            <label className="filter-label">Status</label>
+            <select
+              className="filter-input"
+              value={statusFilter}
+              onChange={(e) => setStatusFilter(e.target.value)}
+            >
+              <option value="all">All</option>
+              <option value="pending">Pending</option>
+              <option value="verified">Verified</option>
+              <option value="released">Released</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div className="overview-content-grid" style={{ marginTop: '0', gridTemplateColumns: '1fr' }}>
         <Table
           columns={[
             { key: 'id', header: 'ID' },
@@ -164,10 +239,9 @@ const OverviewSection: React.FC = () => {
             { key: 'storageUnit', header: 'Storage Unit' },
             { key: 'incidentType', header: 'Incident Type' },
           ]}
-          data={bodies}
+          data={filteredBodies}
         />
       </div>
-      */}
     </div>
   );
 };

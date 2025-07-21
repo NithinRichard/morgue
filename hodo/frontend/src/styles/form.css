@@ -1,0 +1,114 @@
+/* Input styles */
+.input-container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+  }
+  .input-label {
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+  }
+  .input-box {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+  
+  /* DropInput styles */
+  .dropinput-container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+  }
+  .dropinput-label {
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+  }
+  .dropinput-select {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+  
+  /* AddInput styles */
+  .addinput-container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+  }
+  .addinput-label {
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+  }
+  .addinput-textarea {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    resize: vertical;
+  }
+  
+  /* DateInput styles */
+  .dateinput-container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+  }
+  .dateinput-label {
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+  }
+  .dateinput-box {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+  
+  .form-section {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    background: #fff;
+  }
+  
+  .form-section h3 {
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    font-size: 1.4rem;
+    font-weight: 600;
+  }
+  
+  .form-row {
+    display: flex;
+    gap: 1.5rem;
+    width: 100%;
+  }
+  
+  .form-col {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  
+  .birth-registration-form .input-box,
+  .birth-registration-form .dropinput-select,
+  .birth-registration-form .dateinput-box,
+  .birth-registration-form .addinput-textarea,
+  .death-registration-form .input-box,
+  .death-registration-form .dropinput-select,
+  .death-registration-form .dateinput-box,
+  .death-registration-form .addinput-textarea {
+    width: 100%;
+    min-width: 0;
+  }
+  
+  @media (max-width: 900px) {
+    .form-row {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+  } 

@@ -81,7 +81,7 @@ const BodyDetailsPage: React.FC<{ sidebarCollapsed: boolean; toggleSidebar: () =
     if (!id) return;
     setLoading(true);
     try {
-      const res = await fetch(`http://192.168.50.124:3001/api/bodies/${id}`);
+      const res = await fetch(`http://192.168.50.140:3001/api/bodies/${id}`);
       if (!res.ok) throw new Error('Failed to fetch body details');
       const data = await res.json();
       setBody(data);
@@ -101,7 +101,7 @@ const BodyDetailsPage: React.FC<{ sidebarCollapsed: boolean; toggleSidebar: () =
     if (!id) return;
     setEditLoading(true);
     try {
-      const response = await fetch(`http://192.168.50.124:3001/api/bodies/${id}`, {
+      const response = await fetch(`http://192.168.50.140:3001/api/bodies/${id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(values),
@@ -121,7 +121,7 @@ const BodyDetailsPage: React.FC<{ sidebarCollapsed: boolean; toggleSidebar: () =
     if (!id) return;
     setVerifying(true);
     try {
-      const response = await fetch(`http://192.168.50.124:3001/api/bodies/${id}/verify-log`, {
+      const response = await fetch(`http://192.168.50.140:3001/api/bodies/${id}/verify-log`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(verificationForm)

@@ -1,21 +1,13 @@
 import express from 'express';
 import cors from 'cors';
 import dataRoutes from './routes/dataRoutes.js';
+import { swaggerUi, swaggerSpec } from './swagger.js';
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 
 // Middleware
-app.use(cors({
-  origin: [
-    'http://localhost:3001',
-    'http://localhost:3066',
-    'http://192.168.50.125:3066',
-    'http://192.168.50.132:3066',
-    'http://192.168.50.124:3001',
-    'http://192.168.50.124:3066'
-  ]
-})); // Enable CORS for specific origins
+app.use(cors()); // Enable CORS for specific origins
 app.use(express.json()); // for parsing application/json
 app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
@@ -23,6 +15,7 @@ app.use(express.urlencoded({ extended: true })); // for parsing application/x-ww
 
 // API Routes
 app.use('/api', dataRoutes);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // Base Route
 app.get('/', (req, res) => {
