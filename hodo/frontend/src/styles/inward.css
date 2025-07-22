@@ -305,3 +305,24 @@
   color: #888;
   z-index: 10;
 } 
+
+@media (max-width: 600px) {
+  .modal-overlay {
+    align-items: flex-start !important;
+    padding: 1.5rem 0.5rem !important;
+  }
+  .modal-content {
+    padding: 1rem !important;
+    max-width: 98vw !important;
+    width: 98vw !important;
+    border-radius: 0.5rem !important;
+    font-size: 0.95rem !important;
+    margin: 2rem auto !important;
+  }
+}
+@media (max-width: 400px) {
+  .modal-content {
+    padding: 0.5rem !important;
+    font-size: 0.9rem !important;
+  }
+} 

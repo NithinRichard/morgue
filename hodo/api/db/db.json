@@ -1,40 +1,6 @@
 {
   "bodies": [
     {
-      "id": "B011",
-      "name": "David Wilson",
-      "age": "38",
-      "gender": "male",
-      "dateOfDeath": "2025-01-19",
-      "placeOfDeath": "puthenthope",
-      "timeOfDeath": "2025-01-19T08:45",
-      "address": "789 Pine St, City",
-      "contactPerson": "Sarah Wilson",
-      "contactNumber": "9876543212",
-      "incidentType": "accident",
-      "notes": "Fatal road accident",
-      "belongings": [
-        "RING"
-      ],
-      "accompanyingPersons": [
-        {
-          "name": "Jennifer Miller",
-          "contact": "09876543218"
-        }
-      ],
-      "mlcCase": true,
-      "policeInvolved": true,
-      "status": "pending",
-      "storageLocation": "Morgue A",
-      "registeredBy": "Staff",
-      "registrationDate": "2025-07-17T05:00:06.634Z",
-      "storageUnit": "F-04",
-      "riskLevel": "high",
-      "fromDischarge": true,
-      "dischargeId": "D003",
-      "tagNumber": "TAG-004"
-    },
-    {
       "id": "B012",
       "name": "Rebecca Taylor",
       "age": "36",
@@ -58,7 +24,7 @@
       ],
       "mlcCase": true,
       "policeInvolved": true,
-      "status": "pending",
+      "status": "verified",
       "storageLocation": "Morgue A",
       "registeredBy": "Staff",
       "registrationDate": "2025-07-17T05:00:38.130Z",
@@ -66,7 +32,20 @@
       "riskLevel": "high",
       "fromDischarge": true,
       "dischargeId": "D012",
-      "tagNumber": "TAG-005"
+      "tagNumber": "TAG-005",
+      "verificationLog": [
+        {
+          "name": "fvvcxv",
+          "relation": "vxcvcxvcxv",
+          "contact": "xcvxcv",
+          "idProof": "xcvcxv",
+          "remarks": "xcvcxvxc",
+          "verifierType": "Staff",
+          "medicalRegNo": "",
+          "badgeNumber": "",
+          "date": "2025-07-22T05:05:19.447Z"
+        }
+      ]
     },
     {
       "id": "B013",
@@ -92,7 +71,7 @@
       ],
       "mlcCase": true,
       "policeInvolved": true,
-      "status": "pending",
+      "status": "verified",
       "storageLocation": "Morgue A",
       "registeredBy": "Staff",
       "registrationDate": "2025-07-17T05:03:41.308Z",
@@ -100,7 +79,20 @@
       "riskLevel": "low",
       "fromDischarge": true,
       "dischargeId": "D012",
-      "tagNumber": "TAG-006"
+      "tagNumber": "TAG-006",
+      "verificationLog": [
+        {
+          "name": "sdfdsf",
+          "relation": "",
+          "contact": "sdfdsf",
+          "idProof": "sdfdsf",
+          "remarks": "sdfdsf",
+          "verifierType": "Doctor",
+          "medicalRegNo": "sdfdsf",
+          "badgeNumber": "",
+          "date": "2025-07-22T05:05:42.638Z"
+        }
+      ]
     },
     {
       "id": "B014",
@@ -170,7 +162,6 @@
       "dischargeId": "",
       "tagNumber": "TAG-010"
     },
-    
     {
       "id": "B007",
       "name": "David Wilson",
@@ -1739,6 +1730,52 @@
       "releaseConditions": "",
       "nocGenerated": true,
       "exitDate": "2025-07-18T10:53:35.251Z"
+    },
+    {
+      "id": "B011",
+      "name": "David Wilson",
+      "age": "38",
+      "gender": "male",
+      "dateOfDeath": "2025-01-19",
+      "placeOfDeath": "puthenthope",
+      "timeOfDeath": "2025-01-19T08:45",
+      "address": "789 Pine St, City",
+      "contactPerson": "Sarah Wilson",
+      "contactNumber": "9876543212",
+      "incidentType": "accident",
+      "notes": "Fatal road accident",
+      "belongings": [
+        "RING"
+      ],
+      "accompanyingPersons": [
+        {
+          "name": "Jennifer Miller",
+          "contact": "09876543218"
+        }
+      ],
+      "mlcCase": true,
+      "policeInvolved": true,
+      "status": "verified",
+      "storageLocation": "Morgue A",
+      "registeredBy": "Staff",
+      "registrationDate": "2025-07-17T05:00:06.634Z",
+      "storageUnit": "F-04",
+      "riskLevel": "high",
+      "fromDischarge": true,
+      "dischargeId": "D003",
+      "tagNumber": "TAG-004",
+      "verifiedBy": "Staff",
+      "receiverName": "shan",
+      "receiverId": "sq423f23r",
+      "relationship": "spouse",
+      "releaseTime": "2025-07-22T09:37",
+      "remarks": "ffdd",
+      "witnessingStaff": "sdsd",
+      "receiverType": "Family",
+      "receiverIdProof": "sdsdsd",
+      "releaseConditions": "ddd",
+      "nocGenerated": true,
+      "exitDate": "2025-07-22T04:08:20.524Z"
     }
   ],
   "discharges": [

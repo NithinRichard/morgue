@@ -111,8 +111,8 @@ const PatientProfileDetails: React.FC<PatientProfileDetailsProps> = ({ patient }
           {/* Column 4 */}
           <div className="profile-column">
             <div className="detail-item">
-              <span className="detail-label">Token No</span>
-              <span className="detail-value">{patient.tokenNo || '-'}</span>
+              <span className="detail-label">Body ID</span>
+              <span className="detail-value link">{patient.id || '-'}</span>
             </div>
             <div className="detail-item">
               <span className="detail-label">Blood Group</span>

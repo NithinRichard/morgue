@@ -349,11 +349,13 @@ const ExitManagement: React.FC = () => {
                 <label htmlFor="bodySelect" className="form-label">Select Body</label>
                 <select id="bodySelect" className="form-select" value={selectedBody} onChange={handleBodySelect} required>
                   <option value="">Choose body to release</option>
-                  {bodies.map((body, idx) => (
-                    <option key={body.id + '-' + idx} value={body.id}>
-                      {body.name} ({body.id}) - {body.storageUnit} [{body.status}]
-                    </option>
-                  ))}
+                  {bodies
+                    .filter(body => body.status === 'verified')
+                    .map((body, idx) => (
+                      <option key={body.id + '-' + idx} value={body.id}>
+                        {body.name} ({body.id}) - {body.storageUnit}
+                      </option>
+                    ))}
                 </select>
               </div>
 

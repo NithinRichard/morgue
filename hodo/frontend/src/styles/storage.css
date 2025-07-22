@@ -435,3 +435,60 @@
     gap: 0.5rem;
   }
 } 
+
+/* Responsive improvements for storage unit cards */
+@media (max-width: 600px) {
+  .storage-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  .units-grid {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 0.5rem;
+  }
+  .unit-box {
+    padding: 0.5rem;
+    font-size: 0.95rem;
+  }
+  .card-content {
+    padding: 0.75rem;
+  }
+  .unit-details-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  .unit-details-info {
+    font-size: 0.95rem;
+  }
+  .unit-details-actions {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .unit-legend {
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .units-grid-compact {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+  }
+  .unit-box-compact {
+    padding: 0.5rem;
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .units-grid-compact {
+    grid-template-columns: 1fr;
+  }
+  .unit-box-compact {
+    font-size: 0.85rem;
+    padding: 0.3rem;
+  }
+} 

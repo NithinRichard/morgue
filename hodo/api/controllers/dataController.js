@@ -1,4 +1,8 @@
 import * as db from '../db/index.js';
+import { writeDbJson, dbPath } from '../db/index.js';
+import fs from 'fs';
+import dotenv from 'dotenv';
+dotenv.config();
 
 // Helper: parse date string to Date
 function parseDate(dateStr) {
@@ -13,10 +17,10 @@ function formatDate(date) {
 // GET /api/analytics/admissions
 export const getAdmissionsCount = async (req, res) => {
   const { from, to } = req.query;
-  const db = await db.getBodies();
+  const bodies = await db.getBodies();
   const fromDate = parseDate(from);
   const toDate = parseDate(to);
-  const count = db.filter(b => {
+  const count = bodies.filter(b => {
     const regDate = new Date(b.registrationDate);
     return regDate >= fromDate && regDate <= toDate;
   }).length;
@@ -26,10 +30,10 @@ export const getAdmissionsCount = async (req, res) => {
 // GET /api/analytics/releases
 export const getReleasesCount = async (req, res) => {
   const { from, to } = req.query;
-  const db = await db.getExits();
+  const exits = await db.getExits();
   const fromDate = parseDate(from);
   const toDate = parseDate(to);
-  const count = db.filter(e => {
+  const count = exits.filter(e => {
     const exitDate = new Date(e.exitDate);
     return exitDate >= fromDate && exitDate <= toDate;
   }).length;
@@ -39,10 +43,10 @@ export const getReleasesCount = async (req, res) => {
 // GET /api/analytics/average-duration
 export const getAverageStorageDuration = async (req, res) => {
   const { from, to } = req.query;
-  const db = await db.getExits();
+  const exits = await db.getExits();
   const fromDate = parseDate(from);
   const toDate = parseDate(to);
-  const durations = db
+  const durations = exits
     .filter(e => {
       const exitDate = new Date(e.exitDate);
       return exitDate >= fromDate && exitDate <= toDate;
@@ -58,9 +62,9 @@ export const getAverageStorageDuration = async (req, res) => {
 
 // GET /api/analytics/capacity-usage
 export const getCapacityUsage = async (req, res) => {
-  const db = await db.getBodies();
+  const bodies = await db.getBodies();
   const totalUnits = 30; // or fetch dynamically
-  const occupied = db.filter(b => b.storageUnit).length;
+  const occupied = bodies.filter(b => b.storageUnit).length;
   res.json({ used: occupied, total: totalUnits, percent: ((occupied / totalUnits) * 100).toFixed(1) });
 };
 
@@ -76,18 +80,24 @@ export const getBodies = async (req, res) => {
 
 export const addBody = async (req, res) => {
   try {
-    const db = await db.getBodies();
+    const bodies = await db.getBodies();
     // Generate next tag number
-    const tagNumbers = db
+    const tagNumbers = bodies
       .map(b => b.tagNumber)
       .filter(Boolean)
       .map(tn => parseInt((tn || '').replace('TAG-', '')))
       .filter(n => !isNaN(n));
     const nextTagNum = tagNumbers.length > 0 ? Math.max(...tagNumbers) + 1 : 1;
     const tagNumber = `TAG-${String(nextTagNum).padStart(3, '0')}`;
-    const newBody = { id: `B${String(db.length + 1).padStart(3, '0')}`, ...req.body, tagNumber };
-    db.push(newBody);
-    await db.write();
+    const newBody = { id: `B${String(bodies.length + 1).padStart(3, '0')}`, ...req.body, tagNumber };
+    bodies.push(newBody);
+    if ((process.env.DATA_SOURCE || 'mssql') === 'dbjson') {
+      const dbData = JSON.parse(fs.readFileSync(dbPath, 'utf-8'));
+      dbData.bodies = bodies;
+      writeDbJson(dbData);
+    } else {
+      await bodies.write();
+    }
     res.status(201).json(newBody);
   } catch (error) {
     res.status(500).send(error.message);
@@ -96,16 +106,23 @@ export const addBody = async (req, res) => {
 
 export const verifyBody = async (req, res) => {
   try {
-    const db = await db.getBodies();
+    const bodies = await db.getBodies();
     const { id } = req.params;
     const { verifiedBy } = req.body;
 
-    const body = db.find(b => b.id === id);
+    const body = bodies.find(b => b.id === id);
 
     if (body) {
       body.status = 'verified';
       body.verifiedBy = verifiedBy || 'Staff'; 
-      await db.write();
+      if ((process.env.DATA_SOURCE || 'mssql') === 'dbjson') {
+        const dbData = JSON.parse(fs.readFileSync(dbPath, 'utf-8'));
+        const idx = dbData.bodies.findIndex(b => b.id === id);
+        if (idx !== -1) dbData.bodies[idx] = body;
+        writeDbJson(dbData);
+      } else {
+        await bodies.write();
+      }
       res.status(200).json(body);
     } else {
       res.status(404).send('Body not found');
@@ -127,14 +144,14 @@ export const getExits = async (req, res) => {
 
 export const addExit = async (req, res) => {
   try {
-    const db = await db.getBodies();
+    const bodies = await db.getBodies();
     const { id } = req.params;
     const exitDetails = req.body;
 
-    const bodyIndex = db.findIndex(b => b.id === id);
+    const bodyIndex = bodies.findIndex(b => b.id === id);
 
     if (bodyIndex !== -1) {
-      const [bodyToExit] = db.splice(bodyIndex, 1);
+      const [bodyToExit] = bodies.splice(bodyIndex, 1);
       const exitRecord = {
         ...bodyToExit,
         ...exitDetails,
@@ -145,8 +162,14 @@ export const addExit = async (req, res) => {
         nocGenerated: true, // Mark NOC as generated
         exitDate: new Date().toISOString()
       };
-      db.push(exitRecord);
-      await db.write();
+      bodies.push(exitRecord);
+      if ((process.env.DATA_SOURCE || 'mssql') === 'dbjson') {
+        const dbData = JSON.parse(fs.readFileSync(dbPath, 'utf-8'));
+        dbData.bodies = bodies;
+        writeDbJson(dbData);
+      } else {
+        await bodies.write();
+      }
       res.status(200).json(exitRecord);
     } else {
       res.status(404).send('Body not found');
@@ -159,9 +182,9 @@ export const addExit = async (req, res) => {
 
 export const getBodyById = async (req, res) => {
   try {
-    const db = await db.getBodies();
+    const bodies = await db.getBodies();
     const { id } = req.params;
-    const body = db.find(b => b.id === id);
+    const body = bodies.find(b => b.id === id);
     if (body) {
       res.status(200).json(body);
     } else {
@@ -174,10 +197,10 @@ export const getBodyById = async (req, res) => {
 
 export const patchBody = async (req, res) => {
   try {
-    const db = await db.getBodies();
+    const bodies = await db.getBodies();
     const { id } = req.params;
     const updates = req.body;
-    const body = db.find(b => b.id === id);
+    const body = bodies.find(b => b.id === id);
     if (body) {
       const oldStorageUnit = body.storageUnit;
       Object.assign(body, updates);
@@ -189,19 +212,23 @@ export const patchBody = async (req, res) => {
 
       // Log movement if storage unit changes
       if (updates.storageUnit && oldStorageUnit !== updates.storageUnit) {
+        if (!Array.isArray(body.movements)) body.movements = [];
         const movementLog = {
-          id: `MOV-${Date.now()}`,
-          bodyId: body.id,
-          name: body.name,
-          fromStorage: oldStorageUnit,
-          toStorage: updates.storageUnit,
-          movedBy: 'Staff', // This can be enhanced to track the actual user
+          from: oldStorageUnit,
+          to: updates.storageUnit,
           timestamp: new Date().toISOString()
         };
-        db.push(movementLog);
+        body.movements.push(movementLog);
       }
 
-      await db.write();
+      if ((process.env.DATA_SOURCE || 'mssql') === 'dbjson') {
+        const dbData = JSON.parse(fs.readFileSync(dbPath, 'utf-8'));
+        const idx = dbData.bodies.findIndex(b => b.id === id);
+        if (idx !== -1) dbData.bodies[idx] = body;
+        writeDbJson(dbData);
+      } else {
+        await bodies.write();
+      }
       res.status(200).json(body);
     } else {
       res.status(404).send('Body not found');
@@ -213,12 +240,18 @@ export const patchBody = async (req, res) => {
 
 export const deleteBody = async (req, res) => {
   try {
-    const db = await db.getBodies();
+    const bodies = await db.getBodies();
     const { id } = req.params;
-    const index = db.findIndex(b => b.id === id);
+    const index = bodies.findIndex(b => b.id === id);
     if (index !== -1) {
-      db.splice(index, 1);
-      await db.write();
+      bodies.splice(index, 1);
+      if ((process.env.DATA_SOURCE || 'mssql') === 'dbjson') {
+        const dbData = JSON.parse(fs.readFileSync(dbPath, 'utf-8'));
+        dbData.bodies = bodies;
+        writeDbJson(dbData);
+      } else {
+        await bodies.write();
+      }
       res.status(204).send();
     } else {
       res.status(404).send('Body not found');
@@ -230,9 +263,9 @@ export const deleteBody = async (req, res) => {
 
 export const getDischarges = async (req, res) => {
   try {
-    const db = await db.getDischarges();
+    const discharges = await db.getDischarges();
     // Filter only expired patients from discharge table
-    const expiredDischarges = db.filter(discharge => 
+    const expiredDischarges = discharges.filter(discharge => 
       discharge.dischargeStatus === 'Expired'
     );
     res.json(expiredDischarges);
@@ -243,9 +276,9 @@ export const getDischarges = async (req, res) => {
 
 export const getDischargeById = async (req, res) => {
   try {
-    const db = await db.getDischarges();
+    const discharges = await db.getDischarges();
     const { id } = req.params;
-    const discharge = db.find(d => d.id === id);
+    const discharge = discharges.find(d => d.id === id);
     if (discharge) {
       res.status(200).json(discharge);
     } else {
@@ -258,8 +291,8 @@ export const getDischargeById = async (req, res) => {
 
 export const getPendingVerifications = async (req, res) => {
   try {
-    const db = await db.getBodies();
-    const pendingBodies = db.filter(body => body.status === 'Pending');
+    const bodies = await db.getBodies();
+    const pendingBodies = bodies.filter(body => body.status === 'Pending');
     res.json(pendingBodies);
   } catch (error) {
     res.status(500).send(error.message);
@@ -268,19 +301,19 @@ export const getPendingVerifications = async (req, res) => {
 
 export const getAverageStayDuration = async (req, res) => {
   try {
-    const db = await db.getExits();
-    if (db.length === 0) {
+    const exits = await db.getExits();
+    if (exits.length === 0) {
       return res.json({ averageDays: 0 });
     }
 
-    const totalDuration = db.reduce((acc, exit) => {
+    const totalDuration = exits.reduce((acc, exit) => {
       const admissionDate = new Date(exit.registrationDate);
       const exitDate = new Date(exit.exitDate);
       const duration = (exitDate - admissionDate) / (1000 * 60 * 60 * 24); // in days
       return acc + duration;
     }, 0);
 
-    const averageDays = totalDuration / db.length;
+    const averageDays = totalDuration / exits.length;
     res.json({ averageDays });
   } catch (error) {
     res.status(500).send(error.message);
@@ -289,7 +322,7 @@ export const getAverageStayDuration = async (req, res) => {
 
 export const getOccupancyTrends = async (req, res) => {
   try {
-    const db = await db.getBodies();
+    const bodies = await db.getBodies();
     const exits = await db.getExits();
     const trends = {};
 
@@ -297,7 +330,7 @@ export const getOccupancyTrends = async (req, res) => {
     const formatDate = (date) => new Date(date).toISOString().split('T')[0];
 
     // Process admissions
-    db.forEach(body => {
+    bodies.forEach(body => {
       const date = formatDate(body.registrationDate);
       if (!trends[date]) trends[date] = { date, admissions: 0, releases: 0 };
       trends[date].admissions++;
@@ -326,8 +359,8 @@ export const getOccupancyTrends = async (req, res) => {
 
 export const getBodyMovements = async (req, res) => {
   try {
-    const db = await db.getMovements();
-    res.json(db);
+    const movements = await db.getMovements();
+    res.json(movements);
   } catch (error) {
     res.status(500).send(error.message);
   }
@@ -335,9 +368,9 @@ export const getBodyMovements = async (req, res) => {
 
 export const getDepartmentDeathLogs = async (req, res) => {
   try {
-    const db = await db.getExits();
+    const exits = await db.getExits();
     const { department } = req.query;
-    let logs = db;
+    let logs = exits;
 
     if (department) {
       logs = logs.filter(log => log.department === department);
@@ -351,14 +384,35 @@ export const getDepartmentDeathLogs = async (req, res) => {
 
 export const logBodyVerification = async (req, res) => {
   try {
-    const db = await db.getBodies();
+    const bodies = await db.getBodies();
     const { id } = req.params;
     const { name, relation, contact, idProof, remarks, verifierType, medicalRegNo, badgeNumber } = req.body;
-    const body = db.find(b => b.id === id);
+    const body = bodies.find(b => b.id === id);
     if (body) {
       body.status = 'verified';
-      // No verificationLog update
-      await db.write();
+      if (!Array.isArray(body.verificationLog)) {
+        body.verificationLog = [];
+      }
+      body.verificationLog.push({
+        name,
+        relation,
+        contact,
+        idProof,
+        remarks,
+        verifierType,
+        medicalRegNo,
+        badgeNumber,
+        date: new Date().toISOString()
+      });
+      // Write to db.json if using dbjson backend
+      if ((process.env.DATA_SOURCE || 'mssql') === 'dbjson') {
+        const dbData = JSON.parse(fs.readFileSync(dbPath, 'utf-8'));
+        const idx = dbData.bodies.findIndex(b => b.id === id);
+        if (idx !== -1) dbData.bodies[idx] = body;
+        writeDbJson(dbData);
+      } else {
+        await bodies.write();
+      }
       res.status(200).json(body);
     } else {
       res.status(404).send('Body not found');
@@ -370,7 +424,7 @@ export const logBodyVerification = async (req, res) => {
 
 export const getTrends = async (req, res) => {
   const { from, to } = req.query;
-  const db = await db.getBodies();
+  const bodies = await db.getBodies();
   const fromDate = new Date(from);
   const toDate = new Date(to);
 
@@ -381,7 +435,7 @@ export const getTrends = async (req, res) => {
   }
 
   // Count admissions and releases per day
-  const admissions = db || [];
+  const admissions = bodies || [];
   const releases = await db.getExits();
   const trend = days.map(date => ({
     date,
@@ -394,13 +448,13 @@ export const getTrends = async (req, res) => {
 
 export const getBodyVerifyLog = async (req, res) => {
   try {
-    const db = await db.getBodies();
+    const bodies = await db.getBodies();
     const { id } = req.params;
-    const body = db.find(b => b.id === id);
-    if (body && body.verificationLog) {
-      res.status(200).json(body.verificationLog);
+    const body = bodies.find(b => b.id === id);
+    if (body) {
+      res.status(200).json(body.verificationLog || []);
     } else {
-      res.status(404).json({ message: 'Verification log not found' });
+      res.status(404).json({ message: 'Body not found' });
     }
   } catch (error) {
     res.status(500).send(error.message);
