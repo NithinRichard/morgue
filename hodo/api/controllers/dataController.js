@@ -72,8 +72,11 @@ export const getCapacityUsage = async (req, res) => {
 export const getBodies = async (req, res) => {
   try {
     const bodies = await db.getBodies();
-    res.json(bodies);
+    // Filter out released bodies
+    const activeBodies = bodies.filter(body => body.status !== 'released');
+    res.json(activeBodies);
   } catch (error) {
+    console.error('Error in getBodies:', error);
     res.status(500).send(error.message);
   }
 };
@@ -81,15 +84,28 @@ export const getBodies = async (req, res) => {
 export const addBody = async (req, res) => {
   try {
     const bodies = await db.getBodies();
+    const exits = await db.getExits();
+    
+    // Generate unique body ID by checking both active bodies and released bodies
+    const allBodies = [...bodies, ...exits];
+    const existingIds = allBodies
+      .map(b => b.id)
+      .filter(id => id && id.startsWith('B'))
+      .map(id => parseInt(id.replace('B', '')))
+      .filter(n => !isNaN(n));
+    const nextBodyId = existingIds.length > 0 ? Math.max(...existingIds) + 1 : 1;
+    const bodyId = `B${String(nextBodyId).padStart(3, '0')}`;
+    
     // Generate next tag number
-    const tagNumbers = bodies
+    const tagNumbers = allBodies
       .map(b => b.tagNumber)
       .filter(Boolean)
       .map(tn => parseInt((tn || '').replace('TAG-', '')))
       .filter(n => !isNaN(n));
     const nextTagNum = tagNumbers.length > 0 ? Math.max(...tagNumbers) + 1 : 1;
     const tagNumber = `TAG-${String(nextTagNum).padStart(3, '0')}`;
-    const newBody = { id: `B${String(bodies.length + 1).padStart(3, '0')}`, ...req.body, tagNumber };
+    
+    const newBody = { id: bodyId, ...req.body, tagNumber };
     bodies.push(newBody);
     if ((process.env.DATA_SOURCE || 'mssql') === 'dbjson') {
       const dbData = JSON.parse(fs.readFileSync(dbPath, 'utf-8'));
@@ -151,7 +167,10 @@ export const addExit = async (req, res) => {
     const bodyIndex = bodies.findIndex(b => b.id === id);
 
     if (bodyIndex !== -1) {
-      const [bodyToExit] = bodies.splice(bodyIndex, 1);
+      // Get the body to be released
+      const bodyToExit = bodies[bodyIndex];
+      
+      // Create exit record
       const exitRecord = {
         ...bodyToExit,
         ...exitDetails,
@@ -159,22 +178,36 @@ export const addExit = async (req, res) => {
         receiverType: exitDetails.receiverType || '',
         receiverIdProof: exitDetails.receiverIdProof || '',
         releaseConditions: exitDetails.releaseConditions || '',
+        status: 'released', // Mark the body as released
         nocGenerated: true, // Mark NOC as generated
         exitDate: new Date().toISOString()
       };
-      bodies.push(exitRecord);
+      
+      // Remove the body from the bodies array
+      bodies.splice(bodyIndex, 1);
+      
+      // Get existing exits and add the new exit record
+      const exits = await db.getExits();
+      exits.push(exitRecord);
+      
+      // Update the database
       if ((process.env.DATA_SOURCE || 'mssql') === 'dbjson') {
         const dbData = JSON.parse(fs.readFileSync(dbPath, 'utf-8'));
-        dbData.bodies = bodies;
+        dbData.bodies = bodies; // Save without the released body
+        dbData.exits = exits;   // Add to exits
         writeDbJson(dbData);
       } else {
-        await bodies.write();
+        // For other data sources, update both bodies and exits
+        await db.updateBodies(bodies);
+        await db.updateExits(exits);
       }
+      
       res.status(200).json(exitRecord);
     } else {
       res.status(404).send('Body not found');
     }
   } catch (error) {
+    console.error('Error in addExit:', error);
     res.status(500).send(error.message);
   }
 };

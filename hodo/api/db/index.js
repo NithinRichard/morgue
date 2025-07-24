@@ -75,4 +75,24 @@ export const getDischarges = async () => {
     return db.discharges || [];
   }
   return mssql.getDischarges();
-}; 
+};
+
+export const updateBodies = async (bodies) => {
+  if (backend === 'dbjson') {
+    const db = readDbJson();
+    db.bodies = bodies;
+    writeDbJson(db);
+  } else {
+    await mssql.updateBodies(bodies);
+  }
+};
+
+export const updateExits = async (exits) => {
+  if (backend === 'dbjson') {
+    const db = readDbJson();
+    db.exits = exits;
+    writeDbJson(db);
+  } else {
+    await mssql.updateExits(exits);
+  }
+};

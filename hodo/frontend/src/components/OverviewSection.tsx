@@ -4,6 +4,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import '../styles/overview.css';
 import Cards from './Cards';
 import Table from './Table';
+import Searchbar from './Searchbar';
 
 interface Body {
   id: string;
@@ -20,9 +21,10 @@ interface Body {
 const OverviewSection: React.FC = () => {
   const [bodies, setBodies] = useState<Body[]>([]);
   const [releasedBodies, setReleasedBodies] = useState<any[]>([]);
-  const [startDate, setStartDate] = useState<Date | null>(new Date());
-  const [endDate, setEndDate] = useState<Date | null>(new Date());
+  const [startDate, setStartDate] = useState<Date | null>(null);
+  const [endDate, setEndDate] = useState<Date | null>(null);
   const [statusFilter, setStatusFilter] = useState('all'); // Add status filter state
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     const fetchBodies = async () => {
@@ -87,22 +89,36 @@ const OverviewSection: React.FC = () => {
     return (b.id || '').localeCompare(a.id || '');
   });
 
+  // Helper function to normalize dates for comparison (removes time component)
+  const normalizeDate = (date: Date): Date => {
+    const normalized = new Date(date);
+    normalized.setHours(0, 0, 0, 0);
+    return normalized;
+  };
+
   const filteredBodies = sortedBodies.filter(body => {
+    // Search filter
+    const searchLower = searchTerm.toLowerCase();
+    const nameMatch = body.name ? body.name.toLowerCase().includes(searchLower) : false;
+    const idMatch = body.id ? body.id.toLowerCase().includes(searchLower) : false;
+    // Add more fields if needed
     let dateMatch = true;
     if (startDate && endDate && body.registrationDate) {
-      const registrationDate = new Date(body.registrationDate);
-      dateMatch = registrationDate >= startDate && registrationDate <= endDate;
+      const registrationDate = normalizeDate(new Date(body.registrationDate));
+      const normalizedStartDate = normalizeDate(startDate);
+      const normalizedEndDate = normalizeDate(endDate);
+      dateMatch = registrationDate >= normalizedStartDate && registrationDate <= normalizedEndDate;
     } else if (startDate && body.registrationDate) {
-      const registrationDate = new Date(body.registrationDate);
-      dateMatch = registrationDate >= startDate;
+      const registrationDate = normalizeDate(new Date(body.registrationDate));
+      const normalizedStartDate = normalizeDate(startDate);
+      dateMatch = registrationDate >= normalizedStartDate;
     } else if (endDate && body.registrationDate) {
-      const registrationDate = new Date(body.registrationDate);
-      dateMatch = registrationDate <= endDate;
+      const registrationDate = normalizeDate(new Date(body.registrationDate));
+      const normalizedEndDate = normalizeDate(endDate);
+      dateMatch = registrationDate <= normalizedEndDate;
     }
-    
     const statusMatch = statusFilter === 'all' || (body.status && body.status.toLowerCase() === statusFilter);
-    
-    return dateMatch && statusMatch;
+    return (nameMatch || idMatch) && dateMatch && statusMatch;
   });
 
   const getStatusColor = (status: string) => {
@@ -184,7 +200,18 @@ const OverviewSection: React.FC = () => {
         </div>
       </div>
 
+      <div className="header">
+            Body Details
+      </div>
+
       {/* Add all tables overview below stats and activities */}
+      <div style={{ marginBottom: 20 }}>
+        <Searchbar
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          placeholder="Search by Body ID or Name"
+        />
+      </div>
       <div className="filter-container" style={{ marginTop: '2rem' }}>
         <div className="left-filters">
           <div className="filter-group">

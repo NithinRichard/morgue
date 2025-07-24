@@ -13,6 +13,8 @@ import * as Yup from 'yup';
 import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { QRCodeCanvas } from 'qrcode.react';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 interface Body {
   id: string;
@@ -34,6 +36,14 @@ interface Body {
   tagNumber?: string; // Added tagNumber to the interface
   fromDischarge?: boolean; // Track if body was created from discharge record
   dischargeId?: string; // ID of the discharge record if applicable
+  registrationDate?: string; // Add registrationDate for date filtering
+}
+
+interface ExitRecord {
+  id: string;
+  name: string;
+  exitDate?: string;
+  status?: string;
 }
 
 const BodyManagement: React.FC = () => {
@@ -45,6 +55,10 @@ const BodyManagement: React.FC = () => {
   const [showEditModal, setShowEditModal] = useState(false);
   const [editBody, setEditBody] = useState<Body | null>(null);
   const [editLoading, setEditLoading] = useState(false);
+  const [startDate, setStartDate] = useState<Date | null>(new Date());
+  const [endDate, setEndDate] = useState<Date | null>(new Date());
+  const [recentExits, setRecentExits] = useState<ExitRecord[]>([]);
+
   const navigate = useNavigate();
   const [showVerificationModal, setShowVerificationModal] = useState(false);
   const [verificationForm, setVerificationForm] = useState({
@@ -207,16 +221,44 @@ const BodyManagement: React.FC = () => {
     }
   };
 
-  // Update the filteredBodies logic
+  // Helper function to normalize dates for comparison (removes time component)
+  const normalizeDate = (date: Date): Date => {
+    const normalized = new Date(date);
+    normalized.setHours(0, 0, 0, 0);
+    return normalized;
+  };
+
+  // Update the filteredBodies logic with proper date filtering
   const filteredBodies = bodies.filter(body => {
+    // Search filter
     const searchLower = searchTerm.toLowerCase();
     const nameMatch = body.name ? body.name.toLowerCase().includes(searchLower) : false;
     const idMatch = body.id ? body.id.toLowerCase().includes(searchLower) : false;
     const patientIdMatch = body.patientId ? body.patientId.toLowerCase().includes(searchLower) : false;
     const dateOfDeathMatch = body.dateOfDeath ? body.dateOfDeath.toLowerCase().includes(searchLower) : false;
     const matchesSearch = nameMatch || idMatch || patientIdMatch || dateOfDeathMatch;
+    
+    // Status filter
     const matchesStatus = statusFilter === 'all' || body.status === statusFilter;
-    return matchesSearch && matchesStatus;
+    
+    // Date filter (using registrationDate)
+    let matchesDate = true;
+    if (startDate && endDate && body.registrationDate) {
+      const registrationDate = normalizeDate(new Date(body.registrationDate));
+      const normalizedStartDate = normalizeDate(startDate);
+      const normalizedEndDate = normalizeDate(endDate);
+      matchesDate = registrationDate >= normalizedStartDate && registrationDate <= normalizedEndDate;
+    } else if (startDate && body.registrationDate) {
+      const registrationDate = normalizeDate(new Date(body.registrationDate));
+      const normalizedStartDate = normalizeDate(startDate);
+      matchesDate = registrationDate >= normalizedStartDate;
+    } else if (endDate && body.registrationDate) {
+      const registrationDate = normalizeDate(new Date(body.registrationDate));
+      const normalizedEndDate = normalizeDate(endDate);
+      matchesDate = registrationDate <= normalizedEndDate;
+    }
+    
+    return matchesSearch && matchesStatus && matchesDate;
   });
 
   const columns = [
@@ -257,6 +299,34 @@ const BodyManagement: React.FC = () => {
     );
   };
 
+  // Sort recentExits so the most recently exited come first
+  const sortedExits = [...recentExits].sort((a, b) => {
+    if (a.exitDate && b.exitDate) {
+      return new Date(b.exitDate).getTime() - new Date(a.exitDate).getTime();
+    }
+    return (b.id || '').localeCompare(a.id || '');
+  });
+
+  const filteredExits = sortedExits.filter(exit => {
+    let dateMatch = true;
+    if (startDate && endDate && exit.exitDate) {
+      const exitDate = new Date(exit.exitDate);
+      dateMatch = exitDate >= startDate && exitDate <= endDate;
+    } else if (startDate && exit.exitDate) {
+      const exitDate = new Date(exit.exitDate);
+      dateMatch = exitDate >= startDate;
+    } else if (endDate && exit.exitDate) {
+      const exitDate = new Date(exit.exitDate);
+      dateMatch = exitDate <= endDate;
+    }
+    
+    const statusMatch = statusFilter === 'all' || (exit.status && exit.status.toLowerCase() === statusFilter);
+    
+    return dateMatch && statusMatch;
+  });
+
+  
+
   const labelStyle = { fontWeight: 600, textTransform: 'capitalize' as const, padding: '6px 8px', color: '#374151' };
   const valueStyle = { padding: '6px 8px', color: '#222' };
 
@@ -284,9 +354,79 @@ const BodyManagement: React.FC = () => {
           type="button"
         />
       </div> */}
+       <div className="filter-container">
+          <div className="left-filters">
+            <div className="filter-group">
+              <label className="filter-label">From Date</label>
+              <DatePicker
+                selected={startDate}
+                onChange={(date: Date | null) => setStartDate(date)}
+                selectsStart
+                startDate={startDate}
+                endDate={endDate}
+                placeholderText="dd-mm-yyyy"
+                className="filter-input"
+                dateFormat="dd-MM-yyyy"
+              />
+            </div>
+            <div className="filter-group">
+              <label className="filter-label">To Date</label>
+              <DatePicker
+                selected={endDate}
+                onChange={(date: Date | null) => setEndDate(date)}
+                selectsEnd
+                startDate={startDate}
+                endDate={endDate}
+                minDate={startDate || undefined}
+                placeholderText="dd-mm-yyyy"
+                className="filter-input"
+                dateFormat="dd-MM-yyyy"
+              />
+            </div>
+            <div className="filter-group">
+              <label className="filter-label">Status</label>
+              <select
+                className="filter-input"
+                value={statusFilter}
+                onChange={(e) => setStatusFilter(e.target.value)}
+              >
+                <option value="all">All</option>
+                <option value="pending">Pending</option>
+                <option value="verified">Verified</option>
+                <option value="unverified">Unverified</option>
+                <option value="In Storage">In Storage</option>
+              </select>
+            </div>
+            <div className="filter-group">
+              <button
+                type="button"
+                className="filter-input"
+                onClick={() => {
+                  setStartDate(null);
+                  setEndDate(null);
+                  setStatusFilter('all');
+                }}
+                style={{
+                  backgroundColor: '#f3f4f6',
+                  color: '#374151',
+                  border: '1px solid #d1d5db',
+                  cursor: 'pointer',
+                  fontSize: '14px'
+                }}
+              >
+                Clear Filters
+              </button>
+            </div>
+          </div>
+        </div>
 
       {/* Table */}
-      <Table columns={columns} data={filteredBodies} renderActions={renderTableActions} />
+      <Table 
+        columns={columns} 
+        data={filteredBodies} 
+        renderActions={renderTableActions} 
+        disableInternalPagination={false}
+      />
       <EditModal
         show={showEditModal}
         onHide={() => setShowEditModal(false)}

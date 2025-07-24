@@ -43,7 +43,7 @@ const Table: React.FC<TableProps> = ({ columns, data, renderActions, disableInte
             </tr>
           ) : (
             displayData.map((row: Record<string, any>, idx: number) => (
-              <tr key={`${row.id}-${idx}`}>
+              <tr key={`row-${row.id || 'unknown'}-${idx}`}>
                 {columns.map((col) => (
                   <td key={col.key}>
                     {col.render

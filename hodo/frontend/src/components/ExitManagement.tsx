@@ -519,7 +519,7 @@ const ExitManagement: React.FC = () => {
       </div>
       {/* Move table and pagination here, outside of any card */}
       <div style={{ marginTop: '2rem' }}>
-        <h3 style={{ marginBottom: '1rem', fontWeight: 600 }}>Recent Exits</h3>
+        <div className="header">Recent Exits</div>
 
         <div className="filter-container">
           <div className="left-filters">

@@ -287,7 +287,7 @@ const StorageAllocation: React.FC = () => {
                   return (
                     <>
                       <div className="unit-details-header">
-                        <h3 className="unit-details-title">{unit.id}</h3>
+                        <h3 className="unuhkkhit-details-title">{unit.id}</h3>
                         <span className={`unit-badge ${getUnitColor(unit)}`}>{getStatusText(unit)}</span>
                       </div>
                       <div className="unit-details-info">
