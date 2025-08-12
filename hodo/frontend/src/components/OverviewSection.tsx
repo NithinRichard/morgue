@@ -29,37 +29,62 @@ const OverviewSection: React.FC = () => {
   useEffect(() => {
     const fetchBodies = async () => {
       try {
-        const response = await fetch('http://192.168.50.140:3001/api/bodies');
+        console.log('Fetching bodies from API...');
+        const response = await fetch('http://192.168.50.126:3001/api/bodies');
         if (!response.ok) {
-          throw new Error('Network response was not ok');
+          throw new Error(`Network response was not ok: ${response.status} ${response.statusText}`);
         }
         const data = await response.json();
-        setBodies(data);
+        console.log('Bodies API Response:', data);
+        
+        // Ensure data is an array and contains valid objects
+        const validBodies = Array.isArray(data) ? data.filter(body => {
+          if (!body || typeof body !== 'object') {
+            console.warn('Invalid body object filtered out:', body);
+            return false;
+          }
+          return true;
+        }) : [];
+        
+        setBodies(validBodies);
+        console.log('Bodies state set to:', validBodies);
       } catch (error) {
         console.error("Failed to fetch bodies:", error);
+        setBodies([]); // Set empty array on error
       }
     };
+    
     const fetchReleasedBodies = async () => {
       try {
-        const response = await fetch('http://192.168.50.140:3001/api/exits');
+        console.log('Fetching released bodies from API...');
+        const response = await fetch('http://192.168.50.126:3001/api/exits');
         if (!response.ok) {
-          throw new Error('Network response was not ok');
+          throw new Error(`Network response was not ok: ${response.status} ${response.statusText}`);
         }
         const data = await response.json();
-        setReleasedBodies(data);
+        console.log('Released bodies API Response:', data);
+        
+        // Ensure data is an array
+        const validReleasedBodies = Array.isArray(data) ? data : [];
+        setReleasedBodies(validReleasedBodies);
+        console.log('Released bodies state set to:', validReleasedBodies);
       } catch (error) {
         console.error("Failed to fetch released bodies:", error);
+        setReleasedBodies([]); // Set empty array on error
       }
     };
+    
     fetchBodies();
     fetchReleasedBodies();
   }, []);
 
-  const totalBodies = bodies.length;
-  const verifiedBodies = bodies.filter(b => b.status === 'verified').length;
-  const pendingBodies = bodies.filter(b => b.status === 'pending').length;
-  const highRiskBodies = bodies.filter(b => b.riskLevel === 'high').length;
-  const occupiedUnits = new Set(bodies.map(b => b.storageUnit)).size;
+  // Safe data processing with null checks
+  const safeBodies = Array.isArray(bodies) ? bodies : [];
+  const totalBodies = safeBodies.length;
+  const verifiedBodies = safeBodies.filter(b => b && b.status === 'verified').length;
+  const pendingBodies = safeBodies.filter(b => b && b.status === 'pending').length;
+  const highRiskBodies = safeBodies.filter(b => b && b.riskLevel === 'high').length;
+  const occupiedUnits = new Set(safeBodies.map(b => b && b.storageUnit).filter(Boolean)).size;
   const totalUnits = 30; // Assuming 30 total units
   const occupancyPercentage = totalUnits > 0 ? (occupiedUnits / totalUnits) * 100 : 0;
 
@@ -70,23 +95,61 @@ const OverviewSection: React.FC = () => {
     { title: "High Risk", value: String(highRiskBodies) },
   ];
 
-  const recentActivities = bodies
-    .sort((a, b) => new Date(b.timeOfDeath).getTime() - new Date(a.timeOfDeath).getTime())
+  const recentActivities = safeBodies
+    .filter(body => body && body.timeOfDeath && body.id) // Filter out invalid entries
+    .sort((a, b) => {
+      try {
+        const timeA = new Date(a.timeOfDeath).getTime();
+        const timeB = new Date(b.timeOfDeath).getTime();
+        return timeB - timeA;
+      } catch (error) {
+        console.warn('Error sorting recent activities:', error);
+        return 0;
+      }
+    })
     .slice(0, 4)
-    .map(body => ({
-      id: body.id,
-      action: `Body ${body.status}`,
-      name: body.name,
-      time: new Date(body.timeOfDeath).toLocaleTimeString(),
-      status: body.status,
-    }));
+    .map(body => {
+      try {
+        return {
+          id: body.id || 'N/A',
+          action: `Body ${body.status || 'Unknown'}`,
+          name: body.name || 'Unknown',
+          time: body.timeOfDeath ? (() => {
+            try {
+              const date = new Date(body.timeOfDeath);
+              if (isNaN(date.getTime())) return 'N/A';
+              return date.toLocaleString('en-GB', {
+                day: '2-digit',
+                month: '2-digit', 
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: false
+              });
+            } catch (error) {
+              return 'N/A';
+            }
+          })() : 'N/A',
+          status: body.status || 'unknown',
+        };
+      } catch (error) {
+        console.warn('Error processing activity:', error, body);
+        return {
+          id: 'Error',
+          action: 'Error processing',
+          name: 'Error',
+          time: 'N/A',
+          status: 'error',
+        };
+      }
+    });
 
   // Sort bodies so the most recently registered come first
-  const sortedBodies = [...bodies].sort((a, b) => {
+  const sortedBodies = [...safeBodies].sort((a, b) => {
     if (a.registrationDate && b.registrationDate) {
       return new Date(b.registrationDate).getTime() - new Date(a.registrationDate).getTime();
     }
-    return (b.id || '').localeCompare(a.id || '');
+    return String(b.id || '').localeCompare(String(a.id || ''));
   });
 
   // Helper function to normalize dates for comparison (removes time component)
@@ -97,28 +160,43 @@ const OverviewSection: React.FC = () => {
   };
 
   const filteredBodies = sortedBodies.filter(body => {
+    // Ensure body is valid
+    if (!body || typeof body !== 'object') {
+      return false;
+    }
+    
     // Search filter
     const searchLower = searchTerm.toLowerCase();
-    const nameMatch = body.name ? body.name.toLowerCase().includes(searchLower) : false;
-    const idMatch = body.id ? body.id.toLowerCase().includes(searchLower) : false;
-    // Add more fields if needed
+    const nameMatch = body.name ? String(body.name).toLowerCase().includes(searchLower) : false;
+    const idMatch = body.id ? String(body.id).toLowerCase().includes(searchLower) : false;
+    const matchesSearch = searchTerm === '' || nameMatch || idMatch;
+    
+    // Date filter
     let dateMatch = true;
-    if (startDate && endDate && body.registrationDate) {
-      const registrationDate = normalizeDate(new Date(body.registrationDate));
-      const normalizedStartDate = normalizeDate(startDate);
-      const normalizedEndDate = normalizeDate(endDate);
-      dateMatch = registrationDate >= normalizedStartDate && registrationDate <= normalizedEndDate;
-    } else if (startDate && body.registrationDate) {
-      const registrationDate = normalizeDate(new Date(body.registrationDate));
-      const normalizedStartDate = normalizeDate(startDate);
-      dateMatch = registrationDate >= normalizedStartDate;
-    } else if (endDate && body.registrationDate) {
-      const registrationDate = normalizeDate(new Date(body.registrationDate));
-      const normalizedEndDate = normalizeDate(endDate);
-      dateMatch = registrationDate <= normalizedEndDate;
+    try {
+      if (startDate && endDate && body.registrationDate) {
+        const registrationDate = normalizeDate(new Date(body.registrationDate));
+        const normalizedStartDate = normalizeDate(startDate);
+        const normalizedEndDate = normalizeDate(endDate);
+        dateMatch = registrationDate >= normalizedStartDate && registrationDate <= normalizedEndDate;
+      } else if (startDate && body.registrationDate) {
+        const registrationDate = normalizeDate(new Date(body.registrationDate));
+        const normalizedStartDate = normalizeDate(startDate);
+        dateMatch = registrationDate >= normalizedStartDate;
+      } else if (endDate && body.registrationDate) {
+        const registrationDate = normalizeDate(new Date(body.registrationDate));
+        const normalizedEndDate = normalizeDate(endDate);
+        dateMatch = registrationDate <= normalizedEndDate;
+      }
+    } catch (dateError) {
+      console.warn('Date filtering error:', dateError);
+      dateMatch = true; // Default to include if date parsing fails
     }
-    const statusMatch = statusFilter === 'all' || (body.status && body.status.toLowerCase() === statusFilter);
-    return (nameMatch || idMatch) && dateMatch && statusMatch;
+    
+    // Status filter
+    const statusMatch = statusFilter === 'all' || (body.status && String(body.status).toLowerCase() === statusFilter);
+    
+    return matchesSearch && dateMatch && statusMatch;
   });
 
   const getStatusColor = (status: string) => {
@@ -267,10 +345,11 @@ const OverviewSection: React.FC = () => {
             { key: 'incidentType', header: 'Incident Type' },
           ]}
           data={filteredBodies}
+          disableInternalPagination={false}
         />
       </div>
     </div>
   );
 };
 
-export default OverviewSection; 
+export default OverviewSection;

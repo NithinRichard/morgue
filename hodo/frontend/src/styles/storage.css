@@ -492,3 +492,282 @@
     padding: 0.3rem;
   }
 } 
+/* Enhanced modal responsive styles for storage unit selection */
+.modal-overlay .storage-unit-display {
+  max-height: 70vh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+@media (max-width: 1024px) {
+  .modal-overlay .modal-content {
+    max-width: 90vw !important;
+  }
+  
+  .units-grid-compact {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .modal-overlay .storage-unit-display {
+    max-height: 75vh;
+    padding: 1rem;
+  }
+  
+  .modal-overlay .modal-content {
+    max-width: 95vw !important;
+    margin: 1rem !important;
+    padding: 1rem !important;
+  }
+  
+  .units-grid-compact {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.5rem;
+  }
+  
+  .storage-display-header h4 {
+    font-size: 1rem;
+  }
+  
+  .storage-display-header p {
+    font-size: 0.85rem;
+  }
+  
+  /* Touch-friendly improvements */
+  .unit-box-compact.clickable {
+    min-height: 44px; /* Minimum touch target size */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .unit-box-compact.clickable:active {
+    transform: scale(0.95);
+    background-color: #e5e7eb;
+  }
+}
+
+@media (max-width: 600px) {
+  .modal-overlay .storage-unit-display {
+    max-height: 80vh;
+    padding: 0.75rem;
+  }
+  
+  .modal-overlay .modal-content {
+    max-width: 98vw !important;
+    margin: 0.5rem !important;
+    padding: 0.75rem !important;
+  }
+  
+  .units-grid-compact {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.4rem;
+  }
+  
+  .unit-box-compact {
+    padding: 0.4rem;
+  }
+  
+  .unit-id-compact {
+    font-size: 0.8rem;
+  }
+  
+  .unit-status-compact {
+    font-size: 0.7rem;
+  }
+  
+  .unit-legend-compact {
+    flex-direction: column;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+  }
+  
+  .storage-display-header {
+    margin-bottom: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .modal-overlay .storage-unit-display {
+    max-height: 85vh;
+    padding: 0.5rem;
+  }
+  
+  .modal-overlay .modal-content {
+    max-width: 100vw !important;
+    margin: 0 !important;
+    padding: 0.5rem !important;
+    border-radius: 0.5rem !important;
+    height: auto;
+    max-height: 95vh;
+  }
+  
+  .units-grid-compact {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.3rem;
+  }
+  
+  .unit-box-compact {
+    padding: 0.3rem;
+    font-size: 0.75rem;
+  }
+  
+  .unit-center-compact {
+    gap: 0.15rem;
+  }
+  
+  .unit-id-compact {
+    font-size: 0.7rem;
+  }
+  
+  .unit-status-compact {
+    font-size: 0.65rem;
+  }
+  
+  .unit-dot-compact {
+    width: 0.5rem;
+    height: 0.5rem;
+  }
+  
+  .storage-display-header {
+    margin-bottom: 0.75rem;
+  }
+  
+  .storage-display-header h4 {
+    font-size: 0.95rem;
+  }
+  
+  .storage-display-header p {
+    font-size: 0.8rem;
+  }
+}
+
+/* Very small screens and portrait phones */
+@media (max-width: 400px) {
+  .modal-overlay .storage-unit-display {
+    max-height: 90vh;
+    padding: 0.4rem;
+  }
+  
+  .modal-overlay .modal-content {
+    max-width: 100vw !important;
+    margin: 0 !important;
+    padding: 0.4rem !important;
+    border-radius: 0.25rem !important;
+    height: auto;
+    max-height: 98vh;
+  }
+  
+  .units-grid-compact {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.25rem;
+  }
+  
+  .unit-box-compact {
+    padding: 0.25rem;
+    font-size: 0.7rem;
+    min-height: 40px;
+  }
+  
+  .unit-id-compact {
+    font-size: 0.65rem;
+  }
+  
+  .unit-status-compact {
+    font-size: 0.6rem;
+  }
+  
+  .unit-dot-compact {
+    width: 0.4rem;
+    height: 0.4rem;
+  }
+  
+  .storage-display-header h4 {
+    font-size: 0.9rem;
+  }
+  
+  .storage-display-header p {
+    font-size: 0.75rem;
+  }
+  
+  .unit-legend-compact {
+    font-size: 0.7rem;
+    margin-top: 0.75rem;
+  }
+  
+  .legend-item {
+    gap: 0.3rem;
+  }
+  
+  .legend-dot {
+    width: 0.8rem;
+    height: 0.8rem;
+  }
+}
+
+/* Landscape orientation adjustments for mobile */
+@media (max-width: 768px) and (orientation: landscape) {
+  .modal-overlay .storage-unit-display {
+    max-height: 85vh;
+  }
+  
+  .units-grid-compact {
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0.4rem;
+  }
+  
+  .unit-box-compact {
+    padding: 0.3rem;
+  }
+}
+
+@media (max-width: 600px) and (orientation: landscape) {
+  .units-grid-compact {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.3rem;
+  }
+  
+  .unit-box-compact {
+    padding: 0.25rem;
+    font-size: 0.7rem;
+  }
+}
+
+/* Very small screens */
+@media (max-width: 320px) {
+  .modal-overlay .modal-content {
+    padding: 0.3rem !important;
+  }
+  
+  .modal-overlay .storage-unit-display {
+    padding: 0.3rem;
+  }
+  
+  .units-grid-compact {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.2rem;
+  }
+  
+  .unit-box-compact {
+    padding: 0.2rem;
+    font-size: 0.65rem;
+    min-height: 35px;
+  }
+  
+  .unit-id-compact {
+    font-size: 0.6rem;
+  }
+  
+  .unit-status-compact {
+    font-size: 0.55rem;
+  }
+  
+  .storage-display-header h4 {
+    font-size: 0.85rem;
+  }
+  
+  .storage-display-header p {
+    font-size: 0.7rem;
+  }
+}

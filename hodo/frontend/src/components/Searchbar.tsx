@@ -10,7 +10,7 @@ interface SearchbarProps {
 
 const Searchbar: React.FC<SearchbarProps> = ({ value, onChange, placeholder }) => {
   return (
-    <div className="searchbar-container mb-3" style={{ maxWidth: '100%'}}>
+    <div className="searchbar-container mb-3" style={{ maxWidth: '100%' }}>
       <input
         type="search"
         className="form-control search-input"

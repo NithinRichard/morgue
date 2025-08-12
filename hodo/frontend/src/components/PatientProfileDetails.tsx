@@ -64,7 +64,24 @@ const PatientProfileDetails: React.FC<PatientProfileDetailsProps> = ({ patient }
             </div>
             <div className="detail-item">
               <span className="detail-label">Date & Time of Death</span>
-              <span className="detail-value">{`${patient.dateOfDeath || ''} ${patient.timeOfDeath || ''}`}</span>
+              <span className="detail-value">
+                {patient.timeOfDeath ? (() => {
+                  try {
+                    const date = new Date(patient.timeOfDeath);
+                    if (isNaN(date.getTime())) return `${patient.dateOfDeath || ''} ${patient.timeOfDeath || ''}`;
+                    return date.toLocaleString('en-GB', {
+                      day: '2-digit',
+                      month: '2-digit', 
+                      year: 'numeric',
+                      hour: '2-digit',
+                      minute: '2-digit',
+                      hour12: false
+                    });
+                  } catch (error) {
+                    return `${patient.dateOfDeath || ''} ${patient.timeOfDeath || ''}`;
+                  }
+                })() : `${patient.dateOfDeath || ''} -`}
+              </span>
             </div>
           </div>
 

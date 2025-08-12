@@ -3,20 +3,25 @@ import '../Styles/Table.css';
 import Pagination from './Pagination';
 
 
-interface Column {
+interface Column<T = Record<string, any>> {
   key: string;
   header: string;
-  render?: (row: Record<string, any>) => React.ReactNode;
+  render?: (row: T) => React.ReactNode;
 }
 
-interface TableProps {
-  columns: Column[];
-  data: Record<string, any>[];
-  renderActions?: (row: Record<string, any>) => React.ReactNode;
+interface TableProps<T = Record<string, any>> {
+  columns: Column<T>[];
+  data: T[];
+  renderActions?: (row: T) => React.ReactNode;
   disableInternalPagination?: boolean;
 }
 
-const Table: React.FC<TableProps> = ({ columns, data, renderActions, disableInternalPagination = true }) => {
+const Table = <T extends Record<string, any>>({ 
+  columns, 
+  data, 
+  renderActions, 
+  disableInternalPagination = true 
+}: TableProps<T>) => {
   const [page, setPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const totalPages = Math.ceil(data.length / rowsPerPage);
@@ -42,17 +47,23 @@ const Table: React.FC<TableProps> = ({ columns, data, renderActions, disableInte
               <td colSpan={columns.length + 1} style={{ textAlign: 'center' }}>No data found.</td>
             </tr>
           ) : (
-            displayData.map((row: Record<string, any>, idx: number) => (
+            displayData.map((row: T, idx: number) => (
               <tr key={`row-${row.id || 'unknown'}-${idx}`}>
-                {columns.map((col) => (
-                  <td key={col.key}>
-                    {col.render
-                      ? col.render(row)
-                      : typeof row[col.key] === 'number' 
-                        ? row[col.key].toString()
-                        : row[col.key]}
-                  </td>
-                ))}
+                {columns.map((col) => {
+                  const cellValue = row[col.key];
+                  return (
+                    <td key={col.key}>
+                      {col.render
+                        ? col.render(row)
+                        : cellValue === undefined || cellValue === null
+                          ? '-'  // Display a dash for undefined/null values
+                          : typeof cellValue === 'number'
+                            ? cellValue.toString()
+                            : cellValue.toString()
+                      }
+                    </td>
+                  );
+                })}
                 {renderActions && <td className="actions-cell">{renderActions(row)}</td>}
               </tr>
             ))

@@ -52,7 +52,7 @@
 
 .form-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(3, 1fr); /* fixed 3-column layout for consistent alignment */
   gap: 1.5rem;
 }
 
@@ -123,11 +123,56 @@
   display: grid;
   grid-template-columns: 1fr 1fr auto;
   gap: 0.5rem;
-  align-items: center;
+  align-items: start;
   padding: 1rem;
   background: #f8fafc;
   border-radius: 0.5rem;
   border: 1px solid #e3eafc;
+}
+
+.person-item .phone-input-wrapper {
+  align-self: stretch;
+}
+
+.person-item .phone-input-wrapper .form-label {
+  margin-bottom: 0.25rem;
+  font-size: 0.85rem;
+}
+
+/* Phone input specific styles */
+.phone-input-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.phone-input-wrapper .form-input {
+  margin-bottom: 0;
+}
+
+.phone-input-wrapper .error-message,
+.phone-input-wrapper .phone-input-hint {
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
+  line-height: 1.2;
+}
+
+.phone-input-wrapper .error-message {
+  color: #ef4444;
+}
+
+.phone-input-wrapper .phone-input-hint {
+  color: #666;
+}
+
+/* Ensure proper alignment in form groups */
+.form-group .phone-input-wrapper {
+  align-self: stretch;
+}
+
+.form-group .phone-input-wrapper .form-label {
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
 }
 
 .add-btn {
@@ -218,32 +263,26 @@
   .form-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .person-item {
     grid-template-columns: 1fr;
     gap: 0.75rem;
   }
-  
+
   .checkbox-group {
     flex-direction: column;
     gap: 1rem;
   }
-  
+
   .card-content {
     padding: 1.5rem;
   }
-  
+
   .inward-title {
     font-size: 1.5rem;
   }
 }
 
-/* Required field indicator */
-.form-label:has(+ .form-input[required])::after,
-.form-label:has(+ .form-select[required])::after {
-  content: " *";
-  color: #ef4444;
-}
 
 /* Error states */
 .form-input.error,
@@ -269,7 +308,7 @@
 .form-select.success:focus,
 .form-textarea.success:focus {
   box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
-} 
+}
 
 .modal-overlay {
   position: fixed;
@@ -304,7 +343,7 @@
   cursor: pointer;
   color: #888;
   z-index: 10;
-} 
+}
 
 @media (max-width: 600px) {
   .modal-overlay {
@@ -325,4 +364,156 @@
     padding: 0.5rem !important;
     font-size: 0.9rem !important;
   }
-} 
+}
+
+/* Enhanced modal styles for patient selection */
+.modal-overlay .modal-content {
+  max-height: 90vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-overlay .modal-content > div:nth-child(3) {
+  /* Patient list container */
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+}
+
+/* Hover effects for patient cards */
+.patient-card {
+  transition: all 0.2s ease;
+}
+
+.patient-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Search input focus styles */
+.patient-search-input:focus {
+  border-color: #3b82f6 !important;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1) !important;
+}
+
+@media (max-width: 768px) {
+  .modal-overlay .modal-content {
+    max-height: 95vh;
+  }
+
+  .modal-overlay .modal-content > div:nth-child(3) {
+    max-height: 50vh;
+  }
+}
+/* Enhanced responsive styles for storage unit modal */
+@media (max-width: 1024px) {
+  .modal-overlay .modal-content {
+    max-width: 90vw !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .modal-overlay .modal-content {
+    max-width: 95vw !important;
+    margin: 1rem !important;
+    padding: 1rem !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .modal-overlay .modal-content {
+    max-width: 98vw !important;
+    margin: 0.5rem !important;
+    padding: 0.75rem !important;
+  }
+
+  .modal-overlay {
+    padding: 0.5rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .modal-overlay .modal-content {
+    max-width: 100vw !important;
+    margin: 0 !important;
+    padding: 0.5rem !important;
+    border-radius: 0.5rem !important;
+    max-height: 95vh;
+  }
+
+  .modal-overlay {
+    align-items: flex-start !important;
+    padding: 0.25rem !important;
+  }
+}
+
+@media (max-width: 400px) {
+  .modal-overlay .modal-content {
+    padding: 0.4rem !important;
+    border-radius: 0.25rem !important;
+    max-height: 98vh;
+  }
+
+  .modal-close {
+    top: 0.5rem;
+    right: 0.5rem;
+    font-size: 1.5rem;
+  }
+}
+
+/* Very small screens */
+@media (max-width: 320px) {
+  .modal-overlay .modal-content {
+    padding: 0.3rem !important;
+    max-height: 99vh;
+  }
+
+  .modal-close {
+    top: 0.3rem;
+    right: 0.3rem;
+    font-size: 1.25rem;
+  }
+}
+
+
+/* Normalize and align Age (number) and Risk Level (select) with other fields */
+.inward-form .form-input,
+.inward-form .form-select {
+  box-sizing: border-box;
+  padding: 0.6rem 0.75rem; /* consistent internal padding */
+  height: 44px; /* unify control height across browsers */
+  line-height: 1.5;
+  border-width: 2px; /* ensure consistent border thickness */
+}
+
+/* Remove number input spin buttons for consistent sizing */
+.inward-form input[type="number"]::-webkit-outer-spin-button,
+.inward-form input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.inward-form input[type="number"] {
+  -moz-appearance: textfield; /* Firefox */
+}
+
+/* Ensure grid items start at the same baseline */
+.inward-form .form-grid {
+  align-items: start;
+}
+
+
+/* Ensure all labels align consistently in the inward form */
+.inward-form .form-label {
+  display: inline-flex; /* compact baseline so label + star align */
+  align-items: center;
+  height: 22px; /* single-line label height to keep inputs aligned */
+  white-space: nowrap; /* prevent wrapping that misaligns rows */
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Ensure each form group starts from same place */
+.inward-form .form-group {
+  justify-content: flex-start;
+}

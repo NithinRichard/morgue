@@ -6,6 +6,7 @@ import Footer from '../components/Footer';
 import SectionHeading from '../components/SectionHeading';
 import PageContainer from '../components/PageContainer';
 import OverviewSection from '../components/OverviewSection';
+import ErrorBoundary from '../components/ErrorBoundary';
 // import Searchbar from '../components/Searchbar';
 // import Table from '../components/Table';
 import vehicleData from '../../db.json';
@@ -130,9 +131,11 @@ const Page: React.FC<PageProps> = ({ sidebarCollapsed, toggleSidebar }) => {
     <PageContainer>
       <SectionHeading title='Dashboard Overview' subtitle='Mortuary Management System'/>
       
-      <OverviewSection />
+      <ErrorBoundary>
+        <OverviewSection />
+      </ErrorBoundary>
 
-      {/* <Searchbar value={searchValue} onChange={(e) => setSearchValue(e.target.value)} /> */}
+      {/* <Searchbar value={searchValue} onChange={(e) => setSearchValue(e.target.value)} */}
       
       {/* <Table columns={tableColumns} data={filteredData} /> */}
     </PageContainer>

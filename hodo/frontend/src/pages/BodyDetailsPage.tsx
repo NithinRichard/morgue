@@ -80,12 +80,37 @@ const BodyDetailsPage: React.FC<{ sidebarCollapsed: boolean; toggleSidebar: () =
   const fetchBody = async () => {
     if (!id) return;
     setLoading(true);
+    setError(null);
     try {
-      const res = await fetch(`http://192.168.50.140:3001/api/bodies/${id}`);
-      if (!res.ok) throw new Error('Failed to fetch body details');
-      const data = await res.json();
+      // First try to fetch the specific body
+      let res = await fetch(`http://192.168.50.126:3001/api/bodies/${id}`);
+      let data;
+      
+      if (!res.ok && res.status === 404) {
+        // Fallback: fetch all bodies and find the one with matching ID
+        console.log('Individual body endpoint returned 404, trying fallback method...');
+        const allBodiesRes = await fetch('http://192.168.50.126:3001/api/bodies');
+        if (!allBodiesRes.ok) {
+          throw new Error(`Failed to fetch bodies list: ${allBodiesRes.status} ${allBodiesRes.statusText}`);
+        }
+        const allBodies = await allBodiesRes.json();
+        const foundBody = allBodies.find((body: any) => body.id == id); // Use == to handle string/number comparison
+        
+        if (!foundBody) {
+          throw new Error(`Body with ID "${id}" was not found. It may have been deleted or the ID may be incorrect.`);
+        }
+        data = foundBody;
+        console.log('Found body using fallback method:', data);
+      } else if (!res.ok) {
+        throw new Error(`Failed to fetch body details: ${res.status} ${res.statusText}`);
+      } else {
+        data = await res.json();
+        console.log('Fetched body data directly:', data);
+      }
+      
       setBody(data);
     } catch (err: any) {
+      console.error('Error fetching body:', err);
       setError(err.message);
     } finally {
       setLoading(false);
@@ -101,7 +126,7 @@ const BodyDetailsPage: React.FC<{ sidebarCollapsed: boolean; toggleSidebar: () =
     if (!id) return;
     setEditLoading(true);
     try {
-      const response = await fetch(`http://192.168.50.140:3001/api/bodies/${id}`, {
+      const response = await fetch(`http://192.168.50.126:3001/api/bodies/${id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(values),
@@ -121,7 +146,7 @@ const BodyDetailsPage: React.FC<{ sidebarCollapsed: boolean; toggleSidebar: () =
     if (!id) return;
     setVerifying(true);
     try {
-      const response = await fetch(`http://192.168.50.140:3001/api/bodies/${id}/verify-log`, {
+      const response = await fetch(`http://192.168.50.126:3001/api/bodies/${id}/verify-log`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(verificationForm)
@@ -142,8 +167,42 @@ const BodyDetailsPage: React.FC<{ sidebarCollapsed: boolean; toggleSidebar: () =
       <Header sidebarCollapsed={sidebarCollapsed} toggleSidebar={toggleSidebar} showDate showTime />
       <PageContainer>
         <SectionHeading title="Death Profile" subtitle="Death record details" />
-        {loading && <div>Loading...</div>}
-        {error && <div style={{ color: 'red' }}>{error}</div>}
+        {loading && (
+          <div style={{ 
+            textAlign: 'center', 
+            padding: '40px 20px',
+            fontSize: '16px',
+            color: '#666'
+          }}>
+            Loading body details...
+          </div>
+        )}
+        {error && (
+          <div style={{ 
+            padding: '40px 20px',
+            textAlign: 'center',
+            border: '1px solid #ff6b6b',
+            borderRadius: '8px',
+            backgroundColor: '#ffe0e0',
+            color: '#cc0000',
+            margin: '20px 0'
+          }}>
+            <h3 style={{ margin: '0 0 16px 0', color: '#cc0000' }}>Error Loading Body Details</h3>
+            <p style={{ margin: '0 0 20px 0', lineHeight: '1.5' }}>{error}</p>
+            <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
+              <ButtonWithGradient
+                text="Go Back to Bodies List"
+                onClick={() => window.history.back()}
+                type="button"
+              />
+              <ButtonWithGradient
+                text="Try Again"
+                onClick={() => fetchBody()}
+                type="button"
+              />
+            </div>
+          </div>
+        )}
         {body && (
           <PatientProfileDetails
             patient={{

@@ -5,6 +5,7 @@ import Footer from '../components/Footer';
 import SectionHeading from '../components/SectionHeading';
 import PageContainer from '../components/PageContainer';
 import BodyManagement from '../components/BodyManagement';
+import ErrorBoundary from '../components/ErrorBoundary';
 
 interface BodiesPageProps {
   sidebarCollapsed: boolean;
@@ -17,7 +18,9 @@ const BodiesPage: React.FC<BodiesPageProps> = ({ sidebarCollapsed, toggleSidebar
       <Header sidebarCollapsed={sidebarCollapsed} toggleSidebar={toggleSidebar} showDate showTime />
       <PageContainer>
         <SectionHeading title='Body Management' subtitle='Track and manage all bodies in the mortuary'/>
-        <BodyManagement />
+        <ErrorBoundary>
+          <BodyManagement />
+        </ErrorBoundary>
       </PageContainer>
       <Footer/>
     </>

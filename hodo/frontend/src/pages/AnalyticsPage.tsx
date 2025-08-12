@@ -27,7 +27,7 @@ const AnalyticsPage: React.FC = () => {
   useEffect(() => {
     setLoading(true);
     const { from, to } = range;
-    const API_BASE = 'http://192.168.50.140:3001';
+    const API_BASE = 'http://192.168.50.126:3001';
     Promise.all([
       fetch(`${API_BASE}/api/analytics/admissions?from=${from}&to=${to}`).then(res => res.json()),
       fetch(`${API_BASE}/api/analytics/releases?from=${from}&to=${to}`).then(res => res.json()),

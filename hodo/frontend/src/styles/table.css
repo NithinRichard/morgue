@@ -5,7 +5,9 @@
   box-sizing: border-box;
 }
 
-*, ::after, ::before {
+*,
+::after,
+::before {
   box-sizing: border-box;
 }
 
@@ -21,7 +23,12 @@ table {
   border-color: gray;
 }
 
-tbody, td, tfoot, th, thead, tr {
+tbody,
+td,
+tfoot,
+th,
+thead,
+tr {
   border-color: inherit;
   border-style: solid;
   border-width: 0;
@@ -50,17 +57,27 @@ body {
   -webkit-tap-highlight-color: transparent;
 }
 
+
+
 /* Table container */
 .table-container {
   background: #fff;
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
   /* padding: 24px; */
   margin: 24px 0;
   overflow-x: auto;
+  overflow-y: visible;
+  width: 100%;
+  max-width: 100%;
 }
 
-.custom-table, table, th, td {
+
+
+.custom-table,
+table,
+th,
+td {
   font-family: "Poppins", sans-serif;
   font-size: 12px;
   box-sizing: border-box;
@@ -78,15 +95,12 @@ body {
   border-collapse: separate;
   border-spacing: 0;
   font-family: 'Poppins', 'sans-serif';
-  /* font-size: 14px; */
 }
 
-.custom-table th, .custom-table td {
-  padding: 9px 6px;
+.custom-table th,
+.custom-table td {
+  padding: 12px 20px;
   text-align: left;
-  padding-left: 20px;
-  /* margin-left: 10px; */
-  border-bottom: 1px solid #f0f0f0;
   font-family: 'Poppins', 'sans-serif';
   font-size: 14px;
   border-color: inherit;
@@ -94,11 +108,12 @@ body {
   border-width: 0;
 }
 
+/* Header styling with bottom border */
 .custom-table th {
   color: #5a5a5a;
   font-weight: 600;
   background: #f9f9f9;
-  border-bottom: 2px solid #e3e3e3;
+  border-bottom: 2px solid #bdbdbd;
   letter-spacing: 0.5px;
   text-align: inherit;
   text-align: -webkit-match-parent;
@@ -109,31 +124,136 @@ body {
   unicode-bidi: isolate;
 }
 
-.custom-table tr:last-child td {
-  border-bottom: none;
+/* HORIZONTAL LINES FOR EVERY SINGLE ROW */
+.custom-table tbody tr {
+  border-bottom: 2px solid #e0e0e0;
+  transition: all 0.2s ease;
 }
 
-.custom-table tr {
-  transition: background 0.2s;
+/* Ensure EVERY row has a horizontal line - INCLUDING the last one */
+.custom-table tbody tr:last-child {
+  border-bottom: 2px solid #e0e0e0;
 }
 
+/* Add top border to first row for complete separation */
+.custom-table tbody tr:first-child {
+  border-top: 1px solid #e0e0e0;
+}
+
+/* Add horizontal lines to individual cells for extra clarity */
+.custom-table td {
+  border-bottom: 1px solid #e0e0e0;
+}
+
+/* Double border effect for stronger row separation */
+.custom-table tbody tr+tr {
+  border-top: 1px solid #e0e0e0;
+}
+
+/* Alternating row colors for better differentiation */
+.custom-table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.custom-table tbody tr:nth-child(odd) {
+  background-color: #ffffff;
+}
+
+/* Enhanced hover effect while maintaining horizontal lines */
 .custom-table tbody tr:hover {
-  background: #f5faff;
+  background: #e3f2fd !important;
   transform: translateY(-1px);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-bottom: 2px solid #90caf9 !important;
+  border-top: 1px solid #90caf9;
 }
 
+/* Ensure header row has a distinct bottom border */
+.custom-table thead tr {
+  border-bottom: 3px solid #bdbdbd;
+}
 
+/* Fix for date picker appearing behind tables */
+.react-datepicker-wrapper {
+  position: relative;
+  z-index: 10;
+}
 
+.react-datepicker-popper {
+  z-index: 1000 !important;
+}
 
+.react-datepicker {
+  z-index: 1000 !important;
+}
 
+/* Ensure date filter containers have proper z-index */
+.date-filter-container,
+.filter-container {
+  position: relative;
+  z-index: 10;
+}
 
-@media (max-width: 900px) {
-  .custom-table th, .custom-table td {
-    padding: 10px 8px;
-    font-size: 14px;
-  }
-  .table-container {
-    padding: 8px;
-  }
+/* Fix for any dropdown or modal that might appear over tables */
+.dropdown-menu,
+.modal,
+.popover {
+  z-index: 1050 !important;
+}
+
+/* Ensure table container has lower z-index than date pickers */
+.table-container {
+  position: relative;
+  z-index: 1;
+}
+
+/* Ensure custom table doesn't interfere with date pickers */
+.custom-table {
+  position: relative;
+  z-index: 1;
+}
+
+/* Table headers should not interfere */
+.custom-table th {
+  position: relative;
+  z-index: 2;
+}
+
+/* Ensure table rows don't interfere with dropdowns */
+.custom-table tbody tr {
+  position: relative;
+  z-index: 1;
+}
+
+/*
+ Global date picker z-index fixes for all components */
+.react-datepicker__portal {
+  z-index: 2000 !important;
+}
+
+.react-datepicker__portal .react-datepicker {
+  z-index: 2000 !important;
+}
+
+/* Fix for date picker in different contexts */
+.react-datepicker__tab-loop {
+  z-index: 1500 !important;
+}
+
+.react-datepicker__header {
+  z-index: 1001 !important;
+}
+
+.react-datepicker__month-container {
+  z-index: 1001 !important;
+}
+
+/* Ensure any overlay elements don't interfere */
+.react-datepicker__triangle {
+  z-index: 1001 !important;
+}
+
+/* Fix for date picker input focus */
+.react-datepicker__input-container input:focus+.react-datepicker-popper {
+  z-index: 1200 !important;
 }

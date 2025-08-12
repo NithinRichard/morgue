@@ -2,6 +2,7 @@
 export class Body {
   constructor(data = {}) {
     this.id = data.id || null;
+    this.customId = data.customId || null; // Unique custom ID like MTY-241201-001
     this.name = data.name || 'Unknown';
     this.patientId = data.patientId || null;
     this.dateOfDeath = data.dateOfDeath || new Date().toISOString().split('T')[0];
@@ -52,6 +53,7 @@ export class Body {
   // Convert to database format
   toDatabase() {
     return {
+      BD_Custom_ID: this.customId,
       BD_Name: this.name,
       BD_Patient_FK: this.patientId,
       BD_Date_Of_Death: this.dateOfDeath,
@@ -79,6 +81,7 @@ export class Body {
   static fromDatabase(dbData) {
     return new Body({
       id: dbData.BD_ID_PK,
+      customId: dbData.BD_Custom_ID,
       name: dbData.BD_Name,
       patientId: dbData.BD_Patient_FK,
       dateOfDeath: dbData.BD_Date_Of_Death,

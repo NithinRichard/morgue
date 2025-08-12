@@ -12,7 +12,7 @@ const OccupancyTrends: React.FC = () => {
   useEffect(() => {
     const fetchOccupancyTrends = async () => {
       try {
-        const response = await fetch('http://192.168.50.124:3001/api/reports/occupancy-trends');
+        const response = await fetch('http://192.168.50.126:3001/api/reports/occupancy-trends');
         const trendData: TrendData[] = await response.json();
         setData(trendData);
       } catch (error) {

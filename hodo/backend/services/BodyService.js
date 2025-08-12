@@ -1,5 +1,6 @@
 import * as db from '../db/index.js';
 import { Body } from '../models/Body.js';
+import SimpleIdService from './SimpleIdService.js';
 
 /**
  * Body Service - Contains all business logic for body management
@@ -43,6 +44,11 @@ export class BodyService {
    */
   static async createBody(bodyData) {
     try {
+      // Generate unique custom ID if not provided
+      if (!bodyData.customId) {
+        bodyData.customId = SimpleIdService.generateUniqueBodyId();
+      }
+      
       // Create and validate body model
       const body = new Body(bodyData);
       const validationErrors = body.validate();

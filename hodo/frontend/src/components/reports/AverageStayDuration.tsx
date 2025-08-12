@@ -6,7 +6,7 @@ const AverageStayDuration: React.FC = () => {
   useEffect(() => {
     const fetchAverageStayDuration = async () => {
       try {
-        const response = await fetch('http://192.168.50.140:3001/api/reports/average-stay-duration');
+        const response = await fetch('http://192.168.50.126:3001/api/reports/average-stay-duration');
         const data = await response.json();
         setAverageDays(data.averageDays);
       } catch (error) {

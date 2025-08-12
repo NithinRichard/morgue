@@ -13,7 +13,7 @@ const PendingVerifications: React.FC = () => {
   useEffect(() => {
     const fetchPendingVerifications = async () => {
       try {
-        const response = await fetch('http://192.168.50.124:3001/api/reports/pending-verifications');
+        const response = await fetch('http://192.168.50.126:3001/api/reports/pending-verifications');
         const data: PendingBody[] = await response.json();
         setPendingBodies(data);
       } catch (error) {

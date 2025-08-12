@@ -17,7 +17,7 @@ const DepartmentDeathLog: React.FC = () => {
     // Fetch all exit logs to dynamically populate the department filter
     const fetchInitialData = async () => {
       try {
-        const response = await fetch('http://192.168.50.140:3001/api/exits');
+        const response = await fetch('http://192.168.50.126:3001/api/exits');
         const allLogs: Log[] = await response.json();
         const uniqueDepartments = [...new Set(allLogs.map(log => log.department).filter(Boolean))];
         setDepartments(uniqueDepartments);
@@ -30,7 +30,7 @@ const DepartmentDeathLog: React.FC = () => {
 
   useEffect(() => {
     const fetchLogs = async () => {
-      let url = 'http://192.168.50.140:3001/api/reports/department-death-logs';
+      let url = 'http://192.168.50.126:3001/api/reports/department-death-logs';
       if (department) {
         url += `?department=${encodeURIComponent(department)}`;
       }
