@@ -68,6 +68,9 @@ interface FormData {
 const InwardRegistration: React.FC = () => {
   const navigate = useNavigate();
 
+  // Add success state
+  const [isRegistrationSuccess, setIsRegistrationSuccess] = useState(false);
+
   const [formData, setFormData] = useState<FormData>({
     name: '',
     age: '',
@@ -244,6 +247,9 @@ const InwardRegistration: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    // Reset success state when submitting
+    setIsRegistrationSuccess(false);
+
     setTouchedFields({
       storageUnit: true,
       name: true,
@@ -311,7 +317,15 @@ const InwardRegistration: React.FC = () => {
 
       const result = await response.json();
       toast.success("Body registered successfully!");
-      navigate('/bodies');
+
+      // Set success state to show the message
+      setIsRegistrationSuccess(true);
+
+      // Navigate after a short delay to show the success message
+      setTimeout(() => {
+        navigate('/bodies');
+      }, 2000);
+
     } catch (error) {
       console.error('Registration failed:', error);
       toast.error("Registration failed. Please try again.");
@@ -331,16 +345,11 @@ const InwardRegistration: React.FC = () => {
               <div className="form-group full-width">
                 <label className="form-label">Select Expired Patient (Optional)</label>
                 <input
-                  className="form-input"
+                  className="form-input expired-patient-input"
                   value={selectedExpiredPatientData ? `${selectedExpiredPatientData.name} - ${selectedExpiredPatientData.age}yrs - ${selectedExpiredPatientData.gender}` : ''}
                   readOnly
                   placeholder="Click to select from expired patients list"
                   onClick={() => setShowExpiredPatientsModal(true)}
-                  style={{
-                    cursor: "pointer",
-                    background: "#f9fafb",
-                    color: !selectedExpiredPatientData ? '#9ca3af' : '#374151'
-                  }}
                 />
                 {selectedExpiredPatientData && (
                   <div style={{
@@ -394,13 +403,7 @@ const InwardRegistration: React.FC = () => {
                 id="storageUnit"
                 required
                 readOnly
-                className="form-input"
-                style={{
-                  cursor: "pointer",
-                  background: "#f9fafb",
-                  border: shouldShowError('storageUnit', formData.storageUnit) ? '2px solid #dc2626' : '2px solid #d1d5db',
-                  color: !formData.storageUnit ? '#9ca3af' : '#374151'
-                }}
+                className={`form-input ${shouldShowError('storageUnit', formData.storageUnit) ? 'error' : ''} storage-unit-input`}
                 onClick={handleStorageUnitClick}
                 error={getErrorMessage('storageUnit')}
                 showError={shouldShowError('storageUnit', formData.storageUnit)}
@@ -418,12 +421,7 @@ const InwardRegistration: React.FC = () => {
                 required
                 readOnly={!!selectedExpiredPatientData}
                 onBlur={() => handleFieldBlur('name')}
-                className="form-input"
-                style={{
-                  border: shouldShowError('name', formData.name) ? '2px solid #dc2626' : '2px solid #d1d5db',
-                  backgroundColor: selectedExpiredPatientData ? '#f9fafb' : 'white',
-                  cursor: selectedExpiredPatientData ? 'not-allowed' : 'text'
-                }}
+                className={`form-input ${shouldShowError('name', formData.name) ? 'error' : ''} ${selectedExpiredPatientData ? 'readonly-field' : ''}`}
                 error={getErrorMessage('name')}
                 showError={shouldShowError('name', formData.name)}
               />
@@ -439,13 +437,7 @@ const InwardRegistration: React.FC = () => {
                 id="age"
                 readOnly={!!selectedExpiredPatientData}
                 onBlur={() => handleFieldBlur('age')}
-                className="form-input"
-                style={{
-                  border: shouldShowError('age', formData.age) ? '1px solid #dc2626' : '2px solid #d1d5db',
-                  backgroundColor: selectedExpiredPatientData ? '#f9fafb' : 'white',
-                  cursor: selectedExpiredPatientData ? 'not-allowed' : 'text',
-               
-                }}
+                className={`form-input ${shouldShowError('age', formData.age) ? 'error' : ''} ${selectedExpiredPatientData ? 'readonly-field' : ''}`}
                 error={getErrorMessage('age')}
                 showError={shouldShowError('age', formData.age)}
               />
@@ -466,12 +458,7 @@ const InwardRegistration: React.FC = () => {
                 required
                 disabled={!!selectedExpiredPatientData}
                 onBlur={() => handleFieldBlur('gender')}
-                className="form-select"
-                style={{
-                  border: shouldShowError('gender', formData.gender) ? '2px solid #dc2626' : '2px solid #d1d5db',
-                  backgroundColor: selectedExpiredPatientData ? '#f9fafb' : 'white',
-                  cursor: selectedExpiredPatientData ? 'not-allowed' : 'pointer'
-                }}
+                className={`form-select ${shouldShowError('gender', formData.gender) ? 'error' : ''} ${selectedExpiredPatientData ? 'readonly-field' : ''}`}
                 error={getErrorMessage('gender')}
                 showError={shouldShowError('gender', formData.gender)}
               />
@@ -487,12 +474,7 @@ const InwardRegistration: React.FC = () => {
                 required
                 readOnly={!!selectedExpiredPatientData}
                 onBlur={() => handleFieldBlur('timeOfDeath')}
-                className="form-input"
-                style={{
-                  border: shouldShowError('timeOfDeath', formData.timeOfDeath) ? '2px solid #dc2626' : '2px solid #d1d5db',
-                  backgroundColor: selectedExpiredPatientData ? '#f9fafb' : 'white',
-                  cursor: selectedExpiredPatientData ? 'not-allowed' : 'text'
-                }}
+                className={`form-input ${shouldShowError('timeOfDeath', formData.timeOfDeath) ? 'error' : ''} ${selectedExpiredPatientData ? 'readonly-field' : ''}`}
                 error={getErrorMessage('timeOfDeath')}
                 showError={shouldShowError('timeOfDeath', formData.timeOfDeath)}
               />
@@ -508,10 +490,7 @@ const InwardRegistration: React.FC = () => {
                 id="placeOfDeath"
                 required
                 onBlur={() => handleFieldBlur('placeOfDeath')}
-                className="form-input"
-                style={{
-                  border: shouldShowError('placeOfDeath', formData.placeOfDeath) ? '2px solid #dc2626' : '2px solid #d1d5db'
-                }}
+                className={`form-input ${shouldShowError('placeOfDeath', formData.placeOfDeath) ? 'error' : ''}`}
                 error={getErrorMessage('placeOfDeath')}
                 showError={shouldShowError('placeOfDeath', formData.placeOfDeath)}
               />
@@ -528,12 +507,7 @@ const InwardRegistration: React.FC = () => {
                 required
                 readOnly={!!selectedExpiredPatientData}
                 onBlur={() => handleFieldBlur('contactPerson')}
-                className="form-input"
-                style={{
-                  border: shouldShowError('contactPerson', formData.contactPerson) ? '2px solid #dc2626' : '2px solid #d1d5db',
-                  backgroundColor: selectedExpiredPatientData ? '#f9fafb' : 'white',
-                  cursor: selectedExpiredPatientData ? 'not-allowed' : 'text'
-                }}
+                className={`form-input ${shouldShowError('contactPerson', formData.contactPerson) ? 'error' : ''} ${selectedExpiredPatientData ? 'readonly-field' : ''}`}
                 error={getErrorMessage('contactPerson')}
                 showError={shouldShowError('contactPerson', formData.contactPerson)}
               />
@@ -555,10 +529,7 @@ const InwardRegistration: React.FC = () => {
                 id="incidentType"
                 required
                 onBlur={() => handleFieldBlur('incidentType')}
-                className="form-select"
-                style={{
-                  border: shouldShowError('incidentType', formData.incidentType) ? '2px solid #dc2626' : '2px solid #d1d5db'
-                }}
+                className={`form-select ${shouldShowError('incidentType', formData.incidentType) ? 'error' : ''}`}
                 error={getErrorMessage('incidentType')}
                 showError={shouldShowError('incidentType', formData.incidentType)}
               />
@@ -576,10 +547,7 @@ const InwardRegistration: React.FC = () => {
                 name="riskLevel"
                 id="riskLevel"
                 onBlur={() => handleFieldBlur('riskLevel')}
-                className="form-select"
-                style={{
-                  border: shouldShowError('riskLevel', formData.riskLevel) ? '2px solid #dc2626' : '2px solid #d1d5db'
-                }}
+                className={`form-select ${shouldShowError('riskLevel', formData.riskLevel) ? 'error' : ''}`}
                 error={getErrorMessage('riskLevel')}
                 showError={shouldShowError('riskLevel', formData.riskLevel)}
               />
@@ -590,16 +558,12 @@ const InwardRegistration: React.FC = () => {
                 <textarea
                   id="address"
                   name="address"
-                  className="form-textarea"
+                  className={`form-textarea ${selectedExpiredPatientData ? 'readonly-field' : ''}`}
                   value={formData.address}
                   onChange={handleChange}
                   placeholder="Enter address"
                   rows={3}
                   readOnly={!!selectedExpiredPatientData}
-                  style={{
-                    backgroundColor: selectedExpiredPatientData ? '#f9fafb' : 'white',
-                    cursor: selectedExpiredPatientData ? 'not-allowed' : 'text'
-                  }}
                 />
               </div>
 
@@ -645,11 +609,39 @@ const InwardRegistration: React.FC = () => {
               </div>
             </div>
 
-            <ButtonWithGradient
-              className=''
-              text="Register Body"
-              type="submit"
-            />
+            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+              <ButtonWithGradient
+                className=''
+                text="Register Body"
+                type="submit"
+              />
+
+              {/* Simple Success Message */}
+              {isRegistrationSuccess && (
+                <span style={{
+                  color: '#10b981',
+                  fontSize: '0.875rem',
+                  fontWeight: '500',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.5rem'
+                }}>
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <polyline points="20,6 9,17 4,12"></polyline>
+                  </svg>
+                  Body registered successfully! Redirecting...
+                </span>
+              )}
+            </div>
           </form>
         </div>
       </div>
@@ -713,15 +705,7 @@ const InwardRegistration: React.FC = () => {
                 placeholder="Search by name, ID, age, gender, or admission ID..."
                 type="text"
                 noWrapper={true}
-                style={{
-                  width: '100%',
-                  padding: '0.75rem 1rem',
-                  border: '1px solid #d1d5db',
-                  borderRadius: '0.5rem',
-                  fontSize: '0.875rem',
-                  outline: 'none',
-                  transition: 'border-color 0.2s'
-                }}
+                className="patient-search-input"
               />
               {expiredPatientSearch && (
                 <div style={{

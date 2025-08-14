@@ -15,8 +15,7 @@ import * as Yup from 'yup';
 import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { QRCodeCanvas } from 'qrcode.react';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
+
 import { bodiesAPI, exitBodiesAPI, storageAPI } from '../services/api';
 import { validatePhoneNumber } from '../utils/validation';
 
@@ -99,6 +98,15 @@ const BodyManagement: React.FC = () => {
   const [editLoading, setEditLoading] = useState(false);
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
+
+  // Helper function to format date for input
+  const formatDateForInput = (date: Date | null): string => {
+    if (!date) return "";
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
 
   const navigate = useNavigate();
   const [showVerificationModal, setShowVerificationModal] = useState(false);
@@ -637,29 +645,21 @@ const BodyManagement: React.FC = () => {
         <div className="left-filters">
           <div className="filter-group">
             <label className="filter-label">From Date</label>
-            <DatePicker
-              selected={startDate}
-              onChange={(date: Date | null) => setStartDate(date)}
-              selectsStart
-              startDate={startDate}
-              endDate={endDate}
-              placeholderText="dd-mm-yyyy"
+            <input
+              type="date"
+              value={startDate ? formatDateForInput(startDate) : ""}
+              onChange={(e) => setStartDate(e.target.value ? new Date(e.target.value) : null)}
               className="filter-input"
-              dateFormat="dd-MM-yyyy"
             />
           </div>
           <div className="filter-group">
             <label className="filter-label">To Date</label>
-            <DatePicker
-              selected={endDate}
-              onChange={(date: Date | null) => setEndDate(date)}
-              selectsEnd
-              startDate={startDate}
-              endDate={endDate}
-              minDate={startDate || undefined}
-              placeholderText="dd-mm-yyyy"
+            <input
+              type="date"
+              value={endDate ? formatDateForInput(endDate) : ""}
+              onChange={(e) => setEndDate(e.target.value ? new Date(e.target.value) : null)}
               className="filter-input"
-              dateFormat="dd-MM-yyyy"
+              min={startDate ? formatDateForInput(startDate) : undefined}
             />
           </div>
           <div className="filter-group">
@@ -679,24 +679,20 @@ const BodyManagement: React.FC = () => {
             </select>
           </div>
           <div className="filter-group">
-            <button
-              type="button"
-              className="filter-input"
+            <ButtonWithGradient
+              text="Clear Filters"
               onClick={() => {
                 setStartDate(null);
                 setEndDate(null);
                 setStatusFilter('all');
               }}
+              className="clear-filters-btn"
               style={{
-                backgroundColor: '#f3f4f6',
-                color: '#374151',
-                border: '1px solid #d1d5db',
-                cursor: 'pointer',
-                fontSize: '14px'
+                fontSize: '14px',
+                padding: '8px 16px',
+                minHeight: 'auto'
               }}
-            >
-              Clear Filters
-            </button>
+            />
           </div>
         </div>
       </div>

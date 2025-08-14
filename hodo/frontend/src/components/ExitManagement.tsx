@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
+
 import '../styles/exit.css';
 import ButtonWithGradient from './ButtonWithGradient';
 import Pagination from './Pagination';
@@ -23,6 +22,7 @@ import type {
   CreateExitBodyData,
   ActiveStorageAllocation
 } from '../types/exit';
+import { generateExitDocument } from '../utils/documentGenerator';
 
 const ExitManagement: React.FC = () => {
   // State for exit records
@@ -65,6 +65,16 @@ const ExitManagement: React.FC = () => {
   const [exitsRowsPerPage, setExitsRowsPerPage] = useState(5);
   const [startDate, setStartDate] = useState<Date | null>(new Date());
   const [endDate, setEndDate] = useState<Date | null>(new Date());
+  const [isExitSuccess, setIsExitSuccess] = useState(false);
+
+  // Helper function to format date for input
+  const formatDateForInput = (date: Date | null): string => {
+    if (!date) return "";
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
   const [statusFilter, setStatusFilter] = useState('all');
   const [loading, setLoading] = useState(false);
 
@@ -111,9 +121,8 @@ const ExitManagement: React.FC = () => {
       // If we had a selected body, update its data
       if (selectedBody) {
         const updatedBody = data.find(a => a.storageAllocationId.toString() === selectedBody);
-        if (updatedBody) {
-          setSelectedBodyData(updatedBody);
-        }
+        // Note: setSelectedBodyData is not defined, this would cause an error
+        // The selectedBodyData is computed from activeAllocations in the component
       }
     } catch (error) {
       toast.error('Failed to fetch active storage allocations.');
@@ -220,6 +229,9 @@ const ExitManagement: React.FC = () => {
   const handleExitSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    // Reset success state when submitting
+    setIsExitSuccess(false);
+
     if (!selectedBody) {
       toast.error('Please select a body to process exit.');
       return;
@@ -243,31 +255,37 @@ const ExitManagement: React.FC = () => {
 
       toast.success('Exit record created successfully!');
 
-      // Reset form
-      setSelectedBody('');
-      setExitForm({
-        EB_Body_Details_FK: 0,
-        EB_Exit_Type_FK: 0,
-        EB_Exit_Status_FK: 0,
-        EB_Exit_Date: '',
-        EB_Exit_Time: '',
-        EB_Expected_Exit_Date: '',
-        EB_Actual_Exit_Date: '',
-        EB_Exit_Reason: '',
-        EB_Medical_Clearance_Obtained: false,
-        EB_Police_Clearance_Obtained: false,
-        EB_Administrative_Clearance_Obtained: false,
-        EB_Financial_Clearance_Obtained: false,
-        EB_All_Documents_Complete: false,
-        EB_Exit_Authorized_By: '',
-        EB_Exit_Authorization_Level_FK: 0,
-        EB_Exit_Authorization_Date: '',
-        EB_Exit_Processed_By: '',
-        EB_Exit_Notes: '',
-        EB_Added_by: '',
-        EB_Provider_fk: 1,
-        EB_Outlet_fk: 1
-      });
+      // Set success state to show the message
+      setIsExitSuccess(true);
+
+      // Reset form after a short delay
+      setTimeout(() => {
+        setSelectedBody('');
+        setExitForm({
+          EB_Body_Details_FK: 0,
+          EB_Exit_Type_FK: 0,
+          EB_Exit_Status_FK: 0,
+          EB_Exit_Date: '',
+          EB_Exit_Time: '',
+          EB_Expected_Exit_Date: '',
+          EB_Actual_Exit_Date: '',
+          EB_Exit_Reason: '',
+          EB_Medical_Clearance_Obtained: false,
+          EB_Police_Clearance_Obtained: false,
+          EB_Administrative_Clearance_Obtained: false,
+          EB_Financial_Clearance_Obtained: false,
+          EB_All_Documents_Complete: false,
+          EB_Exit_Authorized_By: '',
+          EB_Exit_Authorization_Level_FK: 0,
+          EB_Exit_Authorization_Date: '',
+          EB_Exit_Processed_By: '',
+          EB_Exit_Notes: '',
+          EB_Added_by: '',
+          EB_Provider_fk: 1,
+          EB_Outlet_fk: 1
+        });
+        setIsExitSuccess(false);
+      }, 2000);
 
       // Refresh data
       await Promise.all([
@@ -351,7 +369,7 @@ const ExitManagement: React.FC = () => {
       <div className="exit-grid">
         <div className="exit-form-card">
           <div className="card-header">
-            <h3 className="card-title">Create Exit Record</h3>
+            <h3 className="card-title">Release Body</h3>
           </div>
           <div className="card-content">
             <form onSubmit={handleExitSubmit} className="exit-form">
@@ -435,7 +453,7 @@ const ExitManagement: React.FC = () => {
               }).length === 0 && (
                   <div className="info-message">
                     <p className="info-text">
-                       No bodies available for exit. Only verified bodies can be released.
+                      No bodies available for exit. Only verified bodies can be released.
                     </p>
                   </div>
                 )}
@@ -635,11 +653,39 @@ const ExitManagement: React.FC = () => {
                 </div>
               </div>
 
-              <ButtonWithGradient
-                text={loading ? "Creating..." : "Create Exit Record"}
-                type="submit"
-                disabled={loading}
-              />
+              <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                <ButtonWithGradient
+                  text={loading ? "Releasing..." : "Release Body"}
+                  type="submit"
+                  disabled={loading}
+                />
+
+                {/* Simple Success Message */}
+                {isExitSuccess && (
+                  <span style={{
+                    color: '#10b981',
+                    fontSize: '0.875rem',
+                    fontWeight: '500',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.5rem'
+                  }}>
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <polyline points="20,6 9,17 4,12"></polyline>
+                    </svg>
+                    Body released successfully!
+                  </span>
+                )}
+              </div>
 
 
             </form>
@@ -655,29 +701,21 @@ const ExitManagement: React.FC = () => {
           <div className="left-filters">
             <div className="filter-group">
               <label className="filter-label">From Date</label>
-              <DatePicker
-                selected={startDate}
-                onChange={(date: Date | null) => setStartDate(date)}
-                selectsStart
-                startDate={startDate}
-                endDate={endDate}
-                placeholderText="dd-mm-yyyy"
+              <input
+                type="date"
+                value={startDate ? formatDateForInput(startDate) : ""}
+                onChange={(e) => setStartDate(e.target.value ? new Date(e.target.value) : null)}
                 className="filter-input"
-                dateFormat="dd-MM-yyyy"
               />
             </div>
             <div className="filter-group">
               <label className="filter-label">To Date</label>
-              <DatePicker
-                selected={endDate}
-                onChange={(date: Date | null) => setEndDate(date)}
-                selectsEnd
-                startDate={startDate}
-                endDate={endDate}
-                minDate={startDate || undefined}
-                placeholderText="dd-mm-yyyy"
+              <input
+                type="date"
+                value={endDate ? formatDateForInput(endDate) : ""}
+                onChange={(e) => setEndDate(e.target.value ? new Date(e.target.value) : null)}
                 className="filter-input"
-                dateFormat="dd-MM-yyyy"
+                min={startDate ? formatDateForInput(startDate) : undefined}
               />
             </div>
             <div className="filter-group">
